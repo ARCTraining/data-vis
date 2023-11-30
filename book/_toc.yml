@@ -1,0 +1,13 @@
+# updating for latest jupyter book version
+
+format: jb-article
+# ===== Main Landing Page ========================================
+root: welcome
+
+# ===== Getting started ==========================================
+sections:
+- file: example_section/start
+  sections:
+    - file: example_section/example
+- url: https://arc.leeds.ac.uk
+  title: Research Computing Website

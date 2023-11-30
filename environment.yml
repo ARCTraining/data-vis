@@ -1,0 +1,9 @@
+name: arcdocs-jb
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.9
+  - jinja2=3.0.3
+  - jupyter-book=0.15.1
+
