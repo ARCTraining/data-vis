@@ -42,6 +42,18 @@ In the same way that you need to decide on the key message for any research pape
 
 ### Rule 3: Adapt the Figure to the Support Medium
 
+It's important to understand what medium the graphic or figure will be displayed in: are you preparing for a talk and will be showing your figures over a projector or a shared screen via a webconfereing tool? Will your figures be printed onto a poster for a conference? Will your figure be included in a journal or other publication and will be viewed online where its zoomable?
+
+Figures shown in a presentation will only be visible to the audience for a short amount of time; they will not have time to read lots of labels and annotations, and a detailed and difficult to parse chart will leave the audience confused and will distract them from listening to your presentation. They will also be supported by your discussion points and presentation, so can be less detailed. Figures used in poster presentations will be printed out which can lead to issues in colour grading if screen-specific colourspace is used (e.g. RGB instead of CMYK) and resolution problems if rasterised images are used and not saved at a high enough dpi.
+
+Points to keep in mind when designing your figure for different media:
+- Size: what size do different components need to be in order to deliver your message in the chosen media? Think about:
+    - Font size for axis labels and annotations
+    - Line thickness
+    - Marker size
+- Detail(/clutter): in tandem with the choice of size for various plot elements, how visually cluttered is your figure? Readers of a paper may have time to zoom in and read multiple annotations and lables, while audience members at a presentation realistically only have a few seconds to absorb information from a plot.
+- Colour choices: while colour choice is of course important generally when designing a useful and attractive plot, and in ensuring it is understandable to someone with colourblindness, it becomes especially important when considering where and how your figure is going to be viewed. Certain colours in RGB space cannot be reproduced in CMYK for printing, and so colours used can appear muddied and dull if not appropriately converted. Additionally, different screens and projectors can have different colour settings (e.g. warm light settings) which can make certain colours look more similar to the point of being almost indistinguishable.
+
 ### Rule 4: Captions Are Not Optional
 
 ### Rule 5: Do Not Trust the Defaults
