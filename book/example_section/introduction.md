@@ -3,12 +3,11 @@ Initial draft of intro section
 # Introduction
 
 In this course, we are going to use Python as a tool to take on the concept of good data visualisation.  In addition to walking you through some step-by-step advice regarding libraries that are available, and building plot templates that let you save out your figures to high resolution pngs or pdf files, we are also going to disucss how best to represent your data in a way that is meaningful, asthetically pleasing, and scientifically robust.
-
 Before we even get into the libraries and modules that are available, or the actual step-by-step of how to use these tools to build a plot, we are going to walk through some of the important considerations when deciding how you are going to visualise your data.
 
 Choosing the type of plot to use to represent your data is not something obvious or straightforward, and is something tht will never have a unique solution: there are lots of good options that may win out in certain situations.
 
-In order to structure this discussion a little better, we are going to use the PLOS Computational Biology paper _Ten Simple Rules for Better Figures_ by [Rougier, Droettboom and Bourne, 2014](https://doi.org/10.1371/journal.pcbi.1003833).
+In order to structure this discussion a little better, we are going to use the PLOS Computational Biology paper _Ten Simple Rules for Better Figures_ by [Rougier, Droettboom and Bourne, 2014](https://doi.org/10.1371/journal.pcbi.1003833). In this section, we provide a modified version of this paper that is tailored towards this course and topics we will be discussing.
 
 ## Ten Simple Rules for Better Figures
 
@@ -56,11 +55,35 @@ Points to keep in mind when designing your figure for different media:
 
 ### Rule 4: Captions Are Not Optional
 
+Captions are as fundamental to plots as axes labels and legends, and can take different forms depending on the context that the figure is being presented in. In general, a caption provides additional context for the figure, states it's main message, clarifies and provides further precision, and helps the reader to interpret the figure correctly.
+
+- In a paper, a caption is presented as explanatory text alongside the figure
+- On a poster, figures may include a paper-like caption, or instead may include related bulletpoints
+- During a talk or presentation, the cpation can be thought of as what's said when the presenter introduces the figure, or may be included alongside as text on the slide
+
 ### Rule 5: Do Not Trust the Defaults
+
+Sometimes the default settings in your chosen plotting software suit your needs entirely: this is more likely to be true if your response to *Rule #1: Know Your Audience* was "I'm the audience - it's just me checking my model ran correctly", _or_ if you have a particular appreciation for small text and garish colour schemes.
 
 ### Rule 6: Use Color Effectively
 
 ### Rule 7: Do Not Mislead the Reader
+From [Rougier et al., 2014](https://doi.org/10.1371/journal.pcbi.1003833):
+
+>What distinguishes a scientific figure from other graphical artwork is the presence of data that needs to be shown as objectively as possible. A scientific figure is, by definition, tied to the data (be it an experimental setup, a model, or some results) and if you loosen this tie, you may unintentionally project a different message than intended. However, representing results objectively is not always straightforward. For example, a number of implicit choices made by the library or software you're using that are meant to be accurate in most situations may also mislead the viewer under certain circumstances. If your software automatically re-scales values, you might obtain an objective representation of the data (because title, labels, and ticks indicate clearly what is actually displayed) that is nonetheless visually misleading.
+
+While we don't expect to need to spend time explaining that scientific fraud is wrong (and if we do, that's a larger problem than this data visualisation course can solve!), it's very useful to highlight the ways you might inadvertently milead your audience.
+
+Examples of ways visualisations can be misleading:
+- Using custom baselines for bar charts that skew the appearance of relationships
+- Using varied scales on x and y axes
+- Using non-perceptually uniform colourscales (like a rainbow colourmap) that creates false visual contrast between regions.
+
+
+
+|![image](https://github.com/ARCTraining/data-vis/assets/9538529/0cd8bc4a-ac95-4de4-8068-02db45b8a5e2) | 
+|:--:| 
+| *On the left part of the figure, we represented a series of four values: 30, 20, 15, 10. On the upper left part, we used the disc area to represent the value, while in the bottom part we used the disc radius. Results are visually very different. In the latter case (red circles), the last value (10) appears very small compared to the first one (30), while the ratio between the two values is only 3∶1. On the right part of the figure, we display a series of ten values using the full range for values on the top part (y axis goes from 0 to 100) or a partial range in the bottom part (y axis goes from 80 to 100), and we explicitly did not label the y-axis to enhance the confusion. The visual perception of the two series is totally different. In the top part (black series), we tend to interpret the values as very similar, while in the bottom part, we tend to believe there are significant differences. Even if we had used labels to indicate the actual range, the effect would persist because the bars are the most salient information on these figures. From [Rougier et al., 2014](https://doi.org/10.1371/journal.pcbi.1003833)* |
 
 ### Rule 8: Avoid “Chartjunk”
 
