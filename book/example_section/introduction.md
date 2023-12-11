@@ -82,10 +82,14 @@ Examples of ways visualisations can be misleading:
 
 
 |![image](https://github.com/ARCTraining/data-vis/assets/9538529/0cd8bc4a-ac95-4de4-8068-02db45b8a5e2) | 
-|:--:| 
+|:--| 
 | *On the left part of the figure, we represented a series of four values: 30, 20, 15, 10. On the upper left part, we used the disc area to represent the value, while in the bottom part we used the disc radius. Results are visually very different. In the latter case (red circles), the last value (10) appears very small compared to the first one (30), while the ratio between the two values is only 3∶1. On the right part of the figure, we display a series of ten values using the full range for values on the top part (y axis goes from 0 to 100) or a partial range in the bottom part (y axis goes from 80 to 100), and we explicitly did not label the y-axis to enhance the confusion. The visual perception of the two series is totally different. In the top part (black series), we tend to interpret the values as very similar, while in the bottom part, we tend to believe there are significant differences. Even if we had used labels to indicate the actual range, the effect would persist because the bars are the most salient information on these figures. From [Rougier et al., 2014](https://doi.org/10.1371/journal.pcbi.1003833)* |
 
 ### Rule 8: Avoid “Chartjunk”
+
+|![image](https://github.com/ARCTraining/data-vis/assets/9538529/7d68ec0d-c04f-46a2-a905-1ce94579f5d6) | 
+|:--| 
+|*Here is a figure I made for a paper [Reconciling fast and slow cooling during planetary formation as recorded in the main group pallasites](https://www.sciencedirect.com/science/article/pii/S0012821X23002972). Even though I made this figure and did the research behind it, I cannot figure out what it is trying to show without looking at it for way too long. There are too many annotations, arrows, dashed lines and shaded regions. The message gets hidden behind too much chartjunk. Declutter your plots and live a happy, minimalist life!*|
 
 ### Rule 9: Message Trumps Beauty
 
