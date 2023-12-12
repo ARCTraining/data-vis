@@ -63,7 +63,7 @@ Captions are as fundamental to plots as axes labels and legends, and can take di
 
 ### Rule 5: Do Not Trust the Defaults
 
-Sometimes the default settings in your chosen plotting software suit your needs entirely: this is more likely to be true if your response to *Rule #1: Know Your Audience* was "I'm the audience - it's just me checking my model ran correctly", _or_ if you have a particular appreciation for small text and garish colour schemes.
+Sometimes the default settings in your chosen plotting software suit your needs entirely: this is more likely to be true if your response to *Rule #1: Know Your Audience* was "I'm the audience - it's just me checking my model ran correctly", _or_ if you have a particular appreciation for small text and garish colour schemes. Font sizes for axis labels, title, tick labels and parameters may be too small to read at the scale you are intending to share this figues.
 
 ### Rule 6: Use Color Effectively
 
@@ -109,6 +109,22 @@ Here's a [blog](https://junkcharts.typepad.com/) that detials different types of
 |:--| 
 |*Here is a figure I made for a paper [Reconciling fast and slow cooling during planetary formation as recorded in the main group pallasites](https://www.sciencedirect.com/science/article/pii/S0012821X23002972). Even though I made this figure and did the research behind it, I cannot figure out what it is trying to show without looking at it for way too long. There are too many annotations, arrows, dashed lines and shaded regions. The message gets hidden behind too much chartjunk. Declutter your plots and live a happy, minimalist life!*|
 
-### Rule 9: Message Trumps Beauty
+### Rule 9: Message Outshines Beauty
 
-### Rule 10: Get the Right Tool
+While it is very fair to take pride in the aesthetics of your figures, it is important to remember that the key requirement of a scientific graphic is to communicate scientific results. 
+
+Sometimes it is useful to consider figure designs that do not entirely satisfy your design preferences. Situations may include:
+- Producing a quick plot for yourself to check if results are expected. This plot is just for you and will not be shared or published. It might not be worth sinking lots of time into this, and in this case the default ugly colours and small axes labels might do the trick, instead of sinking time into  plotting script you're going to only use once or twice as part of a process.
+- If there is a standard or default way of showing information within your field, it might be a good idea to stick with this instead of revolutionising the area and introducing a new way of visualising a standardised data set (unless you want to devote time to this paradigm-shift!). Using a standard, well-known, familiar plot-type can quickly get your audience on-board and have them focus on your results instead of focusing on trying to understand the new groundbreaking figure you've designed.
+- Accessibility! All the above rules deserve to be broken if it increases the accessibility of the figures, because again the key important element of any scientific visualisation is to communicate a key message, and you're excluding a lot of scientists if you make something inaccessible. This includes ensuring font sizes are large and readable, labels are clear, legends are detailed enough that line/point colour are not the only descriminating factor for data, and when necessary, you allow a little bit more "cartjunk" if it improves legibility. Colour-vision related accessibility again should be considered by using colourblind-safe palettes and again not relying solely on colour to differentiate between features. 
+
+### Rule 10: Get the Right Tool(s)
+
+What should you be using to plot data? You probably started off with a pencil and ruler on graph-paper, and then transitioned to Excel or another spreadsheet program following this.
+
+While spreadsheet programs such as Excel, Google Sheets, or more scientifically focused programs such as OriginPro can be great for quickly visualising your data, they can take a while to tweak in order to produce a plot to your liking, which can be frustrating if you want to replicate similar plots for lots of different datasets. Of course, you can modify the aesthetic elements of these plots in a graphics package such as Inkscape, Affinity Designer, or CorelDraw; but again this is an inefficient workflow if you have many plots to produce.
+
+That's where scripting languages come in. In this course, we are using Python and some associated Python libraries including [matplotlib](https://matplotlib.org/) and [seaborn](https://seaborn.pydata.org/index.html). Other languages and libraries such as [R's ggplot2](https://ggplot2.tidyverse.org/) are also commonly used in research settings.
+
+
+
