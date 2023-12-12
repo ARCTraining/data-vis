@@ -77,8 +77,7 @@ While we don't expect to need to spend time explaining that scientific fraud is 
 Examples of ways visualisations can be misleading:
 - Using custom baselines for bar charts that skew the appearance of relationships
 - Using varied scales on x and y axes
-- Using non-perceptually uniform colourscales (like a rainbow colourmap) that creates false visual contrast between regions.
-
+- Using non-perceptually uniform colourscales (like a rainbow colourmap) that creates false visual contrast between regions (find out more about this in the "Use colour effectively" section).
 
 
 |![image](https://github.com/ARCTraining/data-vis/assets/9538529/0cd8bc4a-ac95-4de4-8068-02db45b8a5e2) | 
@@ -86,6 +85,25 @@ Examples of ways visualisations can be misleading:
 | *On the left part of the figure, we represented a series of four values: 30, 20, 15, 10. On the upper left part, we used the disc area to represent the value, while in the bottom part we used the disc radius. Results are visually very different. In the latter case (red circles), the last value (10) appears very small compared to the first one (30), while the ratio between the two values is only 3∶1. On the right part of the figure, we display a series of ten values using the full range for values on the top part (y axis goes from 0 to 100) or a partial range in the bottom part (y axis goes from 80 to 100), and we explicitly did not label the y-axis to enhance the confusion. The visual perception of the two series is totally different. In the top part (black series), we tend to interpret the values as very similar, while in the bottom part, we tend to believe there are significant differences. Even if we had used labels to indicate the actual range, the effect would persist because the bars are the most salient information on these figures. From [Rougier et al., 2014](https://doi.org/10.1371/journal.pcbi.1003833)* |
 
 ### Rule 8: Avoid “Chartjunk”
+
+What is chartjunk? According to [Rougier et al., 2014](https://doi.org/10.1371/journal.pcbi.1003833),
+>Chartjunk refers to all the unnecessary or confusing visual elements found in a figure that do not improve the message (in the best case) or add confusion (in the worst case).
+
+Chartjunk includes (but is not limited to) **excessive** or **distracting** use of:
+- Colours
+- Annotations
+- Gridlines
+- Backgrounds
+- Arrows
+- Labels
+- Different data sets
+- Legends (with too much detail)
+
+None of the above is inherently a bad thing to include in a figure; however, overloading a figure with too much detail, information or data (in a misguided attempt to adhere to figure limits for publications, slide counts for  presentation, or save room on a poster) will just leave your audience feeling overwhelmed and confused. 
+
+Think of the chartjunk listed above as accessories with which to adorn yourself and elevate your outfit. Some are requirements that can't be skipped: legends are like an umbrella on a rainy day; you can't leave the house without or you'll regret it, but you probably don't need two. Ensure you include these key components, like axes labels, that are required to make your figure legible. Everything else is decoration: additional annotations are like a pearl necklace that might in the right context add to the look, but might also start to look a bit overwhelming if you already have jewellery on. Lots of colour and having background fills are a little bit like sequins and large feathers: you want to be very sure you can pull them off before you adorn yourself with them; few people succeed. Do they actually add to the plot or are they more likely to win you a place in a worst-dressed competition?
+
+Here's a [blog](https://junkcharts.typepad.com/) that detials different types of chartjunk. To be fair, I've also included one of my own figures that is distractingly busy, just to reinforce that this is a "do as I say, not as I do" situation, and that sometimes you might crumble and let in some awful design choices. But your next plot can always be better!
 
 |![image](https://github.com/ARCTraining/data-vis/assets/9538529/7d68ec0d-c04f-46a2-a905-1ce94579f5d6) | 
 |:--| 
