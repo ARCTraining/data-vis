@@ -80,10 +80,13 @@ What are some uses for colour in your scientific figures?
 
 Some pitfalls or dangers associated with colour-use:
 - The contrast between two different colour choices might be obvious on your screen/to your eyes, but may be much less obvious with different screen settings/when projected/when printed (see discussion of RGB/CMYK above). Similarly, with various different types of colour vision deficiency (CVD), certain colours can seem very similar to indistinguishable. See this blog post on [designing colour-blind-friendly visualizations](https://www.tableau.com/en-gb/blog/examining-data-viz-rules-dont-use-red-green-together).
+- Colour maps may not accurately represent your data; see [Crameri et al. (2020)](https://www.nature.com/articles/s41467-020-19160-7).
 
 Some resources:
 - [Designing colour-blind-friendly visualizations](https://www.tableau.com/en-gb/blog/examining-data-viz-rules-dont-use-red-green-together)
 - [Coloring for Colorblindness](https://davidmathlogic.com/colorblind/)
+- [The misuse of colour in science communication](https://www.nature.com/articles/s41467-020-19160-7)
+- [Scientific colour maps user guide](https://www.fabiocrameri.ch/ws/media-library/ce2eb6eee7c345f999e61c02e2733962/readme_scientificcolourmaps.pdf)
 
 A key tip:
 >It is a good practice to, where possible, avoid conveying information purely through color. You should always consider adding other ways to convey the same information besides just color. For example, you might use text, symbols, or patterns.
