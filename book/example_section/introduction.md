@@ -39,13 +39,15 @@ A figure can express an idea quickly, succinctly, and much more straightforwardl
 
 In the same way that you need to decide on the key message for any research paper, and then in more granular detail pick the key message of each subsection of your results, before you start plotting or pick a plot type to represent you data, you need to know what the "take home message" for the audience is. Do you want to show contrast between two different results? Do you want to show evolution through time? Do you want to compare different categories? Do you want to show geospatial variations in data? 
 
+**Show flowchart here for different figure types**
+
 ### Rule 3: Adapt the Figure to the Support Medium
 
 It's important to understand what medium the graphic or figure will be displayed in: are you preparing for a talk and will be showing your figures over a projector or a shared screen via a webconfereing tool? Will your figures be printed onto a poster for a conference? Will your figure be included in a journal or other publication and will be viewed online where its zoomable?
 
 Figures shown in a presentation will only be visible to the audience for a short amount of time; they will not have time to read lots of labels and annotations, and a detailed and difficult to parse chart will leave the audience confused and will distract them from listening to your presentation. They will also be supported by your discussion points and presentation, so can be less detailed. Figures used in poster presentations will be printed out which can lead to issues in colour grading if screen-specific colourspace is used (e.g. RGB instead of CMYK) and resolution problems if rasterised images are used and not saved at a high enough dpi.
 
-Points to keep in mind when designing your figure for different media:
+Points to keep in mind when designing your figure for different media (make these dropdowns):
 - Size: what size do different components need to be in order to deliver your message in the chosen media? Think about:
     - Font size for axis labels and annotations
     - Line thickness
@@ -57,6 +59,7 @@ Points to keep in mind when designing your figure for different media:
 
 Captions are as fundamental to plots as axes labels and legends, and can take different forms depending on the context that the figure is being presented in. In general, a caption provides additional context for the figure, states it's main message, clarifies and provides further precision, and helps the reader to interpret the figure correctly.
 
+Make this a dropdown
 - In a paper, a caption is presented as explanatory text alongside the figure
 - On a poster, figures may include a paper-like caption, or instead may include related bulletpoints
 - During a talk or presentation, the cpation can be thought of as what's said when the presenter introduces the figure, or may be included alongside as text on the slide
@@ -66,6 +69,25 @@ Captions are as fundamental to plots as axes labels and legends, and can take di
 Sometimes the default settings in your chosen plotting software suit your needs entirely: this is more likely to be true if your response to *Rule #1: Know Your Audience* was "I'm the audience - it's just me checking my model ran correctly", _or_ if you have a particular appreciation for small text and garish colour schemes. Font sizes for axis labels, title, tick labels and parameters may be too small to read at the scale you are intending to share this figues.
 
 ### Rule 6: Use Color Effectively
+
+Colour can be an important asset in your sceintific visualisations, but it must be used mindfully. According to Edward Tufte [1983](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003833#pcbi.1003833-Tufte1), colour can be either your greatest ally or your worst enemy if not used properly [(Rougier et al., 2014)](https://doi.org/10.1371/journal.pcbi.1003833).
+
+What are some uses for colour in your scientific figures?
+- Adding an additional dimension to your figures; for example a scatterplot where points are coloured according to a third variable. This can cause issues if colour is the _only_ means of distinguishing the variable...
+- Adding clarity to different marker- or line-styles: instead of representing a separate variable, colour can work in tandem with other attributes like line-style, for example showing data as a grey solid line and a pink dashed line.
+- For emphasis! You can colour a specific highlighted datapoint differently from the surrounding data by using a different, contrasting colour to annotate it.
+- For heatmaps: similarly to the scatterplot answer above, heatmaps can be used to represent a third variable across a parameter space; they are also frequently used for geospatial data such as DEMs.
+
+Some pitfalls or dangers associated with colour-use:
+- The contrast between two different colour choices might be obvious on your screen/to your eyes, but may be much less obvious with different screen settings/when projected/when printed (see discussion of RGB/CMYK above). Similarly, with various different types of colour vision deficiency (CVD), certain colours can seem very similar to indistinguishable. See this blog post on [designing colour-blind-friendly visualizations](https://www.tableau.com/en-gb/blog/examining-data-viz-rules-dont-use-red-green-together).
+
+Some resources:
+- [Designing colour-blind-friendly visualizations](https://www.tableau.com/en-gb/blog/examining-data-viz-rules-dont-use-red-green-together)
+- [Coloring for Colorblindness](https://davidmathlogic.com/colorblind/)
+
+A key tip:
+>It is a good practice to, where possible, avoid conveying information purely through color. You should always consider adding other ways to convey the same information besides just color. For example, you might use text, symbols, or patterns.
+> [David Nichols](https://davidmathlogic.com/colorblind/)
 
 ### Rule 7: Do Not Mislead the Reader
 From [Rougier et al., 2014](https://doi.org/10.1371/journal.pcbi.1003833):
