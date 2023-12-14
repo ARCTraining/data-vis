@@ -132,7 +132,7 @@ Here's a [blog](https://junkcharts.typepad.com/) that detials different types of
 
 |![image](https://github.com/ARCTraining/data-vis/assets/9538529/7d68ec0d-c04f-46a2-a905-1ce94579f5d6) | 
 |:--| 
-|*Here is a figure I made for a paper [Reconciling fast and slow cooling during planetary formation as recorded in the main group pallasites](https://www.sciencedirect.com/science/article/pii/S0012821X23002972). Even though I made this figure and did the research behind it, I cannot figure out what it is trying to show without looking at it for way too long. There are too many annotations, arrows, dashed lines and shaded regions. The message gets hidden behind too much chartjunk. Declutter your plots and live a happy, minimalist life!*|
+|*Here is a figure I made for a paper [Reconciling fast and slow cooling during planetary formation as recorded in the main group pallasites](https://www.sciencedirect.com/science/article/pii/S0012821X23002972) (Murphy Quinlan et al., 2022). Even though I made this figure and did the research behind it, I cannot figure out what it is trying to show without looking at it for way too long. There are too many annotations, arrows, dashed lines and shaded regions. The message gets hidden behind too much chartjunk. Declutter your plots and live a happy, minimalist life!*|
 
 ### Rule 9: Message Outshines Beauty
 
