@@ -29,7 +29,7 @@ To take this course, please ensure:
 
 ## Suggested schedule
 
-This is subject to change
+This is subject to change.
 
 | Session Name | Duration | Notes |
 | --- | --- | --- |
