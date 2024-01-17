@@ -25,3 +25,19 @@ To take this course, please ensure:
 - That you have some basic Python experience, either through taking our SWD1a course, or self-taught
 - That you have a Google account to use Google Colab
 ```
+
+
+## Suggested schedule
+
+This is subject to change
+
+| Session Name | Duration | Notes |
+| --- | --- | --- |
+| Introduction | 1hr | Introduction session with slideshow, discussing the _Ten Simple Rules for Better Figures_ by [Rougier, Droettboom and Bourne, 2014](https://doi.org/10.1371/journal.pcbi.1003833) |
+| Building your first plot | 30 mins | Interactive coding session. Introducing the tools we are using in this course; demonstrating how to import modules and load data into your Colab Runtime; the many ways of creating a figure with Python; saving figures with different resolutions and file extensions; discussing the default settings available in different modules; looking at how to read documentation. |
+| Comparisons: line plots | 1 hr | Interactive coding session. Creating line plots and discussing choice of element size, line style, marker shape, annotations, legends.|
+| Distributions: histograms | 1 hr | Building histograms with overlain kde line plots. Discussing figure aesthetics, gridlines, annotations and "chartjunk".|
+| Composition: bar charts| 1 hr | Creating stacked bar charts, both absolute and normalised to 100 %; discussing accidentally misleading plots with changing baselines; when proportional vs. absolute values matter. |
+| Heatmaps: matrices and images| 1 hr | Creating correlation matrices and statistical plots with Seaborn; discussing use (and misuse) of colour maps; loading and plotting images using Matplotlib colour maps. |
+| Reproducible workflows| 1 hr | Building re-useable plotting scripts; creating a toolbox for rapid and reproducible data visualisation; using functions to modularise your code. |
+| Closing discussion | 30 mins| Discussing good practise and when rules should be broken; how data visualisation can make or break your research; crowd-sourcing tools and resources.|

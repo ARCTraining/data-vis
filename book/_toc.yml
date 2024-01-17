@@ -8,6 +8,6 @@ root: welcome
 sections:
 - file: data-vis-101/start.md
   sections:
-    - file: data-vis-101/introduction.md
+    - file: data-vis-101/01-introduction.md
 - url: https://arc.leeds.ac.uk
   title: Research Computing Website
