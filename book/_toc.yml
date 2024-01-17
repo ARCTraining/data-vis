@@ -6,8 +6,13 @@ root: welcome
 
 # ===== Getting started ==========================================
 sections:
-- file: example_section/start
+- file: data-vis-101/start.md
   sections:
-    - file: example_section/example
+    - file: data-vis-101/01-introduction.md
+    - file: data-vis-101/02-first-plot.md
+    - file: data-vis-101/03-comparison-line-plots.md
+    - file: data-vis-101/04-distribution-histogram.md
+    - file: data-vis-101/05-composition-bar-charts.md
+    - file: data-vis-101/06-heatmaps.md
 - url: https://arc.leeds.ac.uk
   title: Research Computing Website
