@@ -6,8 +6,8 @@ root: welcome
 
 # ===== Getting started ==========================================
 sections:
-- file: example_section/start
+- file: data-vis-101/start.md
   sections:
-    - file: example_section/example
+    - file: data-vis-101/introduction.md
 - url: https://arc.leeds.ac.uk
   title: Research Computing Website
