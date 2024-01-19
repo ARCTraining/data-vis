@@ -1,7 +1,7 @@
 # Introduction
 
-In this course, we are going to use Python as a tool to take on the concept of good data visualisation.  In addition to walking you through some step-by-step advice regarding libraries that are available, and building plot templates that let you save out your figures to high resolution pngs or pdf files, we are also going to disucss how best to represent your data in a way that is meaningful, asthetically pleasing, and scientifically robust.
-Before we even get into the libraries and modules that are available, or the actual step-by-step of how to use these tools to build a plot, we are going to walk through some of the important considerations when deciding how you are going to visualise your data.
+In this course, we are going to use Python as a tool to take on the concept of good data visualisation.  In addition to walking you through some step-by-step advice regarding libraries that are available, and building plot templates that let you save out your figures to high resolution PNGs or PDF files, we are also going to disucss how best to represent your data in a way that is meaningful, asthetically pleasing, and scientifically robust.
+Before we even get into the libraries and modules that are available, or the actual step by step of how to use these tools to build a plot, we are going to walk through some of the important considerations when deciding how you are going to visualise your data.
 
 Choosing the type of plot to use to represent your data is not something obvious or straightforward, and is something that will never have a unique solution: there are lots of good options that may win out in certain situations.
 
@@ -37,10 +37,10 @@ For each of the suggested audiences above, discuss different requirements for da
 
 ```{admonition} Click to reveal some suggestions
 :class: dropdown
-- When creating quick plots for yourself or direct collaborators, you can probably cut more corners than you normally would, as you already understand your subject area and analysis. However, don't underestimate how much you can forget in a few short months: making sure your plots are easily readible, with sensible axes labels and titles, will help future you to remember what exactly it is you were tyring to do!
+- When creating quick plots for yourself or direct collaborators, you can probably cut more corners than you normally would, as you already understand your subject area and analysis. However, don't underestimate how much you can forget in a few short months: making sure your plots are easily readible, with sensible axes labels and titles, will help future you to remember what exactly it is you were trying to do!
 - When producing a figure for a scientific publication, you need to ensure you haven't cut any corners, and that all relevant information needed is available for a broader audience to be able to digest your work. Figures in a publication can get away with being a bit more dense as usually the reader spends a bit longer looking at them than the equivalent audience member at a presentation or poster session.
 - At a conference, the audience may range from quite broad to very niche. In general, conference delegates will have less time to absorb your visualisation than someone reading a scientific article would, so in general they need to be less information-dense. Additionally, you can support the physical figure with description and explanation during the presentation, and so the design can be a little more minimal and less self-contained.
-- When presenting in a teaching setting, often times it is a concept, analysis method, relationship between variables etc. that is being taught, as opposed to presenting results as in a manuscript or at a conference. Additional labels, detailed and clear labels and legends, and reduced datasets can help make these style of visualisations more digestible.
+- When presenting in a teaching setting, often it is a concept, analysis method, relationship between variables etc. that is being taught, as opposed to presenting results as in a manuscript or at a conference. Additional labels, detailed and clear labels and legends, and reduced datasets can help make these style of visualisations more digestible.
 - Figures for the general public are often the most difficult to desgin, and should only contain the most essential details of your work. Avoid non-standard chart types, and potentially lean into the possibility of schematics and summary plots.
 ```
 
@@ -60,7 +60,7 @@ What plot or figure type have you used most often? Is this the best plot to show
 
 It's important to understand what medium the graphic or figure will be displayed in: are you preparing for a talk and will be showing your figures over a projector or a shared screen via a webconferencing tool? Will your figures be printed onto a poster for a conference? Will your figure be included in a journal or other publication and will be viewed online where its zoomable?
 
-Figures shown in a presentation will only be visible to the audience for a short amount of time; they will not have time to read lots of labels and annotations, and a detailed and difficult to parse chart will leave the audience confused and will distract them from listening to your presentation. They will also be supported by your discussion points and presentation, so can be less detailed. Figures used in poster presentations will be printed out which can lead to issues in colour grading if screen-specific colourspace is used (e.g. RGB instead of CMYK) and resolution problems if rasterised images are used and not saved at a high enough dpi.
+Figures shown in a presentation will only be visible to the audience for a short amount of time; they will not have time to read lots of labels and annotations, and a detailed and difficult to parse chart will leave the audience confused and will distract them from listening to your presentation. They will also be supported by your discussion points and presentation, so can be less detailed. Figures used in poster presentations will be printed out which can lead to issues in colour grading if screen-specific colourspace is used (e.g. RGB instead of CMYK) and resolution problems if rasterised images are used and not saved at a high enough DPI.
 
 ```{admonition} Key points to keep in mind when designing your figure
 :class: tip
@@ -87,17 +87,17 @@ Are captions always formal text underneath a figure? How might they be different
 
 Captions can be different depending on the medium of presentation of the work.
 
-- In a paper, a caption is presented as explanatory text alongside the figure
-- On a poster, figures may include a paper-like caption, or instead may include related bullet points
-- During a talk or presentation, the caption can be thought of as what's said when the presenter introduces the figure, or may be included alongside as text on the slide
+- In a paper, a caption is presented as explanatory text alongside the figure.
+- On a poster, figures may include a paper-like caption, or instead may include related bullet points.
+- During a talk or presentation, the caption can be thought of as what's said when the presenter introduces the figure, or may be included alongside as text on the slide.
 ```
 
 
 ## Rule 5: Do Not Trust the Defaults
 
-Sometimes the default settings in your chosen plotting software suit your needs entirely: this is more likely to be true if your response to *Rule #1: Know Your Audience* was "I'm the audience - it's just me checking my model ran correctly", _or_ if you have a particular appreciation for small text and garish colour schemes. Font sizes for axis labels, title, tick labels and parameters may be too small to read at the scale you are intending to share this figures.
+Sometimes the default settings in your chosen plotting software suit your needs entirely: this is more likely to be true if your response to *Rule #1: Know Your Audience* was "I'm the audience - it's just me checking my model ran correctly", _or_ if you have a particular appreciation for small text and garish colour schemes. Font sizes for axis labels, title, tick labels and parameters may be too small to read at the scale you are intending to share this figure.
 
-## Rule 6: Use Color Effectively
+## Rule 6: Use Colour Effectively
 
 
 Colour can be an important asset in your scientific visualisations, but it must be used mindfully. According to Edward Tufte [1983](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003833#pcbi.1003833-Tufte1), colour can be either your greatest ally or your worst enemy if not used properly [(Rougier et al., 2014)](https://doi.org/10.1371/journal.pcbi.1003833).
@@ -109,7 +109,7 @@ What are some uses for colour in your scientific figures?
 ```{admonition} Click to reveal some suggestions
 :class: dropdown
 - Adding an additional dimension to your figures; for example a scatterplot where points are coloured according to a third variable. This can cause issues if colour is the _only_ means of distinguishing the variable...
-- Adding clarity to different marker- or line-styles: instead of representing a separate variable, colour can work in tandem with other attributes like line-style, for example showing data as a grey solid line and a pink dashed line.
+- Adding clarity to different marker or line styles: instead of representing a separate variable, colour can work in tandem with other attributes like line-style, for example showing data as a grey solid line and a pink dashed line.
 - For emphasis! You can colour a specific highlighted datapoint differently from the surrounding data by using a different, contrasting colour to annotate it.
 - For heatmaps: similarly to the scatterplot answer above, heatmaps can be used to represent a third variable across a parameter space; they are also frequently used for geospatial data such as DEMs.
 ```
@@ -117,7 +117,7 @@ What are some uses for colour in your scientific figures?
 
 While colour is a useful tool in your kit, it can also be misused and cause confusion and potentially mislead your audience.
 
-```{admonition} Click to reveal ome pitfalls or dangers associated with colour-use
+```{admonition} Click to reveal some pitfalls or dangers associated with colour-use
 :class: dropdown
 
 - The contrast between two different colour choices might be obvious on your screen/to your eyes, but may be much less obvious with different screen settings/when projected/when printed (see discussion of RGB/CMYK above). Similarly, with various different types of colour vision deficiency (CVD), certain colours can seem very similar to indistinguishable. See this blog post on [designing colour-blind-friendly visualizations](https://www.tableau.com/en-gb/blog/examining-data-viz-rules-dont-use-red-green-together).
@@ -144,7 +144,7 @@ From [Rougier et al., 2014](https://doi.org/10.1371/journal.pcbi.1003833):
 
 >What distinguishes a scientific figure from other graphical artwork is the presence of data that needs to be shown as objectively as possible. A scientific figure is, by definition, tied to the data (be it an experimental setup, a model, or some results) and if you loosen this tie, you may unintentionally project a different message than intended. However, representing results objectively is not always straightforward. For example, a number of implicit choices made by the library or software you're using that are meant to be accurate in most situations may also mislead the viewer under certain circumstances. If your software automatically re-scales values, you might obtain an objective representation of the data (because title, labels, and ticks indicate clearly what is actually displayed) that is nonetheless visually misleading.
 
-While we don't expect to need to spend time explaining that scientific fraud is wrong (and if we do, that's a larger problem than this data visualisation course can solve!), it's very useful to highlight the ways you might inadvertently milead your audience.
+While we don't expect to need to spend time explaining that scientific fraud is wrong (and if we do, that's a larger problem than this data visualisation course can solve!), it's very useful to highlight the ways you might inadvertently mislead your audience.
 
 Examples of ways visualisations can be misleading:
 
@@ -176,7 +176,7 @@ None of the above is inherently a bad thing to include in a figure; however, ove
 
 Think of the chartjunk listed above as accessories with which to adorn yourself and elevate your outfit. Some are requirements that can't be skipped: legends are like an umbrella on a rainy day; you can't leave the house without or you'll regret it, but you probably don't need two. Ensure you include these key components, like axes labels, that are required to make your figure legible. Everything else is decoration: additional annotations are like a pearl necklace that might in the right context add to the look, but might also start to look a bit overwhelming if you already have jewellery on. Lots of colour and having background fills are a little bit like sequins and large feathers: you want to be very sure you can pull them off before you adorn yourself with them; few people succeed. Do they actually add to the plot or are they more likely to win you a place in a worst-dressed competition?
 
-Here's a [blog](https://junkcharts.typepad.com/) that detials different types of chartjunk. To be fair, I've also included one of my own figures that is distractingly busy, just to reinforce that this is a "do as I say, not as I do" situation, and that sometimes you might crumble and let in some awful design choices. But your next plot can always be better!
+Here's a [blog](https://junkcharts.typepad.com/) that details different types of chartjunk. To be fair, I've also included one of my own figures that is distractingly busy, just to reinforce that this is a "do as I say, not as I do" situation, and that sometimes you might crumble and let in some awful design choices. But your next plot can always be better!
 
 ```{figure} https://github.com/ARCTraining/data-vis/assets/9538529/7d68ec0d-c04f-46a2-a905-1ce94579f5d6
 ---
@@ -192,7 +192,7 @@ While it is very fair to take pride in the aesthetics of your figures, it is imp
 Sometimes it is useful to consider figure designs that do not entirely satisfy your design preferences. Situations may include:
 - Producing a quick plot for yourself to check if results are expected. This plot is just for you and will not be shared or published. It might not be worth sinking lots of time into this, and in this case the default ugly colours and small axes labels might do the trick, instead of sinking time into  plotting script you're going to only use once or twice as part of a process.
 - If there is a standard or default way of showing information within your field, it might be a good idea to stick with this instead of revolutionising the area and introducing a new way of visualising a standardised data set (unless you want to devote time to this paradigm-shift!). Using a standard, well-known, familiar plot-type can quickly get your audience on-board and have them focus on your results instead of focusing on trying to understand the new groundbreaking figure you've designed.
-- Accessibility! All the above rules deserve to be broken if it increases the accessibility of the figures, because again the key important element of any scientific visualisation is to communicate a key message, and you're excluding a lot of scientists if you make something inaccessible. This includes ensuring font sizes are large and readable, labels are clear, legends are detailed enough that line/point colour are not the only descriminating factor for data, and when necessary, you allow a little bit more "cartjunk" if it improves legibility. Colour-vision related accessibility again should be considered by using colourblind-safe palettes and again not relying solely on colour to differentiate between features. 
+- Accessibility! All the above rules deserve to be broken if it increases the accessibility of the figures, because again the key element of any scientific visualisation is to communicate an important message, and you're excluding a lot of scientists if you make something inaccessible. This includes ensuring font sizes are large and readable, labels are clear, legends are detailed enough that line/point colour are not the only descriminating factor for data, and when necessary, you allow a little bit more "chartjunk" if it improves legibility. Colour-vision related accessibility again should be considered by using colourblind-safe palettes and again not relying solely on colour to differentiate between features. 
 
 ## Rule 10: Get the Right Tool(s)
 
@@ -200,4 +200,4 @@ What should you be using to plot data? You probably started off with a pencil an
 
 While spreadsheet programs such as Excel, Google Sheets, or more scientifically focused programs such as OriginPro can be great for quickly visualising your data, they can take a while to tweak in order to produce a plot to your liking, which can be frustrating if you want to replicate similar plots for lots of different datasets. Of course, you can modify the aesthetic elements of these plots in a graphics package such as Inkscape, Affinity Designer, or CorelDraw; but again this is an inefficient workflow if you have many plots to produce.
 
-That's where scripting languages come in. In this course, we are using Python and some associated Python libraries including [matplotlib](https://matplotlib.org/) and [seaborn](https://seaborn.pydata.org/index.html). Other languages and libraries such as [R's ggplot2](https://ggplot2.tidyverse.org/) are also commonly used in research settings.
+That's where scripting languages come in. In this course, we are using Python and some associated Python libraries including [matplotlib](https://matplotlib.org/) and [seaborn](https://seaborn.pydata.org/index.html). Other languages and libraries such as R's [ggplot2](https://ggplot2.tidyverse.org/) are also commonly used in research settings.
