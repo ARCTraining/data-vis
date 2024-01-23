@@ -1,7 +1,10 @@
 # Introduction
 
-In this course, we are going to use Python as a tool to take on the concept of good data visualisation.  In addition to walking you through some step-by-step advice regarding libraries that are available, and building plot templates that let you save out your figures to high resolution PNGs or PDF files, we are also going to disucss how best to represent your data in a way that is meaningful, asthetically pleasing, and scientifically robust.
-Before we even get into the libraries and modules that are available, or the actual step by step of how to use these tools to build a plot, we are going to walk through some of the important considerations when deciding how you are going to visualise your data.
+This course is about data visualisation in the form of static plots that may be the basis for discussion or for presentation as a figure in a report. It is not about exploratory data visualisation using dynamic displays or about creating dashboards to present information about a dynamic system.
+
+The course uses Python to take on the concept of good data visualisation in this context.  In addition to walking you through some step-by-step advice regarding libraries that are available, and building plot templates that let you save out your figures to high resolution PNGs or PDF files, we are also going to disucss how best to represent your data in a way that is meaningful, asthetically pleasing, and scientifically robust.
+
+Before introducing the libraries and modules that are available, or the actual step by step of how to create plots using Python, we are going to walk through some of the important considerations when deciding how you are going to visualise your data.
 
 Choosing the type of plot to use to represent your data is not something obvious or straightforward, and is something that will never have a unique solution: there are lots of good options that may win out in certain situations.
 
