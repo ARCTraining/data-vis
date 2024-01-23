@@ -63,9 +63,46 @@ The example `numpy.loadtxt()` above would now be instead written `np.loadtxt()`.
 
 ## Create some example data
 
-In the next section of this course, we will run through how to load real data in in a variety of different ways. For this initial example, we are going to quickly generate some example data.
+In the next section of this course, we will run through how to load real data in in a variety of different ways. For this initial example, we are going to quickly generate some example data. Let's assume we want to create a **scatterplot** with 50 pairs of (x, y) data. Let's write some code that will generate 50 random numbers between zero and one.
+
+```
+# Create random x and y data
+
+x = np.random.rand(50)
+y = np.random.rand(50)
+```
+
+```{admonition} Tip
+:class: tip
+
+You can add comments to your code using the \# symbol; this text is skipped over when you tell the code to run; it is just for you or anyone else who reads your code to better understand what you are doing.
+
+```
+
+You can take a closer look at what this has produced by executing a cell that only contains `x` or `y`, or `print(x)`, `print(y)` (what is the difference between `x` and `print(x)` in terms of output?).
+
 
 ## How do I initialise a basic figure?
+
+So you have your data and you want to build a scatterplot to see if there's any relationship between x and y. 
+
+To create a plot in Python, we will always follow a few key steps.
+
+First, we initialise the figure and the axes. The `figure` object can be thought of as the page you draw your plot onto. The `ax` object is the box drawn by the x and y axes, the "panel" your plot will be drawn in.
+
+```
+# Create a figure and axes objects
+
+fig, ax = plt.subplots()
+```
+
+If you run this code, you should get an empty figure that looks something like this:
+
+|![image](figs/empty_fig.png) | 
+|:-:| 
+| Empty axes without any data plotted. *Alt text: white rectangle area surrounded by x and y axes, with labels from 0-1 on both. No data points are plotted.* |
+
+## How do I plot my data?
 
 ## How do I save this figure to my machine?
 
