@@ -1,48 +1,40 @@
-# copied from https://jupyterbook.org/publish/gh-pages.html?highlight=github%20pages
+name: deploy
 
-name: deploy-book
-
-# Only run this when the master branch changes
 on:
   push:
     branches:
-    - main
+      - main
 
-# This job installs dependencies, build the book, and pushes it to `gh-pages`
 jobs:
   deploy-book:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - uses: conda-incubator/setup-miniconda@v2
-      with:
-        environment-file: environment.yml
-        auto-activate-base: false
-        activate-environment: arcdocs-jb
+    name: Build and Deploy Jupyter Book
+    runs-on: "ubuntu-latest"
+    defaults:
+      run:
+        shell: bash -l {0}
 
-    # Build the book
-    - name: Build the book
-      shell: bash -l {0}
-      run: |
-        conda activate arcdocs-jb
-        jupyter-book build docs
-#        jupyter-book build book
-    # Push the book's HTML to master branch
-    # - name: Deploy the book's HTML to GitHub Pages action
-    #   uses: peaceiris/actions-gh-pages@v3.6.1
-    #   with:
-    #     github_token: ${{ secrets.GITHUB_TOKEN }}
-    #     publish_dir: book/_build/html
-    # - name: Deploy the book's HTML to GitHub Pages action
-    #   uses: peaceiris/actions-gh-pages@v3.6.1
-    #   with:
-    #     github_token: ${{ secrets.GITHUB_TOKEN }}
-    #     publish_dir: docs/_build/html
-    #     publish_branch: gh-pages
-    - name: Deploy the book 🚀
-      uses: peaceiris/actions-gh-pages@v3.7.3
-      with:
-         github_token: ${{ secrets.GITHUB_TOKEN }}
-         publish_dir: ./docs/_build/html
-         publish_branch: gh-pages
-         cname: arctraining.github.io/data-vis
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install Conda environment
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          activate-environment: arcdocs-jb
+          environment-file: environment.yml
+          python-version: 3.9
+          auto-activate-base: false
+          auto-update-conda: false
+
+      - name: Create Jupyter kernelspec
+        run: |
+          python -m ipykernel install --user --name data_vis --display-name "data_vis"
+      
+      - name: Build Jupyter Book
+        run: |
+          jupyter-book build docs
+      
+      - name: Deploy the book's HTML to GitHub Pages action
+        uses: peaceiris/actions-gh-pages@v3.6.1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: docs/_build/html
