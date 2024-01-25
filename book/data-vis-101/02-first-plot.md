@@ -216,9 +216,38 @@ savefig(fname, dpi=some_number_here
 ```
 
 ```{admonition} Challenge
-Change the dpi and size of your figure to allow it to be printed on a poster as a high-quality 10 inch $\times$ 10 inch square. What dpi is recommended for printing?
+Change the dpi and size of your figure to allow it to be printed on a poster as a high-quality 10 inch $\times$ 10 inch square. What dpi is recommended for printing? How do dpi and figure size interact?
 ```
 
 ```{admonition} Challenge
 Save the figure in a *vector* format such as a `.pdf` or `.svg` instead of a `.png`. How might the `dpi` value work when saving a vector format image?
+```
+
+## Scatter plot template
+
+This code snippet plots a scatter plot in a figure that's 7 $\times$ 4 inches, with a dpi of 300, in png format.
+
+```
+# Import the required libraries
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Create random x and y data
+
+x = np.random.rand(50)
+y = np.random.rand(50)
+
+# Create a figure and axes, and set the figure size in inches
+fig, ax = plt.subplots(figsize=(7, 4))
+
+# Plot the data as a scatter plot
+ax.scatter(x, y)
+
+# Set title and labels
+ax.set_title('Scatter Plot')
+ax.set_xlabel('X')
+ax.set_ylabel('Y')
+
+# Save the figure
+fig.savefig("figure_name.png", dpi=300)
 ```
