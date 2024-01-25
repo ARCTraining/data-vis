@@ -62,6 +62,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'data-vis-101/02-first-plot';</script>
     <link rel="canonical" href="https://arctraining.github.io/template-jb-docs/data-vis-101/02-first-plot.html" />
     <link rel="shortcut icon" href="../_static/favicon-32x32.png"/>
@@ -373,7 +375,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -389,6 +393,25 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-the-tools-we-are-using">Introduction to the tools we are using</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#some-useful-keyboard-shortcuts">Some useful keyboard shortcuts</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#refresher-on-the-python-ecosystem">Refresher on the Python ecosystem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-some-example-data">Create some example data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-i-initialise-a-basic-figure">How do I initialise a basic figure?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-i-plot-my-data">How do I plot my data?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-i-add-labels">How do I add labels?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-i-save-this-figure-to-my-machine">How do I save this figure to my machine?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-next">What next…</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scatter-plot-template">Scatter plot template</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -400,6 +423,262 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="building-your-first-plot">
 <h1>Building your first plot<a class="headerlink" href="#building-your-first-plot" title="Permalink to this heading">#</a></h1>
+<p>Before we delve a little deeper into some of the concepts we introduced in the previous section with regards to what makes a graphic “good”, let’s lay the foundations and build our first plot. You need a draft to start improving on it!</p>
+<p>In this course, we are going to be using a cloud-based development environment, so you don’t have to install anything locally on your machine.</p>
+<p>In this session, we are going to work step-by-step through building a basic plot. The full self-contained example script is given at the end of this page.</p>
+<div class="tip admonition">
+<p class="admonition-title">Tip</p>
+<p>It’s a good idea to type the example code out in your notebook as opposed to copying and pasting. This will help you get used to the syntax and will allow you to improve your skills more rapidly.</p>
+</div>
+<section id="introduction-to-the-tools-we-are-using">
+<h2>Introduction to the tools we are using<a class="headerlink" href="#introduction-to-the-tools-we-are-using" title="Permalink to this heading">#</a></h2>
+<p>For this course, we are going to be using a particular tool for interacting with Python called a “Notebook”. You may have heard of the Jupyter Notebook before: this is a document format that includes snippets of formatted text, embedded executable/runnable code, and the output of said code (for example, plots/figures). We are going to be using an online version of Jupyter Notebooks hosted by Google, called <a class="reference external" href="https://colab.google/">Google Colaboratory</a>; the free version provides plenty compute power for this tutorial.</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p><img alt="image" src="../_images/intro_to_colab.gif" /></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>Click “New Notebook” to create a fresh file. <em>Alt text: gif of Google Colab’s landing page, showing the “New Notebook” button being clicked.</em></p></td>
+</tr>
+</tbody>
+</table>
+<p>Open up a new notebook for this session: click “New Notebook”, then give the new file a sensible name. In a Python Notebook, you can create two different types of cells: a text cell, which can contain markdown-formatted text, and code cells, where you put Python code and can run it.</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p><img alt="image" src="../_images/intro_to_colab2.gif" /></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>Hover the cursor over the bottom edge of the cell to show the options for a new text cell or code cell. <em>Alt text: gif of Google Colab’s new notebook page, showing the new text cell and new code cell menu.</em></p></td>
+</tr>
+</tbody>
+</table>
+<p>Try out the classic first program, “Hello World” from the first code cell, and click the run cell button to the left of the cell, or use the keyboard shortcut Ctrl + Enter:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello World!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The first cell may take a while to run as Colab connects to the runtime, but shortly it should output <code class="docutils literal notranslate"><span class="pre">Hello</span> <span class="pre">World!</span></code> below your first code cell.</p>
+<section id="some-useful-keyboard-shortcuts">
+<h3>Some useful keyboard shortcuts<a class="headerlink" href="#some-useful-keyboard-shortcuts" title="Permalink to this heading">#</a></h3>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Action</p></th>
+<th class="head text-left"><p>Shortcut</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Create new code cell</p></td>
+<td class="text-left"><p>Ctrl + M B</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Execute code cell</p></td>
+<td class="text-left"><p>Shift + Enter</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="refresher-on-the-python-ecosystem">
+<h2>Refresher on the Python ecosystem<a class="headerlink" href="#refresher-on-the-python-ecosystem" title="Permalink to this heading">#</a></h2>
+<p>One of the pre-requisites for this course is some basic Python experience, but don’t worry if you’ve forgotten how things work. For this course, we will be <em>importing</em> a variety of different libraries. Do this in the first cell of your notebook:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+</pre></div>
+</div>
+<p>When we use a <em>function</em> from one of these libraries, we need to prefix it with the module name, for example <code class="docutils literal notranslate"><span class="pre">numpy.loadtxt()</span></code>.
+In this course, we will be using some common shortened names/aliases for libraries, that saves us typing out the full name every time we use them. You can replace the above code snippet with this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+<p>The example <code class="docutils literal notranslate"><span class="pre">numpy.loadtxt()</span></code> above would now be instead written <code class="docutils literal notranslate"><span class="pre">np.loadtxt()</span></code>.</p>
+</section>
+<section id="create-some-example-data">
+<h2>Create some example data<a class="headerlink" href="#create-some-example-data" title="Permalink to this heading">#</a></h2>
+<p>In the next section of this course, we will run through how to load real data in in a variety of different ways. For this initial example, we are going to quickly generate some example data. Let’s assume we want to create a <strong>scatter plot</strong> with 50 pairs of (x, y) data. Let’s write some code that will generate 50 random numbers between zero and one.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create random x and y data</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="tip admonition">
+<p class="admonition-title">Tip</p>
+<p>You can add comments to your code using the # symbol; this text is skipped over when you tell the code to run; it is just for you or anyone else who reads your code to better understand what you are doing.</p>
+</div>
+<p>You can take a closer look at what this has produced by executing a cell that only contains <code class="docutils literal notranslate"><span class="pre">x</span></code> or <code class="docutils literal notranslate"><span class="pre">y</span></code>, or <code class="docutils literal notranslate"><span class="pre">print(x)</span></code>, <code class="docutils literal notranslate"><span class="pre">print(y)</span></code> (what is the difference between <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">print(x)</span></code> in terms of output?).</p>
+</section>
+<section id="how-do-i-initialise-a-basic-figure">
+<h2>How do I initialise a basic figure?<a class="headerlink" href="#how-do-i-initialise-a-basic-figure" title="Permalink to this heading">#</a></h2>
+<p>So you have your data and you want to build a scatter plot to see if there’s any relationship between x and y.</p>
+<p>To create a plot in Python, we will always follow a few key steps.</p>
+<p>First, we initialise the figure and the axes. The <code class="docutils literal notranslate"><span class="pre">figure</span></code> object can be thought of as the page you draw your plot onto. The <code class="docutils literal notranslate"><span class="pre">ax</span></code> object is the box drawn by the x and y axes, the “panel” your plot will be drawn in.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a figure and axes objects</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">subplots</span></code> function has the prefix <code class="docutils literal notranslate"><span class="pre">plt</span></code> because it’s from the <code class="docutils literal notranslate"><span class="pre">matplotlib.pyplot</span></code> library that we loaded early and assigned the shortened name <code class="docutils literal notranslate"><span class="pre">plt</span></code>.
+If you run this code, you should get an empty figure that looks something like this:</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p><img alt="image" src="../_images/empty_fig.png" /></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>Empty axes without any data plotted. <em>Alt text: white rectangle area surrounded by x and y axes, with labels from 0-1 on both. No data points are plotted.</em></p></td>
+</tr>
+</tbody>
+</table>
+<p>You can change the size of the <code class="docutils literal notranslate"><span class="pre">fig</span></code> object using the <code class="docutils literal notranslate"><span class="pre">figsize</span></code> argument; this takes inches by default.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a figure and axes, and set the figure size</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+</pre></div>
+</div>
+</section>
+<section id="how-do-i-plot-my-data">
+<h2>How do I plot my data?<a class="headerlink" href="#how-do-i-plot-my-data" title="Permalink to this heading">#</a></h2>
+<p>In this example, we are creating a very simple scatter plot using the (x, y) pairs we created earlier. We can use the <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> <code class="docutils literal notranslate"><span class="pre">scatter</span></code> function to do this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the data</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The prefix <code class="docutils literal notranslate"><span class="pre">ax</span></code> before <code class="docutils literal notranslate"><span class="pre">.scatter</span></code> tells this function that the scatter plot is to be drawn on the axes you set up earlier. We’ll later look at how this works for a multipart figure where you have a number of different panels/axes showing different things. This will produce a basic scatter plot using the default <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> aesthetic settings; it should look something like the figure below.</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p><img alt="image" src="../_images/scatter_no_label.png" /></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>Basic scatterplot with no labels or title. <em>Alt text: white rectangle area surrounded by x and y axes, with labels from 0-1 on both. Random data is plotted as large blue dots.</em></p></td>
+</tr>
+</tbody>
+</table>
+<div class="dropdown admonition">
+<p class="admonition-title">But I’ve seen/used <em>plt.scatter(x,y)</em> before… what’s the difference?</p>
+<p>In Matplotlib, there are two different approaches to making a plot.
+One is <em>object oriented</em> and the other is <em>procedural</em>…
+Essentially, these two terms are used to describe different programming languages and how they approach handling variables, data, and functions.</p>
+<p>In general, Python is an <em>object oriented</em> programming language, which means it uses <em>objects</em> to get things done; in the code snippets above, the <code class="docutils literal notranslate"><span class="pre">fig</span></code> object is the box where everything relating to the plot goes, the <code class="docutils literal notranslate"><span class="pre">ax</span></code> object is a smaller box inside this that takes everything relating to that one panel of the plot. Because this is the approach taken in the Python language in general, this is the approach we will take as it helps to keep things consistent.</p>
+<p>In contrast, the popular scientific programming language <em>Matlab</em> uses a procedural approach to plotting figures. <em>Matplotlib</em> was designed to emulate this, to allow users to swap to Python; this means you can <em>also</em> create plots without ever initialising a <code class="docutils literal notranslate"><span class="pre">fig</span></code> or <code class="docutils literal notranslate"><span class="pre">ax</span></code> object explicitly. This is an completely valid approach, but to avoid confusion we will be sticking to the <em>object oriented</em> way of plotting in this course.</p>
+<p>Do not worry if this doesn’t make sense - the key take-away is that when searching through examples or reading other people’s code, you may see things done in a way that looks very similar, but uses subtly different function names - this is why!</p>
+<p>If you’re interested and want to learn more, <a class="reference external" href="https://neuraldatascience.io/4-viz/proc_vs_oo.html#procedural-versus-object-oriented-plotting-in-matplotlib">this</a> is a good starting point.</p>
+</div>
+</section>
+<section id="how-do-i-add-labels">
+<h2>How do I add labels?<a class="headerlink" href="#how-do-i-add-labels" title="Permalink to this heading">#</a></h2>
+<p>Plots like this do not convey the required information unless they have axes labels. Since this is not real data, we can just call the values on the x-axis “X” and the values on the y-axis “Y” - we don’t have any units to add.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set title and labels</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Scatter Plot&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Y&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p><img alt="image" src="../_images/scatter.png" /></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>Basic scatterplot with axes labels and a title. <em>Alt text: a scatter plot of random data with both x and y in the range [0, 1]; data is represented by blue dots. The figure title reads “Scatter Plot”.</em></p></td>
+</tr>
+</tbody>
+</table>
+<p>You’ve just made your very first plot with Python!</p>
+</section>
+<section id="how-do-i-save-this-figure-to-my-machine">
+<h2>How do I save this figure to my machine?<a class="headerlink" href="#how-do-i-save-this-figure-to-my-machine" title="Permalink to this heading">#</a></h2>
+<p>There are a number of different ways to save a plot out of Google Colab.</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p><img alt="image" src="../_images/save_screenshot.png" /></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>Right click on the output figure to save it to your machine. <em>Alt text: a screenshot of the context menu after right-clicking your output figure, including the option to “Save image as…”</em></p></td>
+</tr>
+</tbody>
+</table>
+<p>You can just right click/control-click the output image and either select “Save image as…” as shown in the above screenshot, or copy the output to a Powerpoint or similar. This option does not let you control resolution or image format.</p>
+<p>Alternatively, you can use the <code class="docutils literal notranslate"><span class="pre">savefig</span></code> function to save the output:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;your_figure_name_goes_here.png&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If you add this to your code and run it, you can access the saved file from the files menu on the left of the screen (the folder symbol).</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p><img alt="image" src="../_images/save_fig.gif" /></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>Use the files menu to access figures saved during the runtime. <em>Alt text: a gif showing how to navigate to the saved file via the files menu on the left of the screen.</em></p></td>
+</tr>
+</tbody>
+</table>
+<div class="tip admonition">
+<p class="admonition-title">Tip</p>
+<p>Files saved here are only accessible while your virtual machine is up and running - once you close Colab, Google kills the machine you were using and everything you had saved is wiped. If you want your figure to survive, make sure to download them - or just accept that you need to replot them when you want them again!</p>
+</div>
+</section>
+<section id="what-next">
+<h2>What next…<a class="headerlink" href="#what-next" title="Permalink to this heading">#</a></h2>
+<p>You save your figure, but the resolution isn’t what you need - you want to use it in a presentation and when you add it to your slideshow, it looks pixelated and low-quality. How do we do this? Well, let’s have our first look at the official Matplotlib documentation!</p>
+<p><a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.savefig.html">Here’s the documentation</a> for the <code class="docutils literal notranslate"><span class="pre">savefig</span></code> function. What can we learn from this?</p>
+<p>We’re shown a little code-snippet called the call signature:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">savefig</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">transparent</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="s1">&#39;figure&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pad_inches</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+        <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span>
+       <span class="p">)</span>
+</pre></div>
+</div>
+<p>This essentially shows us all the possible options we can <em>pass</em> to the <code class="docutils literal notranslate"><span class="pre">savefig</span></code> function. These are called <em>arguments</em>. The first option, <code class="docutils literal notranslate"><span class="pre">fname</span></code> is what we passed before, when we entered <code class="docutils literal notranslate"><span class="pre">&quot;your_figure_name_goes_here.png&quot;</span></code>. This is a required argument: the <code class="docutils literal notranslate"><span class="pre">savefig</span></code> function won’t work without it. All the other arguments are <em>optional</em>, and have defaults assigned with equals, for example <code class="docutils literal notranslate"><span class="pre">dpi='figure'</span></code>. This means that the dpi or dots-per-inch (a measure of resolution) is set to a default value for the figure (100 dpi by default in Matplotlib). If we scroll down past the call signature code snippet, we can see all the different arguments and a description for each. For <code class="docutils literal notranslate"><span class="pre">dpi</span></code>,</p>
+<blockquote>
+<div><p><strong>dpi : float or ‘figure’, default:</strong> <code class="docutils literal notranslate"><span class="pre">rcParams[&quot;savefig.dpi&quot;]</span></code> <strong>(default:</strong> <code class="docutils literal notranslate"><span class="pre">'figure'</span></code><strong>)</strong>
+The resolution in dots per inch. If ‘figure’, use the figure’s dpi value.</p>
+</div></blockquote>
+<p>This essentially tells you what we explain above, that the default value is set by the figure, which unless you have changed something, Matplotlib sets to 100 dpi (which you can find in the documentation for the <code class="docutils literal notranslate"><span class="pre">figure</span></code> object <a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.figure.html">here</a>). It also tells you that <code class="docutils literal notranslate"><span class="pre">dpi</span></code> can be set to a float value (such as 10.0, 300, 473.5 etc.) or to the default <code class="docutils literal notranslate"><span class="pre">'figure'</span></code>. Assignment is done using an equals sign. Note, all optional arguments can be excluded from the function call:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">savefig</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">some_number_here</span>
+       <span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition-challenge admonition">
+<p class="admonition-title">Challenge</p>
+<p>Change the dpi and size of your figure to allow it to be printed on a poster as a high-quality 10 inch <span class="math notranslate nohighlight">\(\times\)</span> 10 inch square. What dpi is recommended for printing? How do dpi and figure size interact?</p>
+</div>
+<div class="admonition-challenge admonition">
+<p class="admonition-title">Challenge</p>
+<p>Save the figure in a <em>vector</em> format such as a <code class="docutils literal notranslate"><span class="pre">.pdf</span></code> or <code class="docutils literal notranslate"><span class="pre">.svg</span></code> instead of a <code class="docutils literal notranslate"><span class="pre">.png</span></code>. How might the <code class="docutils literal notranslate"><span class="pre">dpi</span></code> value work when saving a vector format image?</p>
+</div>
+</section>
+<section id="scatter-plot-template">
+<h2>Scatter plot template<a class="headerlink" href="#scatter-plot-template" title="Permalink to this heading">#</a></h2>
+<p>This code snippet plots a scatter plot in a figure that’s 7 <span class="math notranslate nohighlight">\(\times\)</span> 4 inches, with a dpi of 300, in png format.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import the required libraries</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># Create random x and y data</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+
+<span class="c1"># Create a figure and axes, and set the figure size in inches</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="c1"># Plot the data as a scatter plot</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="c1"># Set title and labels</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Scatter Plot&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Y&#39;</span><span class="p">)</span>
+
+<span class="c1"># Save the figure</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;figure_name.png&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -457,7 +736,31 @@ document.write(`
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"></div>
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-the-tools-we-are-using">Introduction to the tools we are using</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#some-useful-keyboard-shortcuts">Some useful keyboard shortcuts</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#refresher-on-the-python-ecosystem">Refresher on the Python ecosystem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-some-example-data">Create some example data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-i-initialise-a-basic-figure">How do I initialise a basic figure?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-i-plot-my-data">How do I plot my data?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-i-add-labels">How do I add labels?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-i-save-this-figure-to-my-machine">How do I save this figure to my machine?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-next">What next…</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scatter-plot-template">Scatter plot template</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
