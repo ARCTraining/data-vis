@@ -1,0 +1,18 @@
+# updating for latest jupyter book version
+
+format: jb-article
+# ===== Main Landing Page ========================================
+root: welcome
+
+# ===== Getting started ==========================================
+sections:
+- file: start.md
+  sections:
+    - file: 01-introduction.md
+    - file: 02-first-plot.md
+    - file: 03-comparison-line-plots.md
+    - file: 04-distribution-histogram.md
+    - file: 05-composition-bar-charts.md
+    - file: 06-heatmaps.md
+- url: https://arc.leeds.ac.uk
+  title: Research Computing Website
