@@ -103,3 +103,53 @@ ax.legend()
 | A simple lineplot with a legend, axes labels and a title. *Alt text: A lineplot with three series shown in orange, green and blue lines. X values increase from 0&ndash;10, while y values for each series vary randomly between 0&ndash;1. The x-axis is labelled "Time [s]" and the y-axis is labelled "Frequency [Hz]".* |
 
 Note that `matplotlib` attempts to estimate the best placement for the legend *object* so that it is overlapping the least number of datapoints possible.
+
+## Part 2: Changing default settings
+
+```{admonition} What are some issues with this plot?
+:class: dropdown
+
+The only feature distinguishing the different series is line colour. This could pose an issue if the colours are not easily distinguishable, especially if your audience has any colour-related vision difficulties, or if your figure is printed in greyscale.
+
+We can use additional features to distinguish the different series, including:
+- Line style
+- Line thickness
+- Marker style
+
+Depending on the random series generated, the legend might overlap with some data. It might be better to place the legend outside the axes.
+
+Depending on the context that the figure is being used in, the font size and line thickness on the plot might be too big or small; this should be changed depending on whether the figure is being used in a journal article, a talk or a poster.
+
+```
+
+### Changing appearance of the line
+
+We can easily change the appearance of our plot by modifying the original `plot` function call and adding in some optional arguments.
+
+```
+ax.plot(time, signal_1, label="Signal 1", APPEARANCE OPTIONS GO HERE)
+```
+
+We can start with colour choice: the colour of the plot line can be changed with the argument `color="blue"`, or some other colour name. Note the American spelling! See the [list of named colours](https://matplotlib.org/stable/gallery/color/named_colors.html) that can be used in this way. You can also use colour hex codes, like `color='#1b9e77'` to pick more specific colours. Lets use the [ColorBrewer](https://colorbrewer2.org/#type=qualitative&scheme=Dark2&n=3) webapp to select a colour scheme for our plot.
+
+Additionally, we can use the arguments `linewidth=1` and `marker="*"` to change the line thickness and marker icon respectively; see [the `plot` documentation to see the options available](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html).
+
+```
+# Scatter plot with different line colors, thickness, and markers
+ax.plot(time, signal_1, label="Signal 1", color='#1b9e77', linewidth=2, marker='o')
+ax.plot(time, signal_2, label="Signal 2", color='#d95f02', linewidth=1, marker='*')
+ax.plot(time, signal_3, label="Signal 3", color='#7570b3', linewidth=3, marker='s')
+```
+
+### Changing font size
+
+Fontsize can also be changed easily, through the `fontsize` argument in the `set_title`, `set_xlabel`, and `set_ylabel` functions:
+
+```
+# Set title and labels with different font sizes
+ax.set_title('Line Plot', fontsize=20)
+ax.set_xlabel('Time [s]', fontsize=15)
+ax.set_ylabel('Signal [Hz]', fontsize=10)
+```
+
+### Changing appearance of plots through external libraries
