@@ -252,7 +252,7 @@ Add this line in a cell, then run your plots. Vary `"colorblind"` with some of t
 
 ## When do you need to modify the default settings?
 
-If the plot you have built is just for you to quickly assess your data, and you can do that sufficiently with the default settings available, then that's fine, you do you.
+If the plot you have built is just for you to quickly assess your data, and you can do that sufficiently with the default settings available, then that's fine, you do you. However, if the default settings impact on the readability of your plot, and your intended audience is wider than just you and your immediate collaborators (this includes you in the future too!), then you should consider putting a little bit of time in to ensure your results are communicated clearly.
 
 ```{admonition} Key points
 :class: tip
