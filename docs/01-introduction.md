@@ -181,12 +181,9 @@ Think of the chartjunk listed above as accessories with which to adorn yourself 
 
 Here's a [blog](https://junkcharts.typepad.com/) that details different types of chartjunk. To be fair, I've also included one of my own figures that is distractingly busy, just to reinforce that this is a "do as I say, not as I do" situation, and that sometimes you might crumble and let in some awful design choices. But your next plot can always be better!
 
-```{figure} https://github.com/ARCTraining/data-vis/assets/9538529/7d68ec0d-c04f-46a2-a905-1ce94579f5d6
----
-name: chart-junk-fig
----
-Here is a figure I made for a paper [Reconciling fast and slow cooling during planetary formation as recorded in the main group pallasites](https://www.sciencedirect.com/science/article/pii/S0012821X23002972) (Murphy Quinlan et al., 2022). Even though I made this figure and did the research behind it, I cannot figure out what it is trying to show without looking at it for way too long. There are too many annotations, arrows, dashed lines and shaded regions. The message gets hidden behind too much chartjunk. Declutter your plots and live a happy, minimalist life! *Alt text: A busy, visually cluttered plot, showing overlapping dashed and solid lines, and layers of shaded boxes in the background. Numerous annotations with temperatures and timespans litter the figure. The x-axis reads "Time after magma ocean solidifcation [Myr]", while the y-axis reads "Temperature at pallasite residence depth [K]".*
-```
+|![image](https://github.com/ARCTraining/data-vis/assets/9538529/7d68ec0d-c04f-46a2-a905-1ce94579f5d6) | 
+|:--| 
+| Here is a figure I made for a paper [Reconciling fast and slow cooling during planetary formation as recorded in the main group pallasites](https://www.sciencedirect.com/science/article/pii/S0012821X23002972) (Murphy Quinlan et al., 2022). Even though I made this figure and did the research behind it, I cannot figure out what it is trying to show without looking at it for way too long. There are too many annotations, arrows, dashed lines and shaded regions. The message gets hidden behind too much chartjunk. Declutter your plots and live a happy, minimalist life! *Alt text: A busy, visually cluttered plot, showing overlapping dashed and solid lines, and layers of shaded boxes in the background. Numerous annotations with temperatures and timespans litter the figure. The x-axis reads "Time after magma ocean solidifcation [Myr]", while the y-axis reads "Temperature at pallasite residence depth [K]".* |
 
 ## Rule 9: Message Outshines Beauty
 
