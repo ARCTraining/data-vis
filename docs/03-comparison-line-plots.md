@@ -33,7 +33,7 @@ Instead of creating a list of x data with corresponding y values, we are going t
 
 First, we will create the variable `time`, which will vary from 0 - 10 seconds in 1 s intervals; then we will create 3 "signal" variables which will be lists of associated random numbers at each time (also 10 values):
 
-```
+```python
 # create example random data
 time = np.arange(10)
 signal_1 = np.random.rand(10)
@@ -60,7 +60,7 @@ This will be the starting point for almost all of your plots, unless you are doi
 Now, instead of plotting the `(x, y)` random pairs using the `scatter` function as
 we did in the previous plot, we are instead going to plot the pairs `(time, signal_1)`, `(time, signal_2)` and `(time, signal_3)` using the `plot` function:
 
-```
+```python
 ax.plot(time, signal_1)
 ax.plot(time, signal_2)
 ax.plot(time, signal_3)
@@ -75,7 +75,7 @@ When you run this code, you will notice that `matplotlib` automatically assigns 
 This plot now needs axes labels and a legend. We're going to pretend that this data represents some sort of signals recorded, who's frequency (unit = Hertz) changed over time (unit = seconds).
 Add labels as you did previously:
 
-```
+```python
 # Set title and labels
 ax.set_title('Line Plot')
 ax.set_xlabel('Time [s]')
@@ -84,7 +84,7 @@ ax.set_ylabel('Signal [Hz]')
 
 In order to add a legend, we need to first label the data by adding `label="data name"` into the *arguments* of the `plot` function:
 
-```
+```python
 # Scatter plot
 ax.plot(time, signal_1, label="Signal 1")
 ax.plot(time, signal_2, label="Signal 2")
@@ -93,7 +93,7 @@ ax.plot(time, signal_3, label="Signal 3")
 
 Then, we can call the `legend` function which automatically collects any labelled objects in the axes and displays them:
 
-```
+```python
 # Add a legend
 ax.legend()
 ```
@@ -124,7 +124,7 @@ Depending on the context that the figure is being used in, the font size and lin
 
 We can easily change the appearance of our plot by modifying the original `plot` function call and adding in some optional arguments.
 
-```
+```python
 ax.plot(time, signal_1, label="Signal 1", APPEARANCE OPTIONS GO HERE)
 ```
 
@@ -138,7 +138,7 @@ We can start with colour choice: the colour of the plot line can be changed with
 
 Additionally, we can use the arguments `linewidth=1`, `linestyle='-'`, and `marker="*"` to change the line thickness and marker icon respectively; see [the `plot` documentation to see the options available](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html).
 
-```
+```python
 # Scatter plot with different line colors, thickness, and markers
 ax.plot(time, signal_1, label="Signal 1", color='#1b9e77', linewidth=2, linestyle='-', marker='o')
 ax.plot(time, signal_2, label="Signal 2", color='#d95f02', linewidth=1, linestyle='--', marker='*')
@@ -149,7 +149,7 @@ ax.plot(time, signal_3, label="Signal 3", color='#7570b3', linewidth=3, linestyl
 
 Fontsize can also be changed easily, through the `fontsize` argument in the `set_title`, `set_xlabel`, and `set_ylabel` functions:
 
-```
+```python
 # Set title and labels with different font sizes
 ax.set_title('Line Plot', fontsize=20)
 ax.set_xlabel('Time [s]', fontsize=15)
@@ -168,7 +168,7 @@ In addition to tweaking each individual setting for this plot, we can also call 
 
 Import the `seaborn` package alongside your other import statements:
 
-```
+```python
 # Importing necessary libraries
 import matplotlib.pyplot as plt
 import numpy as np
@@ -179,7 +179,7 @@ import seaborn as sns
 
 Let's see what seaborn's default settings look like: either copy your original plot script (without the edits to line style or font size), or copy this example code into a new cell:
 
-```
+```python
 # create example random data
 time = np.arange(10)
 signal_1 = np.random.rand(10)
@@ -207,7 +207,7 @@ There are a few general ways `seaborn` can generally edit the appearance of our 
 
 Put this line in a cell below your import statements and run it, then run the cell with your plotting code:
 
-```
+```python
 sns.set_context("notebook")
 ```
 
@@ -227,11 +227,15 @@ How does changing the argument of `set_context` change the appearance of the plo
 
 In addition to controlling the general sizing of features in your plot, seaborn additionally has a selection of aesthetic "styles". These can be set through the `set_style` function. As with `set_context`, this will affect all subsequent plots, and should be included with the other import statements so it's easily findeable. Just add the following line of code and re-run your basic default plot:
 
-```
+```python
 sns.set_style("whitegrid")
 ```
 
 A selection of different styles are available, including `darkgrid`, `whitegrid`, `dark`, `white`, `ticks`. Try these different themes on both your basic plot and modified plot to see how they affect your figures.
+
+```{admonition} Challenge
+When might a grid be useful in your plot?
+```
 
 ### Seaborn palettes
 
@@ -249,6 +253,7 @@ Add this line in a cell, then run your plots. Vary `"colorblind"` with some of t
 `sns.set_palette("colorblind")`
 
 ```
+
 
 ## When do you need to modify the default settings?
 

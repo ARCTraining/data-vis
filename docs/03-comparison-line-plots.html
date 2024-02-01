@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>comparison-line-plots</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="03-comparison-line-plots_files/libs/clipboard/clipboard.min.js"></script>
+<script src="03-comparison-line-plots_files/libs/quarto-html/quarto.js"></script>
+<script src="03-comparison-line-plots_files/libs/quarto-html/popper.min.js"></script>
+<script src="03-comparison-line-plots_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="03-comparison-line-plots_files/libs/quarto-html/anchor.min.js"></script>
+<link href="03-comparison-line-plots_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="03-comparison-line-plots_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="03-comparison-line-plots_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="03-comparison-line-plots_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="03-comparison-line-plots_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+
+
+<section id="making-comparisons-line-plots" class="level1">
+<h1>Making comparisons: line plots</h1>
+<p>A basic line plot is a simple yet powerful tool to display changes over a continuous interval or time period. It’s a great choice for tracking trends and patterns, making it invaluable in a variety of research fields. While the default settings in many plotting libraries, including Matplotlib, provide a quick and easy way to generate a line plot, they may not always be the optimal choice.</p>
+<p>In this session, we are going to build a basic line plot with randomly generated data, and discuss how best to tweak features such as linestyle and colour to make the figure more readable and effective.</p>
+<p>```kbyvuryycusi Tip :class: tip</p>
+<p>It’s a good idea to type the example code out in your notebook as opposed to copying and pasting. This will help you get used to the syntax and will allow you to improve your skills more rapidly.</p>
+<pre><code>
+## Part 1: building a plot using the default settings
+
+We're going to start off by building a plot using the default settings provided by `matplotlib`, then discuss why these might not always be the best option.
+
+### Creating some random example data
+
+In the same way we did for the previous scatter plot, we are going to create some random example data to populate our line plot. First, we need to import `matplotlib.pyplot` and `numpy`, as we did in the previous example. Use the dropdown hint if you are stuck.
+
+```{admonition} Import the required libraries
+:class: dropdown
+Import `matplotlib` and `numpy` as you did in your first plot:
+
+`import matplotlib.pyplot as plt`
+
+`import numpy as np`</code></pre>
+<p>Instead of creating a list of x data with corresponding y values, we are going to create some time series data.</p>
+<p>First, we will create the variable <code>time</code>, which will vary from 0 - 10 seconds in 1 s intervals; then we will create 3 “signal” variables which will be lists of associated random numbers at each time (also 10 values):</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create example random data</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>time <span class="op">=</span> np.arange(<span class="dv">10</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>signal_1 <span class="op">=</span> np.random.rand(<span class="dv">10</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>signal_2 <span class="op">=</span> np.random.rand(<span class="dv">10</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>signal_3 <span class="op">=</span> np.random.rand(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Check what these different variables look like by running a cell containing either just the variable name, or <code>print(variable_name)</code>.</p>
+<section id="initialise-your-figure" class="level3">
+<h3 class="anchored" data-anchor-id="initialise-your-figure">Initialise your figure</h3>
+<p>This is the exact same as for the scatter plot in the last session:</p>
+<pre><code># Create a figure and axes objects
+
+fig, ax = plt.subplots()</code></pre>
+<p>This will be the starting point for almost all of your plots, unless you are doing ery unusual gridded layouts.</p>
+</section>
+<section id="plot-your-data" class="level3">
+<h3 class="anchored" data-anchor-id="plot-your-data">Plot your data</h3>
+<p>Now, instead of plotting the <code>(x, y)</code> random pairs using the <code>scatter</code> function as we did in the previous plot, we are instead going to plot the pairs <code>(time, signal_1)</code>, <code>(time, signal_2)</code> and <code>(time, signal_3)</code> using the <code>plot</code> function:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>ax.plot(time, signal_1)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>ax.plot(time, signal_2)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>ax.plot(time, signal_3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>When you run this code, you will notice that <code>matplotlib</code> automatically assigns a different colour to each line so that the different series can be differentiated if you add a legend. It should look something like this:</p>
+<table class="table">
+<colgroup>
+<col style="width: 100%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"><img src="figs/lineplot_no_label.png" class="img-fluid" alt="image"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">A simple lineplot without legend, axes labels or a title. <em>Alt text: A lineplot with three series shown in orange, green and blue lines. X values increase from 0–10, while y values for each series vary randomly between 0–1.</em></td>
+</tr>
+</tbody>
+</table>
+<p>This plot now needs axes labels and a legend. We’re going to pretend that this data represents some sort of signals recorded, who’s frequency (unit = Hertz) changed over time (unit = seconds). Add labels as you did previously:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set title and labels</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'Line Plot'</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'Time [s]'</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'Signal [Hz]'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>In order to add a legend, we need to first label the data by adding <code>label="data name"</code> into the <em>arguments</em> of the <code>plot</code> function:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Scatter plot</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>ax.plot(time, signal_1, label<span class="op">=</span><span class="st">"Signal 1"</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>ax.plot(time, signal_2, label<span class="op">=</span><span class="st">"Signal 2"</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>ax.plot(time, signal_3, label<span class="op">=</span><span class="st">"Signal 3"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Then, we can call the <code>legend</code> function which automatically collects any labelled objects in the axes and displays them:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a legend</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>ax.legend()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<table class="table">
+<colgroup>
+<col style="width: 100%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"><img src="figs/lineplot_w_label.png" class="img-fluid" alt="image"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">A simple lineplot with a legend, axes labels and a title. <em>Alt text: A lineplot with three series shown in orange, green and blue lines. X values increase from 0–10, while y values for each series vary randomly between 0–1. The x-axis is labelled “Time [s]” and the y-axis is labelled “Frequency [Hz]”.</em></td>
+</tr>
+</tbody>
+</table>
+<p>Note that <code>matplotlib</code> attempts to estimate the best placement for the legend <em>object</em> so that it is overlapping the least number of datapoints possible.</p>
+</section>
+<section id="part-2-changing-default-settings" class="level2">
+<h2 class="anchored" data-anchor-id="part-2-changing-default-settings">Part 2: Changing default settings</h2>
+<p>```kbyvuryycusi What are some issues with this plot? :class: dropdown</p>
+<p>The only feature distinguishing the different series is line colour. This could pose an issue if the colours are not easily distinguishable, especially if your audience has any colour-related vision difficulties, or if your figure is printed in greyscale.</p>
+<p>We can use additional features to distinguish the different series, including: - Line style - Line thickness - Marker style</p>
+<p>Depending on the context that the figure is being used in, the font size and line thickness on the plot might be too big or small; this should be changed depending on whether the figure is being used in a journal article, a talk or a poster.</p>
+<pre><code>
+### Changing appearance of the line
+
+We can easily change the appearance of our plot by modifying the original `plot` function call and adding in some optional arguments.
+
+```python
+ax.plot(time, signal_1, label="Signal 1", APPEARANCE OPTIONS GO HERE)</code></pre>
+<p>```kbyvuryycusi Before you edit your figure :class: tip</p>
+<p>Instead of editing your original figure, copy the code into a new cell and edit this new copy: this allows you to compare and contrast the changes you made with the default settings.</p>
+<pre><code>
+We can start with colour choice: the colour of the plot line can be changed with the argument `color="blue"`, or some other colour name. Note the American spelling! See the [list of named colours](https://matplotlib.org/stable/gallery/color/named_colors.html) that can be used in this way. You can also use colour hex codes, like `color='#1b9e77'` to pick more specific colours. Lets use the [ColorBrewer](https://colorbrewer2.org/#type=qualitative&amp;scheme=Dark2&amp;n=3) webapp to select a colour scheme for our plot.
+
+Additionally, we can use the arguments `linewidth=1`, `linestyle='-'`, and `marker="*"` to change the line thickness and marker icon respectively; see [the `plot` documentation to see the options available](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html).
+
+```python
+# Scatter plot with different line colors, thickness, and markers
+ax.plot(time, signal_1, label="Signal 1", color='#1b9e77', linewidth=2, linestyle='-', marker='o')
+ax.plot(time, signal_2, label="Signal 2", color='#d95f02', linewidth=1, linestyle='--', marker='*')
+ax.plot(time, signal_3, label="Signal 3", color='#7570b3', linewidth=3, linestyle=':', marker='s')</code></pre>
+<section id="changing-font-size" class="level3">
+<h3 class="anchored" data-anchor-id="changing-font-size">Changing font size</h3>
+<p>Fontsize can also be changed easily, through the <code>fontsize</code> argument in the <code>set_title</code>, <code>set_xlabel</code>, and <code>set_ylabel</code> functions:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set title and labels with different font sizes</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'Line Plot'</span>, fontsize<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'Time [s]'</span>, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'Signal [Hz]'</span>, fontsize<span class="op">=</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Your figure should now look something like this:</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: left;"><img src="figs/lineplot_edits.png" class="img-fluid" alt="image"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Caption <em>Alt text: here</em></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="changing-appearance-of-plots-through-external-libraries" class="level3">
+<h3 class="anchored" data-anchor-id="changing-appearance-of-plots-through-external-libraries">Changing appearance of plots through external libraries</h3>
+<p>In addition to tweaking each individual setting for this plot, we can also call in a different <em>library</em> that will change a range of settings in one go. One of the most popular plotting libraries, especially for creating statistical plots, is <code>seaborn</code>. We’re just going to show you how to use seaborn to change the appearance of you line plot in this session; we will use the module more extensively in later sessions to design plots.</p>
+<p>Import the <code>seaborn</code> package alongside your other import statements:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Importing necessary libraries</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="seaborn-context" class="level4">
+<h4 class="anchored" data-anchor-id="seaborn-context">Seaborn context</h4>
+<p>Let’s see what seaborn’s default settings look like: either copy your original plot script (without the edits to line style or font size), or copy this example code into a new cell:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create example random data</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>time <span class="op">=</span> np.arange(<span class="dv">10</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>signal_1 <span class="op">=</span> np.random.rand(<span class="dv">10</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>signal_2 <span class="op">=</span> np.random.rand(<span class="dv">10</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>signal_3 <span class="op">=</span> np.random.rand(<span class="dv">10</span>)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a figure and axes</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Scatter plot</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>ax.plot(time, signal_1, label<span class="op">=</span><span class="st">"Signal 1"</span>)</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>ax.plot(time, signal_2, label<span class="op">=</span><span class="st">"Signal 2"</span>)</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>ax.plot(time, signal_3, label<span class="op">=</span><span class="st">"Signal 3"</span>)</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a legend</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>ax.legend()</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Set title and labels</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'Line Plot'</span>)</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'Time [s]'</span>)</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'Signal [Hz]'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>There are a few general ways <code>seaborn</code> can generally edit the appearance of our plots, without defining individual changes. The first is by setting the <em>context</em> of the plot: where the plot is going to be displayed. The <code>set_context</code> function can be passed the arguments <code>paper</code>, <code>notebook</code>, <code>talk</code>, <code>poster</code>.</p>
+<p>Put this line in a cell below your import statements and run it, then run the cell with your plotting code:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>sns.set_context(<span class="st">"notebook"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>```kbyvuryycusi Note :class: tip</p>
+<p>Setting the seaborn context will effect every plot you run after the cell with <code>set_context</code> in it is run. In order to undo this, delete or comment out the line with the <code>set_context</code> function, and add a line with <code>plt.rcdefaults()</code>. Run this - any plot run after this will now have the default matplotlib settings again.</p>
+<pre><code>
+The `notebook` argument is the default, and so the appearance should not change. Try the different contexts and see how they change the appearance of your plot.
+
+```{admonition} Challenge
+How does changing the argument of `set_context` change the appearance of the plots where you have already manually adjusted settings?</code></pre>
+</section>
+</section>
+<section id="seaborn-styles" class="level3">
+<h3 class="anchored" data-anchor-id="seaborn-styles">Seaborn styles</h3>
+<p>In addition to controlling the general sizing of features in your plot, seaborn additionally has a selection of aesthetic “styles”. These can be set through the <code>set_style</code> function. As with <code>set_context</code>, this will affect all subsequent plots, and should be included with the other import statements so it’s easily findeable. Just add the following line of code and re-run your basic default plot:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>sns.set_style(<span class="st">"whitegrid"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>A selection of different styles are available, including <code>darkgrid</code>, <code>whitegrid</code>, <code>dark</code>, <code>white</code>, <code>ticks</code>. Try these different themes on both your basic plot and modified plot to see how they affect your figures.</p>
+<p><code>kbyvuryycusi Challenge When might a grid be useful in your plot?</code></p>
+</section>
+<section id="seaborn-palettes" class="level3">
+<h3 class="anchored" data-anchor-id="seaborn-palettes">Seaborn palettes</h3>
+<p>Instead of changing individual coloured lines or datapoints on your plot, you can change the colour palette being used through the seaborn <code>set_palette</code> function (<a href="https://seaborn.pydata.org/generated/seaborn.set_palette.html#seaborn.set_palette">see the docs here</a>).</p>
+<p><code>kbyvuryycusi Challenge Try different [seaborn palettes](https://seaborn.pydata.org/generated/seaborn.color_palette.html#seaborn.color_palette) in the `set_palette` function</code></p>
+<p>``<code>kbyvuryycusi Need a hint? :class: dropdown Add this line in a cell, then run your plots. Vary</code>“colorblind”` with some of the other palettes listed in the example section <a href="https://seaborn.pydata.org/generated/seaborn.color_palette.html#seaborn.color_palette">here</a>:</p>
+<p><code>sns.set_palette("colorblind")</code></p>
+<pre><code>
+
+## When do you need to modify the default settings?
+
+If the plot you have built is just for you to quickly assess your data, and you can do that sufficiently with the default settings available, then that's fine, you do you. However, if the default settings impact on the readability of your plot, and your intended audience is wider than just you and your immediate collaborators (this includes you in the future too!), then you should consider putting a little bit of time in to ensure your results are communicated clearly.
+
+```{admonition} Key points
+:class: tip
+
+- While default settings have generally been chosen for sensible reasons, they are not always the best choice to communicate your results
+- Font aesthetics can be modified manually, or they can be changed en-masse using a library such as `seaborn`
+- Before you consider the aesthetics of your plot, ensure that it is legible, accessible and communicates your results in a clear, unbiased way. *Then* you can consider making it fit with your preferred colour scheme and general aesthetic.</code></pre>
+</section>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
