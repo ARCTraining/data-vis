@@ -319,6 +319,45 @@ This code additionally shrinks the width of the bars so that space is present be
 
 Another option where you want to compare data is to create a single plot with multiple panels or axes.
 
+Complete the following code snippet to make a multi-panel plot:
+
+
+```python
+# default seaborn theme
+sns.set_theme()
+
+# change the style of the plot
+sns.set_style("white")
+
+# set the "context" of the plot
+sns.set_context("paper")
+
+# Create a figure and axes
+fig, axs = plt.subplots(3)
+
+# Create a histogram with a kde line for each distribution in a separate panel
+sns.histplot(data, x="Dist 1", kde=True, ax=axs[0]) # Remember, indexing in Python starts at zero
+# ADD CODE HERE
+
+# get rid of top and right spines
+sns.despine()
+```
+
+```{admonition} Answer
+:class: dropdown
+Beneath the line:
+
+`sns.histplot(data, x="Dist 1", kde=True, ax=axs[0])`.
+
+add these two lines:
+
+`sns.histplot(data, x="Dist 2", kde=True, ax=axs[1])`
+
+`sns.histplot(data, x="Dist 3", kde=True, ax=axs[2])`
+```
+
+You might notice that the x-axis labels are overlapped and it looks a little messy. We can add the command `plt.tight_layout()` which adjusts the padding between plots automatically. Note that you can do this manually if you need more fine-grained control, but usually this function does a good enough job!
+
 # Additional challenges
 
 ```{admonition} Make a plot with a single panel/axes that only shows "Dist 1" and "Dist 2"
