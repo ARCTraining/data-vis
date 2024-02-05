@@ -172,6 +172,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="02-first-plot.html">Building your first plot</a></li>
 <li class="toctree-l2"><a class="reference internal" href="03-comparison-line-plots.html">Making comparisons: line plots</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Assessing distributions: histograms</a></li>
+
 <li class="toctree-l2"><a class="reference internal" href="05-composition-bar-charts.html">Understanding composition: bar charts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="06-heatmaps.html">Spatial distributions: heatmaps</a></li>
 </ul>
@@ -366,7 +367,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -382,6 +385,29 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Assessing distributions: histograms</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-pandas-in-colab">Using pandas in colab</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-with-seaborn-and-pandas">Plotting with seaborn and pandas</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-multiple-distributions">Plotting multiple distributions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-can-we-do-when-our-plot-becomes-too-busy">What can we do when our plot becomes too busy?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reduce-the-groups-of-data-being-shown-concurrently">Reduce the groups of data being shown concurrently</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#zoom-out-and-show-more-coarse-grained-data">“Zoom out” and show more coarse-grained data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-panelled-plots">Multi-panelled plots</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-challenges">Additional challenges</a></li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -393,6 +419,360 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="assessing-distributions-histograms">
 <h1>Assessing distributions: histograms<a class="headerlink" href="#assessing-distributions-histograms" title="Permalink to this heading">#</a></h1>
+<p>In the last session, we used the seaborn library to apply some aesthetic changes to our plots, including sizing, colour palette, and adding a background grid. In this session, we are going to take this further and work with seaborn directly to build the plot.</p>
+<p>While we build our plots, we will also be thinking about the idea of “chartjunk” and how plots can be made too busy and difficult to understand by either adding unnecessary aesthetic flourishes like patterns and colours, or by trying to cram too much data into a single plot. Different people have different tolerance limits for “chartjunk”—keep an eye out to see where your limit lies as we progressively add more and more junk to our plots.</p>
+<div class="dropdown admonition">
+<p class="admonition-title">Using seaborn</p>
+<p>Seaborn is a library for data visualisation built on top of matplotlib.</p>
+<p>From the <a class="reference external" href="https://seaborn.pydata.org/">seaborn homepage</a>:</p>
+<blockquote>
+<div><p>It provides a high-level interface for drawing attractive and informative statistical graphics.</p>
+</div></blockquote>
+<p>Seaborn provides you with a selection of templates for frequently used statistical plots. This allows you to quickly produce common plot types in very few lines of code, without building them from scratch in matplotlib.</p>
+<p>However, you can also tweak things using matplotlib functions, but sometimes there may be conflicts in the background which could lead to unexpected behaviour.</p>
+<p>In general:</p>
+<ul class="simple">
+<li><p>If you need a plot that matches the structure of one in the <a class="reference external" href="https://seaborn.pydata.org/examples/index.html">seaborn gallery</a>, this library will allow you to rapidly build this.</p></li>
+<li><p>If you want complete aesthetic control over your plots, including irregularly gridded panels, overlaid plots etc., then either seaborn + matplotlib, or pure matplotlib will let you achieve this.</p></li>
+</ul>
+</div>
+<p>For this session, we will be using a histogram to display a distribution. Again, we are going to be generating random data.</p>
+<p>In the previous session, we generated data stored using numpy and stored them in <code class="docutils literal notranslate"><span class="pre">np.array</span></code> objects, assigned to variables, like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># create example random data</span>
+<span class="n">time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">signal_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">signal_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">signal_3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In this session, we are going to do similar, except instead of storing each array of random numbers as a different variable, we are going to put them all together in a <em>dataframe</em> using the library <em>pandas</em>. Additionally, instead of using the <code class="docutils literal notranslate"><span class="pre">np.random.rand()</span></code> function, we are going to use the <code class="docutils literal notranslate"><span class="pre">np.random.randn()</span></code> function - spot the difference! Read the docs <a class="reference external" href="https://numpy.org/doc/stable/reference/random/generated/numpy.random.randn.html">here</a>.</p>
+<div class="tip admonition">
+<p class="admonition-title">Pandas dataframe</p>
+<p>According to the pandas documentation, a dataframe is a:</p>
+<blockquote>
+<div><p>Two-dimensional, size-mutable, potentially heterogeneous tabular data.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>A dataframe is a table that can contain different <em>types</em> of data</p></li>
+<li><p>It is very similar to a spreadsheet with different columns and rows</p></li>
+<li><p>Individual cells of this “spreadsheet” can contain lists, arrays, strings etc.</p></li>
+<li><p>Arithmetic operations can be applied to rows or columns</p></li>
+</ul>
+</div>
+<section id="using-pandas-in-colab">
+<h2>Using pandas in colab<a class="headerlink" href="#using-pandas-in-colab" title="Permalink to this heading">#</a></h2>
+<p>Lets start by importing all the libraries that we are going to use:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Importing necessary libraries</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+</div>
+<p>Pandas library generally takes the alias <code class="docutils literal notranslate"><span class="pre">pd</span></code>.</p>
+<p>If we want to compare two different random distributions, we could assign them to variables as we did in the previous session:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># create example random data</span>
+<span class="n">distribution_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">distribution_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This code will create two arrays of pseudo-random normally distributed numbers, assigned to the variables <code class="docutils literal notranslate"><span class="pre">distribution_1</span></code> and <code class="docutils literal notranslate"><span class="pre">distribution_2</span></code>. However, we can instead stick these in a <code class="docutils literal notranslate"><span class="pre">dataframe</span></code> using pandas. Replacing the above lines of code, we get:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># create example random data</span>
+<span class="n">distribution_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">distribution_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+
+<span class="c1"># Create a sample dataframe</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Dist 1&#39;</span><span class="p">:</span> <span class="n">distribution_1</span><span class="p">,</span>  <span class="c1"># pre-defined variable</span>
+                     <span class="s1">&#39;Dist 2&#39;</span><span class="p">:</span> <span class="n">distribution_2</span><span class="p">,</span>  <span class="c1"># pre-defined variable</span>
+                     <span class="s1">&#39;Dist 3&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">100</span><span class="p">)})</span>  <span class="c1"># defined on-the-fly</span>
+</pre></div>
+</div>
+<p>As you can see from this snippet, you can either pre-define variables (<code class="docutils literal notranslate"><span class="pre">distribution_1</span></code> and <code class="docutils literal notranslate"><span class="pre">distribution_2</span></code>) and then insert them into the code, or define them in-place inside the dataframe.</p>
+<div class="dropdown admonition">
+<p class="admonition-title">What’s going on with the curly brackets inside the dataframe?</p>
+<p>A dataframe takes data in the form of a <code class="docutils literal notranslate"><span class="pre">dictionary</span></code>, which is surrounded by curly brackets <code class="docutils literal notranslate"><span class="pre">{}</span></code>, and contains string <code class="docutils literal notranslate"><span class="pre">keys</span></code> or labels for the data, followed by a colon and then the data.</p>
+<p>A dictionary generally looks like this:</p>
+<p><code class="docutils literal notranslate"><span class="pre">example_dict</span> <span class="pre">=</span> <span class="pre">{&quot;Key</span> <span class="pre">1&quot;</span> <span class="pre">:</span> <span class="pre">[0,</span> <span class="pre">1,</span> <span class="pre">2,</span> <span class="pre">3,</span> <span class="pre">5],</span> <span class="pre">&quot;Key</span> <span class="pre">2&quot;</span> <span class="pre">:</span> <span class="pre">np.array([10,</span> <span class="pre">20,</span> <span class="pre">30,</span> <span class="pre">40])}</span></code></p>
+<p>As you can see from the above example, <code class="docutils literal notranslate"><span class="pre">dicts</span></code> can take different <em>types</em> of data, including lists and numpy arrays.</p>
+<p>In the case of using this with pandas, the <code class="docutils literal notranslate"><span class="pre">dict</span></code> object essentially defines the column headers (the <code class="docutils literal notranslate"><span class="pre">keys</span></code>), and the column values (the list or array of numbers).</p>
+</div>
+<p>We now have a table called <code class="docutils literal notranslate"><span class="pre">data</span></code> that contains <code class="docutils literal notranslate"><span class="pre">'Dist</span> <span class="pre">1'</span></code>, <code class="docutils literal notranslate"><span class="pre">'Dist</span> <span class="pre">2'</span></code> and <code class="docutils literal notranslate"><span class="pre">'Dist</span> <span class="pre">3'</span></code>. As you practise using pandas (and Python in general), you will get much more familiar with these data types, and much more comfortable with using them. However, when you first start, it can feel like a big leap moving from using a visible spreadsheet such as an Excel workbook, where you can see your data arranged in a table, to using something like pandas where it is “hidden”. However, when working with manageably-sized data frames, we can visualise them using a number of tools that are available working with Google Colab (and other Jupyter-notebook tools).</p>
+<p>One of the simplest ways is just by using the variable viewer in the left panel in colab:</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p><img alt="image" src="_images/dat_exp.png" /></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Caption <em>Alt text: here</em></p></td>
+</tr>
+</tbody>
+</table>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p><img alt="image" src="_images/data_exp2.png" /></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Caption <em>Alt text: here</em></p></td>
+</tr>
+</tbody>
+</table>
+<p>This allows a quick preview of the dataframe and is useful for basic checks (e.g. that the values look sensible).</p>
+<p>For more extensibility, you can use Colab’s <a class="reference external" href="https://colab.research.google.com/notebooks/data_table.ipynb">data table display tool</a> to render data tables.
+In order to use this for our newly created dataframe, add these lines to your import statements and re-run that cell:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># data table view</span>
+<span class="kn">from</span> <span class="nn">google.colab</span> <span class="kn">import</span> <span class="n">data_table</span>
+<span class="n">data_table</span><span class="o">.</span><span class="n">enable_dataframe_formatter</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Then, in a cell below where you define the dataframe <code class="docutils literal notranslate"><span class="pre">data</span></code>, call the dataframe by simply running:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span>
+</pre></div>
+</div>
+<p>You can also turn off this functionality (if it starts to get in your way!) by running:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data_table</span><span class="o">.</span><span class="n">disable_dataframe_formatter</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="plotting-with-seaborn-and-pandas">
+<h2>Plotting with seaborn and pandas<a class="headerlink" href="#plotting-with-seaborn-and-pandas" title="Permalink to this heading">#</a></h2>
+<p>Now that we’ve created our example data, we can start plotting it. Seaborn is built to work well with pandas dataframes; they integrate very tidily. We’re going to start by just focusing on <code class="docutils literal notranslate"><span class="pre">&quot;Dist</span> <span class="pre">1&quot;</span></code>, the first random array stored in our dataframe <code class="docutils literal notranslate"><span class="pre">data</span></code>.
+We can create a bare-bones plot by setting up the <code class="docutils literal notranslate"><span class="pre">fig</span></code> and <code class="docutils literal notranslate"><span class="pre">ax</span></code> as we have done previously, then calling the seaborn <code class="docutils literal notranslate"><span class="pre">histplot</span></code> function. Unlike when we were using matplotlib, we don’t prefix <code class="docutils literal notranslate"><span class="pre">histplot</span></code> with <code class="docutils literal notranslate"><span class="pre">ax</span></code> (like <code class="docutils literal notranslate"><span class="pre">ax.plot</span></code>); instead, we pass <code class="docutils literal notranslate"><span class="pre">histplot</span></code> the argument <code class="docutils literal notranslate"><span class="pre">ax=</span></code>. We’ve called our axes “ax”, so we get the slightly silly looking argument <code class="docutils literal notranslate"><span class="pre">ax=ax</span></code>. We will see later in the course how this becomes more relevant when you have a multi-part figure!</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a figure and axes</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="c1"># plot the histogram</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;Dist 1&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We can apply all the aesthetic options provided by seaborn to make this more visually appealing:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># default seaborn theme</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_theme</span><span class="p">()</span>
+
+<span class="c1"># change the style of the plot</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+
+<span class="c1"># set the &quot;context&quot; of the plot</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
+
+<span class="c1"># Create a figure and axes</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="c1"># Create a overlaid histogram with a kde line</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;Dist 1&quot;</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+
+<span class="c1"># get rid of top and right spines</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">()</span>
+
+<span class="c1"># Show plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>In the above example, we have added an argument to the histplot function: <code class="docutils literal notranslate"><span class="pre">kde=True</span></code>. Have a look at the <a class="reference external" href="https://seaborn.pydata.org/generated/seaborn.histplot.html"><code class="docutils literal notranslate"><span class="pre">histplot</span></code> documentation</a> to see what this does:</p>
+<blockquote>
+<div><p>Compute a kernel density estimate to smooth the distribution and show on the plot as (one or more) line(s).</p>
+</div></blockquote>
+<p>Seaborn makes applying and visualising statistical methods such as <a class="reference external" href="https://en.wikipedia.org/wiki/Kernel_density_estimation">KDE</a> rapid and straightforward. Of course, a potential drawback is that because statistical methods can be applied so easily with default choices hidden behind the scenes, it can be easy to choose options without understanding the underlying mathematics or whether it is a sensible choice for your data. Make sure to read through the <code class="docutils literal notranslate"><span class="pre">api</span></code> or docs before you choose a plot that you want to build, to make sure it is a sensible choice for your research. Discuss this with your colleagues/cohort/collaborators/supervisors if you’re not sure.</p>
+<section id="plotting-multiple-distributions">
+<h3>Plotting multiple distributions<a class="headerlink" href="#plotting-multiple-distributions" title="Permalink to this heading">#</a></h3>
+<p>But our dataframe <code class="docutils literal notranslate"><span class="pre">data</span></code> contains multiple distributions. What if we want to plot all three? The <code class="docutils literal notranslate"><span class="pre">histplot</span></code> function has a default argument ready to go in case you add multiple data series to plot: <code class="docutils literal notranslate"><span class="pre">multiple</span> <span class="pre">=</span> <span class="pre">layer</span></code>. We can plot the entire dataframe by simply removing the argument <code class="docutils literal notranslate"><span class="pre">x='Dist</span> <span class="pre">1'</span></code> from the <code class="docutils literal notranslate"><span class="pre">histplot</span></code> function call:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># default seaborn theme</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_theme</span><span class="p">()</span>
+
+<span class="c1"># change the style of the plot</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+
+<span class="c1"># set the &quot;context&quot; of the plot</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
+
+<span class="c1"># Create a figure and axes</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="c1"># Create a overlaid histogram with a line</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+
+<span class="c1"># get rid of top and right spines</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">()</span>
+
+<span class="c1"># Show plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>You should have a figure that looks something like this:</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p><img alt="image" src="_images/hist_first.png" /></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Caption <em>Alt text: here</em></p></td>
+</tr>
+</tbody>
+</table>
+<p>We can all agree that this is probably not the best way of viewing this data.</p>
+<p>We are going to have a look at two different arguments that <code class="docutils literal notranslate"><span class="pre">histplot</span></code> can take that will help us control the appearance of our plot: <code class="docutils literal notranslate"><span class="pre">multiple</span></code> and <code class="docutils literal notranslate"><span class="pre">element</span></code>.</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-right"><p>Argument</p></th>
+<th class="head text-left"><p><code class="docutils literal notranslate"><span class="pre">multiple</span></code></p></th>
+<th class="head text-left"><p><code class="docutils literal notranslate"><span class="pre">element</span></code></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-right"><p>Default value</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">layer</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">bars</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>Options</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">“layer”,</span> <span class="pre">“dodge”,</span> <span class="pre">“stack”,</span> <span class="pre">“fill”</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">“bars”,</span> <span class="pre">“step”,</span> <span class="pre">“poly”</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>In order to understand what these arguments do, try to recreate the following plots (the answer is in the drop-down menu, but try to figure it out yourself through trial and error!). Remember your data will be different so they won’t look identical.</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p><img alt="image" src="_images/hist_challenge1.png" /></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Challenge plot #1. What are some potential issues with this plot? <em>Alt text: here</em></p></td>
+</tr>
+</tbody>
+</table>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p><img alt="image" src="_images/hist_challenge2.png" /></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Challenge plot #2. Is this plot easy to interpret? <em>Alt text: here</em></p></td>
+</tr>
+</tbody>
+</table>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p><img alt="image" src="_images/hist_challenge3.png" /></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Challenge plot #2. A truly awful plot, to show you that just because you can choose and option in seaborn, doesn’t mean it’s sensible. This one has an extra challenge… hint: you’ll need to change the <code class="docutils literal notranslate"><span class="pre">fill</span></code> argument. <em>Alt text: here</em></p></td>
+</tr>
+</tbody>
+</table>
+<div class="dropdown admonition">
+<p class="admonition-title">Challenge solutions</p>
+<p>Challenge plot one:
+<code class="docutils literal notranslate"><span class="pre">sns.histplot(data,</span> <span class="pre">kde=True,</span> <span class="pre">multiple=&quot;stack&quot;,</span> <span class="pre">element=&quot;step&quot;,</span> <span class="pre">ax=ax)</span></code></p>
+<p>Challenge plot two:
+<code class="docutils literal notranslate"><span class="pre">sns.histplot(data,</span> <span class="pre">kde=True,</span> <span class="pre">multiple=&quot;dodge&quot;,</span> <span class="pre">element=&quot;bars&quot;,</span> <span class="pre">ax=ax)</span></code></p>
+<p>Challenge plot three:
+<code class="docutils literal notranslate"><span class="pre">sns.histplot(data,</span> <span class="pre">kde=True,</span> <span class="pre">multiple=&quot;layer&quot;,</span> <span class="pre">element=&quot;step&quot;,</span> <span class="pre">fill=False,</span> <span class="pre">ax=ax)</span></code></p>
+</div>
+</section>
+</section>
+<section id="what-can-we-do-when-our-plot-becomes-too-busy">
+<h2>What can we do when our plot becomes too busy?<a class="headerlink" href="#what-can-we-do-when-our-plot-becomes-too-busy" title="Permalink to this heading">#</a></h2>
+<p>Lets look at the example plot below, where we have added a grid to the background:</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p><img alt="image" src="_images/hist_second.png" /></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Is this plot easy to interpret? <em>Alt text: here</em></p></td>
+</tr>
+</tbody>
+</table>
+<p>You can recreate a similar plot with your example data using this code snippet:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># default seaborn theme</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_theme</span><span class="p">()</span>
+
+<span class="c1"># change the style of the plot</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">)</span>
+
+<span class="c1"># set the &quot;context&quot; of the plot</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
+
+<span class="c1"># Create a overlaid histogram with kde curves</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,)</span>
+
+<span class="c1"># get rid of top and right spines</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">()</span>
+
+<span class="c1"># Show plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>It is difficult to interpret this plot beyond just stating that all datasets have a roughly normal distribution around zero. The KDE lines are a bit easier to compare than the overlaid semi-transparent bar-style histograms, but there is still an awful lot of clutter.</p>
+<section id="reduce-the-groups-of-data-being-shown-concurrently">
+<h3>Reduce the groups of data being shown concurrently<a class="headerlink" href="#reduce-the-groups-of-data-being-shown-concurrently" title="Permalink to this heading">#</a></h3>
+<p>One option is to simply cut back on the data you are showing. This could mean only including <code class="docutils literal notranslate"><span class="pre">&quot;Dist</span> <span class="pre">1&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;Dist</span> <span class="pre">2&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;Dist</span> <span class="pre">3&quot;</span></code>, or making a separate plot for each.</p>
+<p>Or, you could cut out the KDE plot and show the histograms overlaid but with the fill removed, either like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s2">&quot;step&quot;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>or this</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s2">&quot;poly&quot;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We could also instead only show the KDE plot and cut out the histogram beneath iy by swapping the <code class="docutils literal notranslate"><span class="pre">histplot</span></code> function for the <code class="docutils literal notranslate"><span class="pre">kdeplot</span></code> function:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>But each of these plots have their own issues; for example read <a class="reference external" href="https://seaborn.pydata.org/tutorial/distributions.html#kernel-density-estimation-pitfalls">here</a> on the limitations of KDE plots.</p>
+</section>
+<section id="zoom-out-and-show-more-coarse-grained-data">
+<h3>“Zoom out” and show more coarse-grained data<a class="headerlink" href="#zoom-out-and-show-more-coarse-grained-data" title="Permalink to this heading">#</a></h3>
+<p>Another approach is to reduce the resolution of the plot. Up until now, we have let the <code class="docutils literal notranslate"><span class="pre">histplot</span></code> function automatically set the bin width for the histogram. This can be <a class="reference external" href="https://seaborn.pydata.org/tutorial/distributions.html#choosing-the-bin-size">manually controlled</a>, either by using the argument <code class="docutils literal notranslate"><span class="pre">bins</span></code> and defining the number of bins to use over the range of data, or by defining <code class="docutils literal notranslate"><span class="pre">binwidth</span></code> directly:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">binwidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">multiple</span><span class="o">=</span><span class="s2">&quot;dodge&quot;</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This code additionally shrinks the width of the bars so that space is present between different clusters of bars that represent the same region of data.</p>
+</section>
+<section id="multi-panelled-plots">
+<h3>Multi-panelled plots<a class="headerlink" href="#multi-panelled-plots" title="Permalink to this heading">#</a></h3>
+<p>Another option where you want to compare data is to create a single plot with multiple panels or axes.</p>
+<p>Complete the following code snippet to make a multi-panel plot:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># default seaborn theme</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_theme</span><span class="p">()</span>
+
+<span class="c1"># change the style of the plot</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+
+<span class="c1"># set the &quot;context&quot; of the plot</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">)</span>
+
+<span class="c1"># Create a figure and axes</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="c1"># Create a histogram with a kde line for each distribution in a separate panel</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;Dist 1&quot;</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="c1"># Remember, indexing in Python starts at zero</span>
+<span class="c1"># ADD CODE HERE</span>
+
+<span class="c1"># get rid of top and right spines</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="dropdown admonition">
+<p class="admonition-title">Answer</p>
+<p>Beneath the line:</p>
+<p><code class="docutils literal notranslate"><span class="pre">sns.histplot(data,</span> <span class="pre">x=&quot;Dist</span> <span class="pre">1&quot;,</span> <span class="pre">kde=True,</span> <span class="pre">ax=axs[0])</span></code>.</p>
+<p>add these two lines:</p>
+<p><code class="docutils literal notranslate"><span class="pre">sns.histplot(data,</span> <span class="pre">x=&quot;Dist</span> <span class="pre">2&quot;,</span> <span class="pre">kde=True,</span> <span class="pre">ax=axs[1])</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">sns.histplot(data,</span> <span class="pre">x=&quot;Dist</span> <span class="pre">3&quot;,</span> <span class="pre">kde=True,</span> <span class="pre">ax=axs[2])</span></code></p>
+</div>
+<p>You might notice that the x-axis labels are overlapped and it looks a little messy. We can add the command <code class="docutils literal notranslate"><span class="pre">plt.tight_layout()</span></code> which adjusts the padding between plots automatically. Note that you can do this manually if you need more fine-grained control, but usually this function does a good enough job!</p>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="additional-challenges">
+<h1>Additional challenges<a class="headerlink" href="#additional-challenges" title="Permalink to this heading">#</a></h1>
+<div class="dropdown admonition">
+<p class="admonition-title">Make a plot with a single panel/axes that only shows “Dist 1” and “Dist 2”</p>
+<p>Answers here!</p>
+</div>
 </section>
 
     <script type="text/x-thebe-config">
@@ -450,7 +830,35 @@ document.write(`
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"></div>
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Assessing distributions: histograms</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-pandas-in-colab">Using pandas in colab</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-with-seaborn-and-pandas">Plotting with seaborn and pandas</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-multiple-distributions">Plotting multiple distributions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-can-we-do-when-our-plot-becomes-too-busy">What can we do when our plot becomes too busy?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reduce-the-groups-of-data-being-shown-concurrently">Reduce the groups of data being shown concurrently</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#zoom-out-and-show-more-coarse-grained-data">“Zoom out” and show more coarse-grained data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-panelled-plots">Multi-panelled plots</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-challenges">Additional challenges</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
               
             
           </div>

@@ -172,6 +172,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="02-first-plot.html">Building your first plot</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Making comparisons: line plots</a></li>
 <li class="toctree-l2"><a class="reference internal" href="04-distribution-histogram.html">Assessing distributions: histograms</a></li>
+
 <li class="toctree-l2"><a class="reference internal" href="05-composition-bar-charts.html">Understanding composition: bar charts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="06-heatmaps.html">Spatial distributions: heatmaps</a></li>
 </ul>
@@ -440,7 +441,7 @@ document.write(`
 </div>
 <p>Instead of creating a list of x data with corresponding y values, we are going to create some time series data.</p>
 <p>First, we will create the variable <code class="docutils literal notranslate"><span class="pre">time</span></code>, which will vary from 0 - 10 seconds in 1 s intervals; then we will create 3 “signal” variables which will be lists of associated random numbers at each time (also 10 values):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># create example random data</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># create example random data</span>
 <span class="n">time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 <span class="n">signal_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 <span class="n">signal_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
@@ -463,7 +464,7 @@ document.write(`
 <h3>Plot your data<a class="headerlink" href="#plot-your-data" title="Permalink to this heading">#</a></h3>
 <p>Now, instead of plotting the <code class="docutils literal notranslate"><span class="pre">(x,</span> <span class="pre">y)</span></code> random pairs using the <code class="docutils literal notranslate"><span class="pre">scatter</span></code> function as
 we did in the previous plot, we are instead going to plot the pairs <code class="docutils literal notranslate"><span class="pre">(time,</span> <span class="pre">signal_1)</span></code>, <code class="docutils literal notranslate"><span class="pre">(time,</span> <span class="pre">signal_2)</span></code> and <code class="docutils literal notranslate"><span class="pre">(time,</span> <span class="pre">signal_3)</span></code> using the <code class="docutils literal notranslate"><span class="pre">plot</span></code> function:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">signal_1</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">signal_1</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">signal_2</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">signal_3</span><span class="p">)</span>
 </pre></div>
@@ -481,21 +482,21 @@ we did in the previous plot, we are instead going to plot the pairs <code class=
 </table>
 <p>This plot now needs axes labels and a legend. We’re going to pretend that this data represents some sort of signals recorded, who’s frequency (unit = Hertz) changed over time (unit = seconds).
 Add labels as you did previously:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set title and labels</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set title and labels</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Line Plot&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Signal [Hz]&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>In order to add a legend, we need to first label the data by adding <code class="docutils literal notranslate"><span class="pre">label=&quot;data</span> <span class="pre">name&quot;</span></code> into the <em>arguments</em> of the <code class="docutils literal notranslate"><span class="pre">plot</span></code> function:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Scatter plot</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Scatter plot</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">signal_1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Signal 1&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">signal_2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Signal 2&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">signal_3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Signal 3&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Then, we can call the <code class="docutils literal notranslate"><span class="pre">legend</span></code> function which automatically collects any labelled objects in the axes and displays them:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add a legend</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add a legend</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -528,7 +529,7 @@ Add labels as you did previously:</p>
 <section id="changing-appearance-of-the-line">
 <h3>Changing appearance of the line<a class="headerlink" href="#changing-appearance-of-the-line" title="Permalink to this heading">#</a></h3>
 <p>We can easily change the appearance of our plot by modifying the original <code class="docutils literal notranslate"><span class="pre">plot</span></code> function call and adding in some optional arguments.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">signal_1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Signal 1&quot;</span><span class="p">,</span> <span class="n">APPEARANCE</span> <span class="n">OPTIONS</span> <span class="n">GO</span> <span class="n">HERE</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">signal_1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Signal 1&quot;</span><span class="p">,</span> <span class="n">APPEARANCE</span> <span class="n">OPTIONS</span> <span class="n">GO</span> <span class="n">HERE</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="tip admonition">
@@ -537,7 +538,7 @@ Add labels as you did previously:</p>
 </div>
 <p>We can start with colour choice: the colour of the plot line can be changed with the argument <code class="docutils literal notranslate"><span class="pre">color=&quot;blue&quot;</span></code>, or some other colour name. Note the American spelling! See the <a class="reference external" href="https://matplotlib.org/stable/gallery/color/named_colors.html">list of named colours</a> that can be used in this way. You can also use colour hex codes, like <code class="docutils literal notranslate"><span class="pre">color='#1b9e77'</span></code> to pick more specific colours. Lets use the <a class="reference external" href="https://colorbrewer2.org/#type=qualitative&amp;scheme=Dark2&amp;n=3">ColorBrewer</a> webapp to select a colour scheme for our plot.</p>
 <p>Additionally, we can use the arguments <code class="docutils literal notranslate"><span class="pre">linewidth=1</span></code>, <code class="docutils literal notranslate"><span class="pre">linestyle='-'</span></code>, and <code class="docutils literal notranslate"><span class="pre">marker=&quot;*&quot;</span></code> to change the line thickness and marker icon respectively; see <a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html">the <code class="docutils literal notranslate"><span class="pre">plot</span></code> documentation to see the options available</a>.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Scatter plot with different line colors, thickness, and markers</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Scatter plot with different line colors, thickness, and markers</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">signal_1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Signal 1&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#1b9e77&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">signal_2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Signal 2&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#d95f02&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">signal_3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Signal 3&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#7570b3&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">)</span>
@@ -547,7 +548,7 @@ Add labels as you did previously:</p>
 <section id="changing-font-size">
 <h3>Changing font size<a class="headerlink" href="#changing-font-size" title="Permalink to this heading">#</a></h3>
 <p>Fontsize can also be changed easily, through the <code class="docutils literal notranslate"><span class="pre">fontsize</span></code> argument in the <code class="docutils literal notranslate"><span class="pre">set_title</span></code>, <code class="docutils literal notranslate"><span class="pre">set_xlabel</span></code>, and <code class="docutils literal notranslate"><span class="pre">set_ylabel</span></code> functions:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set title and labels with different font sizes</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set title and labels with different font sizes</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Line Plot&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Signal [Hz]&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
@@ -569,7 +570,7 @@ Add labels as you did previously:</p>
 <h3>Changing appearance of plots through external libraries<a class="headerlink" href="#changing-appearance-of-plots-through-external-libraries" title="Permalink to this heading">#</a></h3>
 <p>In addition to tweaking each individual setting for this plot, we can also call in a different <em>library</em> that will change a range of settings in one go. One of the most popular plotting libraries, especially for creating statistical plots, is <code class="docutils literal notranslate"><span class="pre">seaborn</span></code>. We’re just going to show you how to use seaborn to change the appearance of you line plot in this session; we will use the module more extensively in later sessions to design plots.</p>
 <p>Import the <code class="docutils literal notranslate"><span class="pre">seaborn</span></code> package alongside your other import statements:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Importing necessary libraries</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Importing necessary libraries</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
@@ -578,7 +579,7 @@ Add labels as you did previously:</p>
 <section id="seaborn-context">
 <h4>Seaborn context<a class="headerlink" href="#seaborn-context" title="Permalink to this heading">#</a></h4>
 <p>Let’s see what seaborn’s default settings look like: either copy your original plot script (without the edits to line style or font size), or copy this example code into a new cell:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># create example random data</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># create example random data</span>
 <span class="n">time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 <span class="n">signal_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 <span class="n">signal_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
@@ -603,7 +604,7 @@ Add labels as you did previously:</p>
 </div>
 <p>There are a few general ways <code class="docutils literal notranslate"><span class="pre">seaborn</span></code> can generally edit the appearance of our plots, without defining individual changes. The first is by setting the <em>context</em> of the plot: where the plot is going to be displayed. The <code class="docutils literal notranslate"><span class="pre">set_context</span></code> function can be passed the arguments <code class="docutils literal notranslate"><span class="pre">paper</span></code>, <code class="docutils literal notranslate"><span class="pre">notebook</span></code>, <code class="docutils literal notranslate"><span class="pre">talk</span></code>, <code class="docutils literal notranslate"><span class="pre">poster</span></code>.</p>
 <p>Put this line in a cell below your import statements and run it, then run the cell with your plotting code:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;notebook&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;notebook&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="tip admonition">
@@ -620,10 +621,14 @@ Add labels as you did previously:</p>
 <section id="seaborn-styles">
 <h3>Seaborn styles<a class="headerlink" href="#seaborn-styles" title="Permalink to this heading">#</a></h3>
 <p>In addition to controlling the general sizing of features in your plot, seaborn additionally has a selection of aesthetic “styles”. These can be set through the <code class="docutils literal notranslate"><span class="pre">set_style</span></code> function. As with <code class="docutils literal notranslate"><span class="pre">set_context</span></code>, this will affect all subsequent plots, and should be included with the other import statements so it’s easily findeable. Just add the following line of code and re-run your basic default plot:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>A selection of different styles are available, including <code class="docutils literal notranslate"><span class="pre">darkgrid</span></code>, <code class="docutils literal notranslate"><span class="pre">whitegrid</span></code>, <code class="docutils literal notranslate"><span class="pre">dark</span></code>, <code class="docutils literal notranslate"><span class="pre">white</span></code>, <code class="docutils literal notranslate"><span class="pre">ticks</span></code>. Try these different themes on both your basic plot and modified plot to see how they affect your figures.</p>
+<div class="admonition-challenge admonition">
+<p class="admonition-title">Challenge</p>
+<p>When might a grid be useful in your plot?</p>
+</div>
 </section>
 <section id="seaborn-palettes">
 <h3>Seaborn palettes<a class="headerlink" href="#seaborn-palettes" title="Permalink to this heading">#</a></h3>
