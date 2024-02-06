@@ -29,5 +29,5 @@ jobs:
       shell: bash -l {0}
       run: |
         conda activate arcdocs-jb
-        jupyter-book build ./book/
+        jupyter-book build docs
 
