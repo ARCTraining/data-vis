@@ -657,7 +657,7 @@ We can create a bare-bones plot by setting up the <code class="docutils literal 
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-left"><p>Challenge plot #2. A truly awful plot, to show you that just because you can choose and option in seaborn, doesn’t mean it’s sensible. This one has an extra challenge… hint: you’ll need to change the <code class="docutils literal notranslate"><span class="pre">fill</span></code> argument. <em>Alt text: here</em></p></td>
+<tr class="row-even"><td class="text-left"><p>Challenge plot #3. A truly awful plot, to show you that just because you can choose and option in seaborn, doesn’t mean it’s sensible. This one has an extra challenge… hint: you’ll need to change the <code class="docutils literal notranslate"><span class="pre">fill</span></code> argument. <em>Alt text: here</em></p></td>
 </tr>
 </tbody>
 </table>
@@ -763,15 +763,49 @@ We can create a bare-bones plot by setting up the <code class="docutils literal 
 <p><code class="docutils literal notranslate"><span class="pre">sns.histplot(data,</span> <span class="pre">x=&quot;Dist</span> <span class="pre">2&quot;,</span> <span class="pre">kde=True,</span> <span class="pre">ax=axs[1])</span></code></p>
 <p><code class="docutils literal notranslate"><span class="pre">sns.histplot(data,</span> <span class="pre">x=&quot;Dist</span> <span class="pre">3&quot;,</span> <span class="pre">kde=True,</span> <span class="pre">ax=axs[2])</span></code></p>
 </div>
-<p>You might notice that the x-axis labels are overlapped and it looks a little messy. We can add the command <code class="docutils literal notranslate"><span class="pre">plt.tight_layout()</span></code> which adjusts the padding between plots automatically. Note that you can do this manually if you need more fine-grained control, but usually this function does a good enough job!</p>
+<p>You might notice that the x-axis labels are overlapped and it looks a little messy. We can add the command <code class="docutils literal notranslate"><span class="pre">plt.tight_layout()</span></code> which adjusts the padding between plots automatically. Note that you can do this manually if you need more fine-grained control, but usually this function does a good enough job! We will be looking at this more extensively in later sessions, as well as some alternative functions that work in different situations.</p>
 </section>
 </section>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="additional-challenges">
 <h1>Additional challenges<a class="headerlink" href="#additional-challenges" title="Permalink to this heading">#</a></h1>
+<p>These challenges will require some functions/arguments that haven’t been discussed in this session; feel free to save these for later if you are finding the material challenging enough!</p>
 <div class="dropdown admonition">
 <p class="admonition-title">Make a plot with a single panel/axes that only shows “Dist 1” and “Dist 2”</p>
-<p>Answers here!</p>
+<p>You can specify just the series <code class="docutils literal notranslate"><span class="pre">Dist_1</span></code> and <code class="docutils literal notranslate"><span class="pre">Dist_2</span></code> using the following line:</p>
+<p><code class="docutils literal notranslate"><span class="pre">sns.histplot(data[['Dist</span> <span class="pre">1',</span> <span class="pre">'Dist</span> <span class="pre">2']],</span> <span class="pre">multiple=&quot;stack&quot;,</span> <span class="pre">kde=True)</span></code></p>
+<p>with whatever style/formatting you like. Look at the <a class="reference external" href="https://pandas.pydata.org/docs/getting_started/intro_tutorials/03_subset_data.html">pandas documentation</a> to find out more about selecting subsets of dataframes.</p>
+</div>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p><img alt="image" src="_images/hist_challenge4.png" /></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Extra challenge plot #1. Can you recreate this awful plot? <em>Alt text: here</em></p></td>
+</tr>
+</tbody>
+</table>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p><img alt="image" src="_images/hist_challenge5.png" /></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Extra challenge plot #2. Can you recreate the colour palette of this plot? <em>Alt text: here</em></p></td>
+</tr>
+</tbody>
+</table>
+<div class="dropdown admonition">
+<p class="admonition-title">Extra challenge plot solutions</p>
+<p>Extra challenge plot #1:</p>
+<p>This plot is created by making the bins very narrow.</p>
+<p><code class="docutils literal notranslate"><span class="pre">sns.histplot(data,</span> <span class="pre">binwidth=0.1,</span> <span class="pre">multiple=&quot;dodge&quot;)</span></code></p>
+<p>Extra challenge plot #2:</p>
+<p>To set the colour palette, use this line: <code class="docutils literal notranslate"><span class="pre">sns.set_palette(&quot;flare&quot;,3)</span></code>
+This selects the <code class="docutils literal notranslate"><span class="pre">&quot;flare&quot;</span></code> colour palette, and tells seaborn to split it into three colours (so that you get the extreme value colours on your plot). Try is without this <code class="docutils literal notranslate"><span class="pre">3</span></code> to see how the plot looks.</p>
+<p>The plot then uses this function:</p>
+<p><code class="docutils literal notranslate"><span class="pre">sns.histplot(data,</span> <span class="pre">kde=True,</span> <span class="pre">binwidth=1,</span> <span class="pre">multiple=&quot;dodge&quot;,</span> <span class="pre">shrink=0.8)</span></code></p>
 </div>
 </section>
 

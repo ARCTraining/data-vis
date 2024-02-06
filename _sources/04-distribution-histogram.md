@@ -232,7 +232,7 @@ In order to understand what these arguments do, try to recreate the following pl
 
 |![image](figs/hist_challenge3.png) | 
 |:--| 
-| Challenge plot #2. A truly awful plot, to show you that just because you can choose and option in seaborn, doesn't mean it's sensible. This one has an extra challenge... hint: you'll need to change the `fill` argument. *Alt text: here* |
+| Challenge plot #3. A truly awful plot, to show you that just because you can choose and option in seaborn, doesn't mean it's sensible. This one has an extra challenge... hint: you'll need to change the `fill` argument. *Alt text: here* |
 
 
 ```{admonition} Challenge solutions
@@ -356,11 +356,45 @@ add these two lines:
 `sns.histplot(data, x="Dist 3", kde=True, ax=axs[2])`
 ```
 
-You might notice that the x-axis labels are overlapped and it looks a little messy. We can add the command `plt.tight_layout()` which adjusts the padding between plots automatically. Note that you can do this manually if you need more fine-grained control, but usually this function does a good enough job!
+You might notice that the x-axis labels are overlapped and it looks a little messy. We can add the command `plt.tight_layout()` which adjusts the padding between plots automatically. Note that you can do this manually if you need more fine-grained control, but usually this function does a good enough job! We will be looking at this more extensively in later sessions, as well as some alternative functions that work in different situations.
 
 # Additional challenges
 
+These challenges will require some functions/arguments that haven't been discussed in this session; feel free to save these for later if you are finding the material challenging enough!
+
 ```{admonition} Make a plot with a single panel/axes that only shows "Dist 1" and "Dist 2"
 :class: dropdown
-Answers here!
+
+You can specify just the series `Dist_1` and `Dist_2` using the following line:
+
+`sns.histplot(data[['Dist 1', 'Dist 2']], multiple="stack", kde=True)`
+
+with whatever style/formatting you like. Look at the [pandas documentation](https://pandas.pydata.org/docs/getting_started/intro_tutorials/03_subset_data.html) to find out more about selecting subsets of dataframes.
+```
+
+|![image](figs/hist_challenge4.png) | 
+|:--| 
+| Extra challenge plot #1. Can you recreate this awful plot? *Alt text: here* |
+
+|![image](figs/hist_challenge5.png) | 
+|:--| 
+| Extra challenge plot #2. Can you recreate the colour palette of this plot? *Alt text: here* |
+
+```{admonition} Extra challenge plot solutions
+:class: dropdown
+
+Extra challenge plot #1:
+
+This plot is created by making the bins very narrow.
+
+`sns.histplot(data, binwidth=0.1, multiple="dodge")`
+
+Extra challenge plot #2:
+
+To set the colour palette, use this line: `sns.set_palette("flare",3)`
+This selects the `"flare"` colour palette, and tells seaborn to split it into three colours (so that you get the extreme value colours on your plot). Try is without this `3` to see how the plot looks.
+
+The plot then uses this function:
+
+`sns.histplot(data, kde=True, binwidth=1, multiple="dodge", shrink=0.8)`
 ```
