@@ -385,9 +385,16 @@ with whatever style/formatting you like. Look at the [pandas documentation](http
 
 Extra challenge plot #1:
 
+This plot is created by making the bins very narrow.
+
 `sns.histplot(data, binwidth=0.1, multiple="dodge")`
 
 Extra challenge plot #2:
+
+To set the colour palette, use this line: `sns.set_palette("flare",3)`
+This selects the `"flare"` colour palette, and tells seaborn to split it into three colours (so that you get the extreme value colours on your plot). Try is without this `3` to see how the plot looks.
+
+The plot then uses this function:
 
 `sns.histplot(data, kde=True, binwidth=1, multiple="dodge", shrink=0.8)`
 ```
