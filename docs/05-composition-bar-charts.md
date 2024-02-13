@@ -209,3 +209,165 @@ sns.despine()
 
 ## Possible pitfalls
 
+For this section, let's make a quick multipanelled plot following what we did [in this session](https://arctraining.github.io/data-vis/04-distribution-histogram.html#multi-panelled-plots) and compare the two different ways of plotting a bar chart.
+
+|![image](figs/barplot7.png) | 
+|:--| 
+| Challenge barplot. Try to recreate this plot. *Alt text: a two panelled stacked bar plot with three categorical groupings on the x axis: "Cat 1", "Cat 2", "Cat 3" and "Cat 4", and two groupings shown by colour (orange and lilac) and hatch pattern (diagonal lines,and stars): "Results A" and "Results B". The y axis on the lower panel shows absolute count, scaled from 0&ndash;60. The y axis on the lower panel shows proportion, scaled from 0&ndash;100 %.* |
+
+
+```{admonition} Recreate the two-panelled plot above
+:class: dropdown
+
+```{glue}python
+fig, axs = plt.subplots(2, sharex=True)
+data[["Results A", "Results B"]].plot(kind="bar",
+                                     stacked=True,
+                                     ax=axs[0],
+                                     color=new_pal,
+                                     edgecolor="white")
+
+apply_hatch_pattern(axs[0], hatch_patterns=["*", "//"])
+
+data[["Results A (%)", "Results B (%)"]].plot(kind="bar",
+                                              stacked=True,
+                                              ax=axs[1],
+                                              color=new_pal,
+                                              edgecolor="white",
+                                              legend=False)
+
+apply_hatch_pattern(axs[1], hatch_patterns=["*", "//"])
+
+axs[1].set_xlabel("Category")
+
+axs[0].set_ylabel("Count")
+axs[1].set_ylabel("Proportion [%]")
+
+axs[0].legend()
+sns.despine()
+```
+
+```{admonition} Challenge
+What are some of the potential issues in these two different ways of presenting data?
+```
+
+### Changing y-limits
+
+Sometimes when values of different categories are quite similar, it can be tempting to change the limits of the y-axis in order to highlight the differences between them.
+
+Use this code to create a two-panelled plot with the same data in each panel:
+
+```python
+fig, axs = plt.subplots(2, sharex=True)
+data[["Results A (%)", "Results B (%)"]].plot(kind="bar",
+                                     ax=axs[0],
+                                     color=new_pal,
+                                     edgecolor="white",
+                                     legend=False)
+
+apply_hatch_pattern(axs[0], hatch_patterns=["..", "///"])
+
+data[["Results A (%)", "Results B (%)"]].plot(kind="bar",
+                                              ax=axs[1],
+                                              color=new_pal,
+                                              edgecolor="white",
+                                              legend=False)
+
+apply_hatch_pattern(axs[1], hatch_patterns=["..", "///"])
+
+axs[1].set_xlabel("Category")
+
+axs[0].set_ylabel("Proportion [%]")
+axs[1].set_ylabel("Proportion [%]")
+axs[0].set_ylim(0, 70)
+axs[1].set_ylim(25, 70)
+
+axs[0].legend(bbox_to_anchor=(0.5, 1.15), loc='upper center', ncol=2, frameon=False)
+
+sns.despine()
+```
+
+How could the resulting graphic mislead readers about the results?
+
+|![image](figs/barplot8.png) | 
+|:--| 
+| Spot the difference! The same data is used in each. *Alt text: a two panelled stacked bar plot with three categorical groupings on the x axis: "Cat 1", "Cat 2", "Cat 3" and "Cat 4", and two groupings shown by colour (orange and lilac) and hatch pattern (diagonal lines,and stars): "Results A" and "Results B". The y axis on the upper panel shows proportion, scaled from 0&ndash;70 %. The y axis on the lower panel shows proportion, scaled from 25&ndash;70 %.* |
+
+### Use of colour
+
+We've discussed choosing colour with reference to accessibility and to enable greyscale printing. What about the meanings we associate with colour?
+
+- Colours can have a symbolic meaning, attached to ideas, brands, countries, political parties, etc.
+    - These meanings may be different to different people, in different places
+    - These meanings may be rooted in real-world colour associations (green linked to grass, blue to sky) or may be the result of marketing campaigns
+- Colours can be perceived as "ordered" or "unordered"
+- Saturation, tone and hue all contribute to how we experience colour
+
+
+Lets look at these example plots that have been given a title that suggests a context for the categories being shown, but do not contain category names. For simplicity of comparison, no patterns have been used. What assumptions might a reader make about the plot? What are issues that could arise due to these assumptions or associations with regards to colour?
+
+![alt text](image.png)
+
+```{admonition} Gender assumptions
+:class: dropdown
+Colour has strong stereotypical associations with gender and sex.
+
+Using the colour palette in the plot above reinforces stereotyping. From the American Chemical Society's Inclusivity Style Guide:
+>Another consideration is avoiding colors that perpetuate stereotypes. For example, the Urban Institute’s [Do No Harm Guide: Applying Equity Awareness in Data Visualization](https://www.urban.org/research/publication/do-no-harm-guide-applying-equity-awareness-data-visualization) recommends against using pink for women and blue for men—a combination that could reinforce thinking of gender as a binary construct—as well as matching colors to skin tones (like using black to represent Black people).
+```
+
+![alt text](image-1.png)
+
+![alt text](image-2.png)
+
+```{admonition} Political associations
+:class: dropdown
+Colour has strong associations with different political parties, which can vary with geographical location.
+
+What are issues that might arise from using these colours?
+```
+
+![alt text](image-3.png)
+
+```{admonition} Symbolic meaning
+:class: dropdown
+Colour can be symbolically linked with concepts such as on/off, good/bad, pass/fail. Besides the obvious issues with using red/green as the only method of differentiation between categories, what are some complications that could arise through this?
+```
+
+We cannot avoid the fact that certain colour combinations evoke certain beliefs or assumptions in readers. 
+
+The [ACS style guide to using colour in data visualisation](https://www.acs.org/about/diversity/inclusivity-style-guide/data-visualization.html#choosing-color-in-data-visualizations) states:
+>Avoid choosing colors at random without considering their meaning or cultural associations, especially when the color's job is simply to provide distinction against adjacent content. Recognize when certain colors may perpetuate stereotypes. For example, when representing gender data, consider using a color palette that does not rely on binary associations, as pink and blue do.
+
+In general, you need to be aware that associations with different colours exist.
+- For your research area, are there any specific symbolic links you should avoid?
+- Understand that colours can evoke certain assumptions in readers. Understand these, address whether they are acceptable assumptions, and design your plot appropriately.
+- If you do not want to carry the baggage of connotations with certain colours into your plot, use completely unrelated colour schemes (e.g. do not invert the colour choices of one the above plots)
+
+### Ordered colours
+
+Sequential colour schemes (see [Color Brewer](https://colorbrewer2.org/) for examples) are perceived as ordered, and so can infer order onto data when used for plotting.
+
+![alt text](image-4.png)
+
+```{admonition} Implying order
+:class: tip
+The visual encoding of a data set should not infer order when there is none. A qualitative colour palette should be used if this is the case.
+
+In addition to unintentionally implying order with colour, also consider the arangement and ordering of data from left to right and top to bottom. [Order your data strategically](https://www.acs.org/about/diversity/inclusivity-style-guide/data-visualization.html#ordering-groups-in-data-visualizations), and carefully consider how this ordering will influence your audience.
+```
+
+### Stacked bar charts
+
+Stacked bar charts are a popular way of representing compositional data and exploring the proportions of different components in a category or group. A difficulty appears (especially with more than one data set stacked on top of each other) when trying to compare the size of the data series not aligned on the x-axis: because neither "end" of the bar segments are aligned, it is difficult to compare or even estimate length.
+
+- Are your data really served by stacking the bars or by finding 
+
+```{admonition} Key Points
+:class: tip
+- Absolute and proportional bar charts can highlight and disguise different relationships between data
+- Bar charts are useful when the value zero is important in comparing groups - use a different visualisation type if you feel the need to move the y-limit above zero to highlight your results
+- Do not imply order in unordered variables through the use of colour or non-strategic spatial ordering on the page (use alphabetical or numerical ordering to avoid biases)
+
+Further reading: The American Chemical Society [Data visualisation inclusivity style guide](https://www.acs.org/about/diversity/inclusivity-style-guide/data-visualization.html)
+```
