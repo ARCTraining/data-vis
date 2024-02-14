@@ -361,7 +361,8 @@ In addition to unintentionally implying order with colour, also consider the ara
 
 Stacked bar charts are a popular way of representing compositional data and exploring the proportions of different components in a category or group. A difficulty appears (especially with more than one data set stacked on top of each other) when trying to compare the size of the data series not aligned on the x-axis: because neither "end" of the bar segments are aligned, it is difficult to compare or even estimate length.
 
-- Are your data really served by stacking the bars or by finding 
+- Are your data really served by stacking the bars or by finding a different way to represent this data?
+- If your data are not absolute values and instead are the result of statistical calculations (e.g. they are the mean value for a certain category), look at plots such as [boxplots](https://seaborn.pydata.org/examples/grouped_boxplot.html) or [violin plots](https://seaborn.pydata.org/examples/grouped_violinplots.html).
 
 ```{admonition} Key Points
 :class: tip
@@ -371,3 +372,5 @@ Stacked bar charts are a popular way of representing compositional data and expl
 
 Further reading: The American Chemical Society [Data visualisation inclusivity style guide](https://www.acs.org/about/diversity/inclusivity-style-guide/data-visualization.html)
 ```
+
+
