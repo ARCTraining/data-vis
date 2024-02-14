@@ -367,7 +367,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -383,6 +385,25 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-data">Example data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-data-set">Create data set</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-bar-plot-using-pandas">Basic bar plot using Pandas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visual-encoding">Visual encoding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-composition">Comparing composition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#possible-pitfalls">Possible pitfalls</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#changing-y-limits">Changing y-limits</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#use-of-colour">Use of colour</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ordered-colours">Ordered colours</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stacked-bar-charts">Stacked bar charts</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -394,6 +415,431 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="understanding-composition-bar-charts">
 <h1>Understanding composition: bar charts<a class="headerlink" href="#understanding-composition-bar-charts" title="Permalink to this heading">#</a></h1>
+<p>Bar charts are valuable tools for displaying and comparing categorical data. They visually represent the distribution or composition of data across various categories, enabling easy identification of patterns, trends, and relationships. Bar charts are effective in conveying information in a clear and concise manner, making them a popular choice for communicating data insights to a wide audience.</p>
+<p>While making a series of example bar charts, we will discuss visual encoding in this context</p>
+<section id="example-data">
+<h2>Example data<a class="headerlink" href="#example-data" title="Permalink to this heading">#</a></h2>
+<p>For this bar plot, we will be using the following simple dataframe, with numerical values across different categories:</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Category</p></th>
+<th class="head text-left"><p>Results A</p></th>
+<th class="head text-left"><p>Results B</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Cat 1</p></td>
+<td class="text-left"><p>1</p></td>
+<td class="text-left"><p>2</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Cat 2</p></td>
+<td class="text-left"><p>27</p></td>
+<td class="text-left"><p>35</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Cat 3</p></td>
+<td class="text-left"><p>32</p></td>
+<td class="text-left"><p>15</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Cat 4</p></td>
+<td class="text-left"><p>15</p></td>
+<td class="text-left"><p>18</p></td>
+</tr>
+</tbody>
+</table>
+<p>We will plot these in a variety of different ways, highlighting why different ways of plotting are useful in different situations, and conversely, how they could mislead you or your audience. Later, we will also look at some other categorical plot types that are possible.</p>
+</section>
+<section id="create-data-set">
+<h2>Create data set<a class="headerlink" href="#create-data-set" title="Permalink to this heading">#</a></h2>
+<p>First, import the required packages:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import necessary libraries</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+</div>
+<p>Then, create the data frame:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">categories</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Cat 1&quot;</span><span class="p">,</span> <span class="s2">&quot;Cat 2&quot;</span><span class="p">,</span> <span class="s2">&quot;Cat 3&quot;</span><span class="p">,</span> <span class="s2">&quot;Cat 4&quot;</span><span class="p">]</span>
+<span class="n">results_a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">27</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">15</span><span class="p">]</span>
+<span class="n">results_b</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">18</span><span class="p">]</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;Results A&quot;</span><span class="p">:</span> <span class="n">results_a</span><span class="p">,</span>
+                     <span class="s2">&quot;Results B&quot;</span><span class="p">:</span> <span class="n">results_b</span><span class="p">},</span>
+                    <span class="n">index</span><span class="o">=</span><span class="n">categories</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="basic-bar-plot-using-pandas">
+<h2>Basic bar plot using Pandas<a class="headerlink" href="#basic-bar-plot-using-pandas" title="Permalink to this heading">#</a></h2>
+<p>For our initial example, we want to create a bar plot with two different groupings: this will show the categories “Cat 1” to “Cat 4” on the x-axis, with colours differentiating “Results A” and “Results B”.</p>
+<p>We will later use seaborn to build a bar plot, but for now we are going to use a built-in function from pandas as this allows us to create a stacked bar plot.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create figure and axes</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="c1"># pandas.plot with option &quot;bar&quot; to create barplot</span>
+<span class="n">data</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># can toggle &quot;stacked&quot;</span>
+
+<span class="c1"># Set labels</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Category&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Count&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p><img alt="image" src="_images/barplot1.png" /></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Our basic example stacked bar plot. <em>Alt text: a stacked bar plot with three categorical groupings on the x axis: “Cat 1”, “Cat 2”, “Cat 3” and “Cat 4”, and two groupings shown by colour (blue and orange): “Results A” and “Results B”. The y axis shows count, scaled from 0–65.</em></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><img alt="image" src="_images/barplot2.png" /></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>The same data as above, but with bars staggered instead of stacked. <em>Alt text: a bar plot with three categorical groupings on the x axis: “Cat 1”, “Cat 2”, “Cat 3” and “Cat 4”, and two groupings shown by colour (blue and orange): “Results A” and “Results B”. The y axis shows count, scaled from 0–65.</em></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="visual-encoding">
+<h2>Visual encoding<a class="headerlink" href="#visual-encoding" title="Permalink to this heading">#</a></h2>
+<p>As we discussed in previous sessions, it is a good idea to have a few different methods of distinguishing categories of data, and not to rely solely on colour. In the case of a bar plot, we are a little limited in that we do not have a choice of line style or marker shape to quickly differentiate different data series.</p>
+<p>Before we do anything else, let’s just pick a better colour scheme from <a class="reference external" href="https://colorbrewer2.org/#type=diverging&amp;scheme=PuOr&amp;n=5">Color Brewer</a>. We can check how well this colour palette will work using <a class="reference external" href="https://projects.susielu.com/viz-palette?colors=%5B%22#e66101%22,%22#b2abd2%22%5D&amp;backgroundColor=%22white%22&amp;fontColor=%22black%22&amp;mode=%22normal%22">Viz Palette</a> to test it in greyscale and for a range of simulated colour sight difficulties.</p>
+<p>Once we’ve picked a palette, we can define this in Python:</p>
+<p><code class="docutils literal notranslate"><span class="pre">new_palette</span> <span class="pre">=</span> <span class="pre">[&quot;#e66101&quot;,&quot;#b2abd2&quot;]</span></code></p>
+<p>This can then be used by simply adding the <code class="docutils literal notranslate"><span class="pre">color</span></code> variable to the function call (note that Python uses American spelling):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">new_pal</span><span class="p">)</span>
+</pre></div>
+</div>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p><img alt="image" src="_images/barplot3.png" /></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Our basic example bar plot, with a Color Brewer palette. These colours are better distinguishable in greyscale and with a colour vision deficiency. <em>Alt text: a stacked bar plot with three categorical groupings on the x axis: “Cat 1”, “Cat 2”, “Cat 3” and “Cat 4”, and two groupings shown by colour (orange and lilac): “Results A” and “Results B”. The y axis shows count, scaled from 0–65.</em></p></td>
+</tr>
+</tbody>
+</table>
+<p>We can also add a pattern or “hatch” to the bars to further help distinguish them from each other. Unfortunately, it’s a little bit more complex to add <em>different</em> hatch patterns to different categories. To add a basic hatch, just modify the <code class="docutils literal notranslate"><span class="pre">plot</span></code> function call:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">new_pal</span><span class="p">,</span> <span class="n">hatch</span><span class="o">=</span><span class="s2">&quot;//&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To change the colour of the hatch, it’s easiest to just modify the <code class="docutils literal notranslate"><span class="pre">edgecolor</span></code> argument:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">new_pal</span><span class="p">,</span> <span class="n">hatch</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Try out some of these hatches on your plot:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">hatches</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;|&#39;</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="s1">&#39;O&#39;</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="s1">&#39;*&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;//&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\\\\</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;||&#39;</span><span class="p">,</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="s1">&#39;++&#39;</span><span class="p">,</span> <span class="s1">&#39;xx&#39;</span><span class="p">,</span> <span class="s1">&#39;oo&#39;</span><span class="p">,</span> <span class="s1">&#39;OO&#39;</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;**&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;/o&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">|&#39;</span><span class="p">,</span> <span class="s1">&#39;|*&#39;</span><span class="p">,</span> <span class="s1">&#39;-</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;+o&#39;</span><span class="p">,</span> <span class="s1">&#39;x*&#39;</span><span class="p">,</span> <span class="s1">&#39;o-&#39;</span><span class="p">,</span> <span class="s1">&#39;O|&#39;</span><span class="p">,</span> <span class="s1">&#39;O.&#39;</span><span class="p">,</span> <span class="s1">&#39;*-&#39;</span><span class="p">,</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>Note that the hatches apply to all bars: not very useful for distinguishing different categories. We can fix this by cycling through a list of different hatch patterns (with the same number of hatch patterns as there are categories). In order to make this a little easier, I’ve built a small <strong>function</strong> to do this for you. You just need to give it an ax (set up when you run <code class="docutils literal notranslate"><span class="pre">fig,</span> <span class="pre">ax</span> <span class="pre">=</span> <span class="pre">plt.subplots()</span></code>, and a list of hatches):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">apply_hatch_pattern</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">hatch_patterns</span><span class="p">):</span>
+    <span class="n">bars</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">patches</span>
+    <span class="n">hatches</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">hatch_patterns</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bars</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">hatch_patterns</span><span class="p">))):</span>
+            <span class="n">hatches</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">bar</span><span class="p">,</span> <span class="n">hatch</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">bars</span><span class="p">,</span> <span class="n">hatches</span><span class="p">):</span>
+        <span class="n">bar</span><span class="o">.</span><span class="n">set_hatch</span><span class="p">(</span><span class="n">hatch</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You can define this function by putting it in a cell and running it. Then you can use it by calling <code class="docutils literal notranslate"><span class="pre">apply_hatch_pattern(ax,</span> <span class="pre">hatch_patterns)</span></code> after you’ve created your plot. While the pandas plot function automatically builds a legend for you, you must add it again manually because it will not have the hatches overlaid.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="n">data</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">new_pal</span><span class="p">,</span> <span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+
+<span class="n">apply_hatch_pattern</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">hatch_patterns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;//&quot;</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Category&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Count&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+</div>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p><img alt="image" src="_images/barplot4.png" /></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Our example stacked bar plot, with a Color Brewer palette and hatch markings. <em>Alt text: a stacked bar plot with three categorical groupings on the x axis: “Cat 1”, “Cat 2”, “Cat 3” and “Cat 4”, and two groupings shown by colour (orange and lilac) and hatch pattern (diagonal lines,and stars): “Results A” and “Results B”. The y axis shows count, scaled from 0–65.</em></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="comparing-composition">
+<h2>Comparing composition<a class="headerlink" href="#comparing-composition" title="Permalink to this heading">#</a></h2>
+<p>When comparing the composition of a group, for example the proportion of “Results A” vs. “Results B” in each of the categories, it can be difficult when the absolute number of results varies largely, for example between “Cat 1” and “Cat 2”. We can visualise the data in a different way to better pick out the proportions per category by normalising the values in each category to 100:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;Total&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;Results A&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;Results B&quot;</span><span class="p">]</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;Results A (%)&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;Results A&quot;</span><span class="p">]</span><span class="o">/</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;Total&quot;</span><span class="p">])</span> <span class="o">*</span> <span class="mi">100</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;Results B (%)&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;Results B&quot;</span><span class="p">]</span><span class="o">/</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;Total&quot;</span><span class="p">])</span> <span class="o">*</span> <span class="mi">100</span>
+</pre></div>
+</div>
+<p>This code adds the columns <code class="docutils literal notranslate"><span class="pre">&quot;Total&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;Results</span> <span class="pre">A</span> <span class="pre">(%)&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">&quot;Results</span> <span class="pre">A</span> <span class="pre">(%)&quot;</span></code> to our dataframe:</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Category</p></th>
+<th class="head text-left"><p>Results A</p></th>
+<th class="head text-left"><p>Results B</p></th>
+<th class="head text-left"><p>Total</p></th>
+<th class="head text-left"><p>Results A (%)</p></th>
+<th class="head text-left"><p>Results B (%)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Cat 1</p></td>
+<td class="text-left"><p>1</p></td>
+<td class="text-left"><p>2</p></td>
+<td class="text-left"><p>3</p></td>
+<td class="text-left"><p>33.333333</p></td>
+<td class="text-left"><p>66.666667</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Cat 2</p></td>
+<td class="text-left"><p>27</p></td>
+<td class="text-left"><p>35</p></td>
+<td class="text-left"><p>62</p></td>
+<td class="text-left"><p>43.548387</p></td>
+<td class="text-left"><p>56.451613</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Cat 3</p></td>
+<td class="text-left"><p>32</p></td>
+<td class="text-left"><p>15</p></td>
+<td class="text-left"><p>47</p></td>
+<td class="text-left"><p>68.085106</p></td>
+<td class="text-left"><p>31.914894</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Cat 4</p></td>
+<td class="text-left"><p>15</p></td>
+<td class="text-left"><p>18</p></td>
+<td class="text-left"><p>33</p></td>
+<td class="text-left"><p>45.454545</p></td>
+<td class="text-left"><p>54.545455</p></td>
+</tr>
+</tbody>
+</table>
+<p>We can now plot these new columns. Because we <em>only</em> want to plot <code class="docutils literal notranslate"><span class="pre">&quot;Results</span> <span class="pre">A</span> <span class="pre">(%)&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">&quot;Results</span> <span class="pre">A</span> <span class="pre">(%)&quot;</span></code> and not the entire dataframe, we now need to specify just these columns. In the same way that we can pull out one column of a dataframe by using square brackets (like <code class="docutils literal notranslate"><span class="pre">data[&quot;Total&quot;]</span></code>), we can also include a <strong>list</strong> of column names like <code class="docutils literal notranslate"><span class="pre">[&quot;Results</span> <span class="pre">A</span> <span class="pre">(%)&quot;,</span> <span class="pre">&quot;Results</span> <span class="pre">B</span> <span class="pre">(%)&quot;]</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">data</span><span class="p">[[</span><span class="s2">&quot;Results A (%)&quot;</span><span class="p">,</span> <span class="s2">&quot;Results B (%)&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span>
+                                              <span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                              <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+                                              <span class="n">color</span><span class="o">=</span><span class="n">new_pal</span><span class="p">,</span>
+                                              <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+
+<span class="n">apply_hatch_pattern</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">hatch_patterns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;//&quot;</span><span class="p">])</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Category&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Proportion [%]&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p><img alt="image" src="_images/barplot5.png" /></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Our example stacked bar plot, now shown as a proportion of 100 %. <em>Alt text: a stacked bar plot with three categorical groupings on the x axis: “Cat 1”, “Cat 2”, “Cat 3” and “Cat 4”, and two groupings shown by colour (orange and lilac) and hatch pattern (diagonal lines,and stars): “Results A” and “Results B”. The y axis shows proportion, scaled from 0–100 %.</em></p></td>
+</tr>
+</tbody>
+</table>
+<p>Because the bar plots now fill the entire axes area, the legend awkwardly overlaps, so we need to move it outside of the plot. Also, because we didn’t manually call <code class="docutils literal notranslate"><span class="pre">ax.legend()</span></code>, the legend has not updated to include the hatch patterns.</p>
+<p>We can move the legend by adding arguments into the <code class="docutils literal notranslate"><span class="pre">ax.legend()</span></code> function call:</p>
+<p><code class="docutils literal notranslate"><span class="pre">ax.legend(bbox_to_anchor=(0.5,</span> <span class="pre">1.15),</span> <span class="pre">loc='upper</span> <span class="pre">center',</span> <span class="pre">ncol=2,</span> <span class="pre">frameon=False)</span></code>,</p>
+<p>where <code class="docutils literal notranslate"><span class="pre">bbox_to_anchor</span></code> tells you where on the “bounding box” (the axes area) you want the legend positioned (so in this case, 0.5 along x - so centered horizontally, then 1.15 on y - so just above the plotting area); <code class="docutils literal notranslate"><span class="pre">loc</span></code> tells you where on the legend is being positioned here (so the upper centre of the legend box); <code class="docutils literal notranslate"><span class="pre">ncol</span></code> defines that there should be two columns as opposed to the default of one column and multiple rows; and finally <code class="docutils literal notranslate"><span class="pre">frameon</span> <span class="pre">=</span> <span class="pre">False</span></code> switched off the grey box around the legend.</p>
+<p>We can also add seaborn’s despine function to tidy up the plot:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">data</span><span class="p">[[</span><span class="s2">&quot;Results A (%)&quot;</span><span class="p">,</span> <span class="s2">&quot;Results B (%)&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span>
+                                              <span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                              <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+                                              <span class="n">color</span><span class="o">=</span><span class="n">new_pal</span><span class="p">,</span>
+                                              <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+
+<span class="n">apply_hatch_pattern</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">hatch_patterns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;//&quot;</span><span class="p">])</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Category&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Proportion [%]&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.15</span><span class="p">),</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper center&#39;</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">()</span>
+</pre></div>
+</div>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p><img alt="image" src="_images/barplot6.png" /></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Our example stacked bar plot, now shown as a proportion of 100 %. <em>Alt text: a stacked bar plot with three categorical groupings on the x axis: “Cat 1”, “Cat 2”, “Cat 3” and “Cat 4”, and two groupings shown by colour (orange and lilac) and hatch pattern (diagonal lines,and stars): “Results A” and “Results B”. The y axis shows proportion, scaled from 0–100 %.</em></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="possible-pitfalls">
+<h2>Possible pitfalls<a class="headerlink" href="#possible-pitfalls" title="Permalink to this heading">#</a></h2>
+<p>For this section, let’s make a quick multipanelled plot following what we did <a class="reference external" href="https://arctraining.github.io/data-vis/04-distribution-histogram.html#multi-panelled-plots">in this session</a> and compare the two different ways of plotting a bar chart.</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p><img alt="image" src="_images/barplot7.png" /></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Challenge barplot. Try to recreate this plot. <em>Alt text: a two panelled stacked bar plot with three categorical groupings on the x axis: “Cat 1”, “Cat 2”, “Cat 3” and “Cat 4”, and two groupings shown by colour (orange and lilac) and hatch pattern (diagonal lines,and stars): “Results A” and “Results B”. The y axis on the lower panel shows absolute count, scaled from 0–60. The y axis on the lower panel shows proportion, scaled from 0–100 %.</em></p></td>
+</tr>
+</tbody>
+</table>
+<div class="dropdown admonition">
+<p class="admonition-title">Recreate the two-panelled plot above</p>
+<div class="highlight-{glue}python notranslate"><div class="highlight"><pre><span></span>fig, axs = plt.subplots(2, sharex=True)
+data[[&quot;Results A&quot;, &quot;Results B&quot;]].plot(kind=&quot;bar&quot;,
+                                     stacked=True,
+                                     ax=axs[0],
+                                     color=new_pal,
+                                     edgecolor=&quot;white&quot;)
+
+apply_hatch_pattern(axs[0], hatch_patterns=[&quot;*&quot;, &quot;//&quot;])
+
+data[[&quot;Results A (%)&quot;, &quot;Results B (%)&quot;]].plot(kind=&quot;bar&quot;,
+                                              stacked=True,
+                                              ax=axs[1],
+                                              color=new_pal,
+                                              edgecolor=&quot;white&quot;,
+                                              legend=False)
+
+apply_hatch_pattern(axs[1], hatch_patterns=[&quot;*&quot;, &quot;//&quot;])
+
+axs[1].set_xlabel(&quot;Category&quot;)
+
+axs[0].set_ylabel(&quot;Count&quot;)
+axs[1].set_ylabel(&quot;Proportion [%]&quot;)
+
+axs[0].legend()
+sns.despine()
+</pre></div>
+</div>
+</div>
+<div class="admonition-challenge admonition">
+<p class="admonition-title">Challenge</p>
+<p>What are some of the potential issues in these two different ways of presenting data?</p>
+</div>
+<section id="changing-y-limits">
+<h3>Changing y-limits<a class="headerlink" href="#changing-y-limits" title="Permalink to this heading">#</a></h3>
+<p>Sometimes when values of different categories are quite similar, it can be tempting to change the limits of the y-axis in order to highlight the differences between them.</p>
+<p>Use this code to create a two-panelled plot with the same data in each panel:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">data</span><span class="p">[[</span><span class="s2">&quot;Results A (%)&quot;</span><span class="p">,</span> <span class="s2">&quot;Results B (%)&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span>
+                                     <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                                     <span class="n">color</span><span class="o">=</span><span class="n">new_pal</span><span class="p">,</span>
+                                     <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span>
+                                     <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">apply_hatch_pattern</span><span class="p">(</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">hatch_patterns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;..&quot;</span><span class="p">,</span> <span class="s2">&quot;///&quot;</span><span class="p">])</span>
+
+<span class="n">data</span><span class="p">[[</span><span class="s2">&quot;Results A (%)&quot;</span><span class="p">,</span> <span class="s2">&quot;Results B (%)&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span>
+                                              <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                                              <span class="n">color</span><span class="o">=</span><span class="n">new_pal</span><span class="p">,</span>
+                                              <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span>
+                                              <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">apply_hatch_pattern</span><span class="p">(</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">hatch_patterns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;..&quot;</span><span class="p">,</span> <span class="s2">&quot;///&quot;</span><span class="p">])</span>
+
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Category&quot;</span><span class="p">)</span>
+
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Proportion [%]&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Proportion [%]&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">70</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">70</span><span class="p">)</span>
+
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.15</span><span class="p">),</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper center&#39;</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>How could the resulting graphic mislead readers about the results?</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p><img alt="image" src="_images/barplot8.png" /></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Spot the difference! The same data is used in each. <em>Alt text: a two panelled stacked bar plot with three categorical groupings on the x axis: “Cat 1”, “Cat 2”, “Cat 3” and “Cat 4”, and two groupings shown by colour (orange and lilac) and hatch pattern (diagonal lines,and stars): “Results A” and “Results B”. The y axis on the upper panel shows proportion, scaled from 0–70 %. The y axis on the lower panel shows proportion, scaled from 25–70 %.</em></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="use-of-colour">
+<h3>Use of colour<a class="headerlink" href="#use-of-colour" title="Permalink to this heading">#</a></h3>
+<p>We’ve discussed choosing colour with reference to accessibility and to enable greyscale printing. What about the meanings we associate with colour?</p>
+<ul class="simple">
+<li><p>Colours can have a symbolic meaning, attached to ideas, brands, countries, political parties, etc.</p>
+<ul>
+<li><p>These meanings may be different to different people, in different places</p></li>
+<li><p>These meanings may be rooted in real-world colour associations (green linked to grass, blue to sky) or may be the result of marketing campaigns</p></li>
+</ul>
+</li>
+<li><p>Colours can be perceived as “ordered” or “unordered”</p></li>
+<li><p>Saturation, tone and hue all contribute to how we experience colour</p></li>
+</ul>
+<p>Lets look at these example plots that have been given a title that suggests a context for the categories being shown, but do not contain category names. For simplicity of comparison, no patterns have been used. What assumptions might a reader make about the plot? What are issues that could arise due to these assumptions or associations with regards to colour?</p>
+<p><img alt="alt text" src="_images/image.png" /></p>
+<div class="dropdown admonition">
+<p class="admonition-title">Gender assumptions</p>
+<p>Colour has strong stereotypical associations with gender and sex.</p>
+<p>Using the colour palette in the plot above reinforces stereotyping. From the American Chemical Society’s Inclusivity Style Guide:</p>
+<blockquote>
+<div><p>Another consideration is avoiding colors that perpetuate stereotypes. For example, the Urban Institute’s <a class="reference external" href="https://www.urban.org/research/publication/do-no-harm-guide-applying-equity-awareness-data-visualization">Do No Harm Guide: Applying Equity Awareness in Data Visualization</a> recommends against using pink for women and blue for men—a combination that could reinforce thinking of gender as a binary construct—as well as matching colors to skin tones (like using black to represent Black people).</p>
+</div></blockquote>
+</div>
+<p><img alt="alt text" src="_images/image-1.png" /></p>
+<p><img alt="alt text" src="_images/image-2.png" /></p>
+<div class="dropdown admonition">
+<p class="admonition-title">Political associations</p>
+<p>Colour has strong associations with different political parties, which can vary with geographical location.</p>
+<p>What are issues that might arise from using these colours?</p>
+</div>
+<p><img alt="alt text" src="_images/image-3.png" /></p>
+<div class="dropdown admonition">
+<p class="admonition-title">Symbolic meaning</p>
+<p>Colour can be symbolically linked with concepts such as on/off, good/bad, pass/fail. Besides the obvious issues with using red/green as the only method of differentiation between categories, what are some complications that could arise through this?</p>
+</div>
+<p>We cannot avoid the fact that certain colour combinations evoke certain beliefs or assumptions in readers.</p>
+<p>The <a class="reference external" href="https://www.acs.org/about/diversity/inclusivity-style-guide/data-visualization.html#choosing-color-in-data-visualizations">ACS style guide to using colour in data visualisation</a> states:</p>
+<blockquote>
+<div><p>Avoid choosing colors at random without considering their meaning or cultural associations, especially when the color’s job is simply to provide distinction against adjacent content. Recognize when certain colors may perpetuate stereotypes. For example, when representing gender data, consider using a color palette that does not rely on binary associations, as pink and blue do.</p>
+</div></blockquote>
+<p>In general, you need to be aware that associations with different colours exist.</p>
+<ul class="simple">
+<li><p>For your research area, are there any specific symbolic links you should avoid?</p></li>
+<li><p>Understand that colours can evoke certain assumptions in readers. Understand these, address whether they are acceptable assumptions, and design your plot appropriately.</p></li>
+<li><p>If you do not want to carry the baggage of connotations with certain colours into your plot, use completely unrelated colour schemes (e.g. do not invert the colour choices of one the above plots)</p></li>
+</ul>
+</section>
+<section id="ordered-colours">
+<h3>Ordered colours<a class="headerlink" href="#ordered-colours" title="Permalink to this heading">#</a></h3>
+<p>Sequential colour schemes (see <a class="reference external" href="https://colorbrewer2.org/">Color Brewer</a> for examples) are perceived as ordered, and so can infer order onto data when used for plotting.</p>
+<p><img alt="alt text" src="_images/image-4.png" /></p>
+<div class="tip admonition">
+<p class="admonition-title">Implying order</p>
+<p>The visual encoding of a data set should not infer order when there is none. A qualitative colour palette should be used if this is the case.</p>
+<p>In addition to unintentionally implying order with colour, also consider the arangement and ordering of data from left to right and top to bottom. <a class="reference external" href="https://www.acs.org/about/diversity/inclusivity-style-guide/data-visualization.html#ordering-groups-in-data-visualizations">Order your data strategically</a>, and carefully consider how this ordering will influence your audience.</p>
+</div>
+</section>
+<section id="stacked-bar-charts">
+<h3>Stacked bar charts<a class="headerlink" href="#stacked-bar-charts" title="Permalink to this heading">#</a></h3>
+<p>Stacked bar charts are a popular way of representing compositional data and exploring the proportions of different components in a category or group. A difficulty appears (especially with more than one data set stacked on top of each other) when trying to compare the size of the data series not aligned on the x-axis: because neither “end” of the bar segments are aligned, it is difficult to compare or even estimate length.</p>
+<ul class="simple">
+<li><p>Are your data really served by stacking the bars or by finding a different way to represent this data?</p></li>
+<li><p>If your data are not absolute values and instead are the result of statistical calculations (e.g. they are the mean value for a certain category), look at plots such as <a class="reference external" href="https://seaborn.pydata.org/examples/grouped_boxplot.html">boxplots</a> or <a class="reference external" href="https://seaborn.pydata.org/examples/grouped_violinplots.html">violin plots</a>.</p></li>
+</ul>
+<div class="tip admonition">
+<p class="admonition-title">Key Points</p>
+<ul class="simple">
+<li><p>Absolute and proportional bar charts can highlight and disguise different relationships between data</p></li>
+<li><p>Bar charts are useful when the value zero is important in comparing groups - use a different visualisation type if you feel the need to move the y-limit above zero to highlight your results</p></li>
+<li><p>Do not imply order in unordered variables through the use of colour or non-strategic spatial ordering on the page (use alphabetical or numerical ordering to avoid biases)</p></li>
+</ul>
+<p>Further reading: The American Chemical Society <a class="reference external" href="https://www.acs.org/about/diversity/inclusivity-style-guide/data-visualization.html">Data visualisation inclusivity style guide</a></p>
+</div>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -451,7 +897,31 @@ document.write(`
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"></div>
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-data">Example data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-data-set">Create data set</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-bar-plot-using-pandas">Basic bar plot using Pandas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visual-encoding">Visual encoding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-composition">Comparing composition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#possible-pitfalls">Possible pitfalls</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#changing-y-limits">Changing y-limits</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#use-of-colour">Use of colour</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ordered-colours">Ordered colours</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stacked-bar-charts">Stacked bar charts</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
