@@ -384,3 +384,65 @@ x = np.random.randn(200)
 y = np.random.randn(200)
 z = np.random.randn(200)
 ```
+
+### Colour
+
+Again, we can use colour to define the third dimension. In this case, because we want to show variation in `z`, which is a continuous variable and not categorical, we will use a *colour map*. The default colour map that `matplotlib` uses is called Viridis, and it's a good choice for scientific visualisation - we will discuss why later!
+
+```python
+# Create a figure and axes, and set the figure size in inches
+fig, ax = plt.subplots(figsize=(7, 4))
+
+# Plot the data as a scatter plot
+ax.scatter(x, y, alpha=0.8, c=z) # alpha changes the opacity
+
+# Set title and labels
+ax.set_title('Scatter Plot')
+ax.set_xlabel('X')
+ax.set_ylabel('Y')
+```
+
+You can also use a diverging colour map, and make the markers a little bigger to make it more easily readable.
+
+|![alt text](image-8.png)| 
+|:--| 
+| Caption *Alt text: here* |
+
+You can recreate this with the following code snippet:
+
+```python
+# Plot the data as a scatter plot
+ax.scatter(x, y, alpha=0.7, c=z, cmap="coolwarm", s=100)
+```
+
+Of course, it's important to include a colour scale so that people know what the colours represent:
+
+```python
+# Plot the data as a scatter plot
+a = ax.scatter(x, y, alpha=0.7, c=z, cmap="coolwarm", s=100)
+fig.colorbar(a)
+```
+
+|![alt text](image-9.png)| 
+|:--| 
+| Caption *Alt text: here* |
+
+### Size
+
+Another option for continuous data is to allow size to vary according to the third variable. As you can see from the example above, size can be set with the argument `s=10`. This value defines the area of the marker. In addition to defining the size of all the points with a *scalar* value, you can also pass in a variable or equation, for example the `z` variable, or `sin(x)`, or `100*z**2`. It's important to know how the change in size be perceived by your audience before you use this.
+
+|![alt text](image-10.png)| 
+|:--| 
+| Caption *Alt text: here* |
+
+We can apply this to our scatter plot:
+
+```python
+# Plot the data as a scatter plot
+a = ax.scatter(x, y, alpha=0.7, c=z, cmap="coolwarm", s=100*z**2)
+fig.colorbar(a)
+```
+
+|![alt text](image-11.png)| 
+|:--| 
+| Caption *Alt text: here* |

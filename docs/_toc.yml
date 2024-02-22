@@ -9,6 +9,7 @@ sections:
 - file: start.md
   sections:
     - file: 01-introduction.md
+    - file: 01b-loading-data.md
     - file: 02-first-plot.md
     - file: 03-comparison-line-plots.md
     - file: 04-distribution-histogram.md
