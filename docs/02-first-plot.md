@@ -1,4 +1,4 @@
-# Building your first plot
+# Building your first plot: scatter plots
 
 Before we delve a little deeper into some of the concepts we introduced in the previous section with regards to what makes a graphic "good", let's lay the foundations and build our first plot. You need a draft to start improving on it!
 
@@ -81,8 +81,11 @@ You can add comments to your code using the \# symbol; this text is skipped over
 
 You can take a closer look at what this has produced by executing a cell that only contains `x` or `y`, or `print(x)`, `print(y)` (what is the difference between `x` and `print(x)` in terms of output?).
 
+## Make a basic scatter plot
 
-## How do I initialise a basic figure?
+Here's a step-by-step run-through of how to build a basic scatter plot. A template is given at the end of these instructions.
+
+### How do I initialise a basic figure?
 
 So you have your data and you want to build a scatter plot to see if there's any relationship between x and y. 
 
@@ -111,7 +114,7 @@ fig, ax = plt.subplots(figsize=(7, 4))
 ```
 
 
-## How do I plot my data?
+### How do I plot my data?
 
 In this example, we are creating a very simple scatter plot using the (x, y) pairs we created earlier. We can use the `matplotlib` `scatter` function to do this:
 
@@ -141,7 +144,7 @@ Do not worry if this doesn't make sense - the key take-away is that when searchi
 If you're interested and want to learn more, [this](https://neuraldatascience.io/4-viz/proc_vs_oo.html#procedural-versus-object-oriented-plotting-in-matplotlib) is a good starting point.
 ```
 
-## How do I add labels?
+### How do I add labels?
 
 Plots like this do not convey the required information unless they have axes labels. Since this is not real data, we can just call the values on the x-axis "X" and the values on the y-axis "Y" - we don't have any units to add.
 
@@ -158,7 +161,7 @@ ax.set_ylabel('Y')
 
 You've just made your very first plot with Python!
 
-## How do I save this figure to my machine?
+### How do I save this figure to my machine?
 
 There are a number of different ways to save a plot out of Google Colab.
 
@@ -187,7 +190,7 @@ Files saved here are only accessible while your virtual machine is up and runnin
 
 ```
 
-## What next...
+### What next...
 
 You save your figure, but the resolution isn't what you need - you want to use it in a presentation and when you add it to your slideshow, it looks pixelated and low-quality. How do we do this? Well, let's have our first look at the official Matplotlib documentation!
 
@@ -223,7 +226,7 @@ Change the dpi and size of your figure to allow it to be printed on a poster as 
 Save the figure in a *vector* format such as a `.pdf` or `.svg` instead of a `.png`. How might the `dpi` value work when saving a vector format image?
 ```
 
-## Scatter plot template
+### Scatter plot template
 
 This code snippet plots a scatter plot in a figure that's 7 $\times$ 4 inches, with a dpi of 300, in png format.
 
@@ -251,3 +254,195 @@ ax.set_ylabel('Y')
 # Save the figure
 fig.savefig("figure_name.png", dpi=300)
 ```
+
+### Dealing with overlap
+
+The examples above have very sparsely distributed data, but what about if you have data that overlaps?
+
+|![alt text](image-5.png)| 
+|:-:| 
+| Dense data can overlap, making it difficult to interpret. *Alt text: a scatter plot with normally distributed data from -3 &ndash; 3 on both the x and y axis.* |
+
+We can solve this by modifying the "alpha" or transparency of the points by replacing `ax.scatter(x, y)` with:
+
+`ax.scatter(x, y, alpha=0.5)`
+
+This allows you to more easily see where there are clusters of data:
+
+|![alt text](image-6.png)| 
+|:-:| 
+| Dense data can be plotted with lower opacity, allowing overlap to be better understood. *Alt text: a scatter plot with normally distributed data from -3 &ndash; 3 on both the x and y axis.* |
+
+## Visual encoding and additional variables
+
+So far, we have created a random data set and plotted it using the default settings provided by `matplotlib`: we have left the marker style, size and colour exactly as they are (apart from the brief discussion of overlapping data, above); each data point is identical.
+
+This is sufficient if we only want to address the relationship between two variables *x* and *y*. But frequently, we will want to 
+
+Sophie Warnes provides us with a list of ways data can be encoded in her 2018 medium article
+["What’s visual ‘encoding’ in data viz, and why is it important?"](https://medium.com/@sophiewarnes/whats-visual-encoding-in-data-viz-and-why-is-it-important-7406bc88b4b4):
+
+> - Size
+> - Shape
+> - Colour
+> - Grouping
+> - Area
+> - Position
+> - Saturation
+> - Line pattern
+> - Line weight
+> - Angle
+> - Connections
+
+Some of these (line weight, connections etc.) are more applicable to line plots, and will be covered in the next session, but properties such as the size, shape and colour of the markers can allow us to add another dimension to our scatter plot.
+
+## Unordered or categorical third dimension
+
+In the example code given, we defined x and y variables. What if these (x,y) pairs could be divided up into different groups or categories? Let's assume for now, these different groups are stored separately:
+
+| Category| Data |
+|:--| :--|
+| Cat. 1| *(x1, y1)* |
+| Cat. 2| *(x2, y2)* |
+| Cat. 3| *(x3, y3)* |
+
+
+```python
+x1 = np.random.rand(50)
+y1 = np.random.rand(50)
+
+x2 = np.random.rand(50)
+y2 = np.random.rand(50)
+
+x3 = np.random.rand(50)
+y3 = np.random.rand(50)
+```
+
+We can use an almost-identical script to plot these results, just adding in additional lines of code for the new data series:
+
+```python
+# Create a figure and axes, and set the figure size in inches
+fig, ax = plt.subplots(figsize=(7, 4))
+
+# Plot the data as a scatter plot
+ax.scatter(x1, y1)
+ax.scatter(x2, y2) # just repeat for the different data series
+ax.scatter(x3, y3) # just repeat for the different data series
+
+# Set title and labels
+ax.set_title('Scatter Plot')
+ax.set_xlabel('X')
+ax.set_ylabel('Y')
+```
+
+Because we now have an additional element aside from x,y position encoding our data, we need to include a legend. We must add labels to each of the data series:
+
+```python
+ax.scatter(x1, y1, label="(x1, y1)")
+ax.scatter(x2, y2, label="(x2, y2)")
+ax.scatter(x3, y3, label="(x3, y3)")
+```
+
+Then we can add in a legend:
+
+```python
+ax.legend()
+```
+
+|![alt text](image-7.png)| 
+|:-:| 
+| Scatter plot with three separate categories. Matplotlib will cycle through a default colour palette for each new data series added. What's an issue with this plot? (hint - look at the legend) |
+
+```{admonition} Legend blocking some data?
+:class: dropdown
+Matplotlib attempts to draw the legend in an area where it's overlapping the least amount of data, but sometimes there just isn't room. We can move the legend off the plotting area by replacing the `ax.legend()` function call with this:
+
+`ax.legend(bbox_to_anchor=(0.5, 1.2), loc='upper center', ncol=3, frameon=False)`
+
+We will look at this in more detail in a [later session](https://arctraining.github.io/data-vis/05-composition-bar-charts.html#comparing-composition).
+```
+
+### Colour
+
+Matplotlib automatically assigns a different colour to the different data series, but this only one of the ways data can be encoded. We will delve into using colour more deeply over the next few sessions, but there are a few key points to note now:
+
+- Hue shouldn't be the *only* way you visually encode data; it can be difficult to distinguish on some screens or when printed, might be illegible if printed in greyscale, and could be inaccessible to someone with a colour vision deficiency. In the session ["Making comparisons: line plots"](https://arctraining.github.io/data-vis/03-comparison-line-plots.html#part-2-changing-default-settings) we will look more closely at colour choices.
+
+### Shape
+
+The shape of the marker can also be modified. Matplotlib allows a wide range of [marker styles](https://matplotlib.org/stable/api/markers_api.html) to be used. We will use these in the session ["Making comparisons: line plots"](https://arctraining.github.io/data-vis/03-comparison-line-plots.html#part-2-changing-default-settings).
+
+## Ordered third dimension
+
+In the example code given, we defined x and y variables. What if we also defined a z variable that is similar in structure to x and y (is an array of the same size, filled with similar random data)? We are going to explore the ways to display this third dimension.
+
+We can define random x, y and z data. We're going to use the `randn` function to get pseudo random normally distributed data:
+
+```python
+# Define random x, y, z data
+x = np.random.randn(200)
+y = np.random.randn(200)
+z = np.random.randn(200)
+```
+
+### Colour
+
+Again, we can use colour to define the third dimension. In this case, because we want to show variation in `z`, which is a continuous variable and not categorical, we will use a *colour map*. The default colour map that `matplotlib` uses is called Viridis, and it's a good choice for scientific visualisation - we will discuss why later!
+
+```python
+# Create a figure and axes, and set the figure size in inches
+fig, ax = plt.subplots(figsize=(7, 4))
+
+# Plot the data as a scatter plot
+ax.scatter(x, y, alpha=0.8, c=z) # alpha changes the opacity
+
+# Set title and labels
+ax.set_title('Scatter Plot')
+ax.set_xlabel('X')
+ax.set_ylabel('Y')
+```
+
+You can also use a diverging colour map, and make the markers a little bigger to make it more easily readable.
+
+|![alt text](image-8.png)| 
+|:--| 
+| Caption *Alt text: here* |
+
+You can recreate this with the following code snippet:
+
+```python
+# Plot the data as a scatter plot
+ax.scatter(x, y, alpha=0.7, c=z, cmap="coolwarm", s=100)
+```
+
+Of course, it's important to include a colour scale so that people know what the colours represent:
+
+```python
+# Plot the data as a scatter plot
+a = ax.scatter(x, y, alpha=0.7, c=z, cmap="coolwarm", s=100)
+fig.colorbar(a)
+```
+
+|![alt text](image-9.png)| 
+|:--| 
+| Caption *Alt text: here* |
+
+### Size
+
+Another option for continuous data is to allow size to vary according to the third variable. As you can see from the example above, size can be set with the argument `s=10`. This value defines the area of the marker. In addition to defining the size of all the points with a *scalar* value, you can also pass in a variable or equation, for example the `z` variable, or `sin(x)`, or `100*z**2`. It's important to know how the change in size be perceived by your audience before you use this.
+
+|![alt text](image-10.png)| 
+|:--| 
+| Caption *Alt text: here* |
+
+We can apply this to our scatter plot:
+
+```python
+# Plot the data as a scatter plot
+a = ax.scatter(x, y, alpha=0.7, c=z, cmap="coolwarm", s=100*z**2)
+fig.colorbar(a)
+```
+
+|![alt text](image-11.png)| 
+|:--| 
+| Caption *Alt text: here* |
