@@ -83,7 +83,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>Assessing distributions: histograms</h1>
 <p>In the last session, we used the seaborn library to apply some aesthetic changes to our plots, including sizing, colour palette, and adding a background grid. In this session, we are going to take this further and work with seaborn directly to build the plot.</p>
 <p>While we build our plots, we will also be thinking about the idea of “chartjunk” and how plots can be made too busy and difficult to understand by either adding unnecessary aesthetic flourishes like patterns and colours, or by trying to cram too much data into a single plot. Different people have different tolerance limits for “chartjunk”—keep an eye out to see where your limit lies as we progressively add more and more junk to our plots.</p>
-<p>```wzfasltisygt Using seaborn :class: dropdown</p>
+<p>```mesxfyycliig Using seaborn :class: dropdown</p>
 <p>Seaborn is a library for data visualisation built on top of matplotlib.</p>
 <p>From the <a href="https://seaborn.pydata.org/">seaborn homepage</a>: &gt; It provides a high-level interface for drawing attractive and informative statistical graphics.</p>
 <p>Seaborn provides you with a selection of templates for frequently used statistical plots. This allows you to quickly produce common plot types in very few lines of code, without building them from scratch in matplotlib.</p>
@@ -101,7 +101,7 @@ signal_1 = np.random.rand(10)
 signal_2 = np.random.rand(10)
 signal_3 = np.random.rand(10)</code></pre>
 <p>In this session, we are going to do similar, except instead of storing each array of random numbers as a different variable, we are going to put them all together in a <em>dataframe</em> using the library <em>pandas</em>. Additionally, instead of using the <code>np.random.rand()</code> function, we are going to use the <code>np.random.randn()</code> function - spot the difference! Read the docs <a href="https://numpy.org/doc/stable/reference/random/generated/numpy.random.randn.html">here</a>.</p>
-<p>```wzfasltisygt Pandas dataframe :class: tip</p>
+<p>```mesxfyycliig Pandas dataframe :class: tip</p>
 <p>According to the pandas documentation, a dataframe is a: &gt; Two-dimensional, size-mutable, potentially heterogeneous tabular data.</p>
 <ul>
 <li>A dataframe is a table that can contain different <em>types</em> of data</li>
@@ -135,7 +135,7 @@ import pandas as pd</code></pre>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>                     <span class="st">'Dist 2'</span>: distribution_2,  <span class="co"># pre-defined variable</span></span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>                     <span class="st">'Dist 3'</span>: np.random.randn(<span class="dv">100</span>)})  <span class="co"># defined on-the-fly</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>As you can see from this snippet, you can either pre-define variables (<code>distribution_1</code> and <code>distribution_2</code>) and then insert them into the code, or define them in-place inside the dataframe.</p>
-<p>``<code>wzfasltisygt What's going on with the curly brackets inside the dataframe? :class: dropdown A dataframe takes data in the form of a</code>dictionary<code>, which is surrounded by curly brackets</code><code>, and contains string</code>keys` or labels for the data, followed by a colon and then the data.</p>
+<p>``<code>mesxfyycliig What's going on with the curly brackets inside the dataframe? :class: dropdown A dataframe takes data in the form of a</code>dictionary<code>, which is surrounded by curly brackets</code><code>, and contains string</code>keys` or labels for the data, followed by a colon and then the data.</p>
 <p>A dictionary generally looks like this:</p>
 <p><code>example_dict = {"Key 1" : [0, 1, 2, 3, 5], "Key 2" : np.array([10, 20, 30, 40])}</code></p>
 <p>As you can see from the above example, <code>dicts</code> can take different <em>types</em> of data, including lists and numpy arrays.</p>
@@ -303,15 +303,157 @@ sns.histplot(data, x="Dist 1", ax=ax)</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Challenge plot #2. A truly awful plot, to show you that just because you can choose and option in seaborn, doesn’t mean it’s sensible. This one has an extra challenge… hint: you’ll need to change the <code>fill</code> argument. <em>Alt text: here</em></td>
+<td style="text-align: left;">Challenge plot #3. A truly awful plot, to show you that just because you can choose and option in seaborn, doesn’t mean it’s sensible. This one has an extra challenge… hint: you’ll need to change the <code>fill</code> argument. <em>Alt text: here</em></td>
 </tr>
 </tbody>
 </table>
-<p>```wzfasltisygt Challenge solutions :class: dropdown</p>
+<p>```mesxfyycliig Challenge solutions :class: dropdown</p>
 <p>Challenge plot one: <code>sns.histplot(data, kde=True, multiple="stack", element="step", ax=ax)</code></p>
 <p>Challenge plot two: <code>sns.histplot(data, kde=True, multiple="dodge", element="bars", ax=ax)</code></p>
 <p>Challenge plot three: <code>sns.histplot(data, kde=True, multiple="layer", element="step", fill=False, ax=ax)</code></p>
-<p>```</p>
+<pre><code>
+## What can we do when our plot becomes too busy?
+
+Lets look at the example plot below, where we have added a grid to the background:
+
+|![image](figs/hist_second.png) | 
+|:--| 
+| Is this plot easy to interpret? *Alt text: here* |
+
+You can recreate a similar plot with your example data using this code snippet:
+
+```python
+# default seaborn theme
+sns.set_theme()
+
+# change the style of the plot
+sns.set_style("whitegrid")
+
+# set the "context" of the plot
+sns.set_context("paper")
+
+# Create a overlaid histogram with kde curves
+sns.histplot(data, kde=True,)
+
+# get rid of top and right spines
+sns.despine()
+
+# Show plot
+plt.show()</code></pre>
+<p>It is difficult to interpret this plot beyond just stating that all datasets have a roughly normal distribution around zero. The KDE lines are a bit easier to compare than the overlaid semi-transparent bar-style histograms, but there is still an awful lot of clutter.</p>
+</section>
+<section id="reduce-the-groups-of-data-being-shown-concurrently" class="level3">
+<h3 class="anchored" data-anchor-id="reduce-the-groups-of-data-being-shown-concurrently">Reduce the groups of data being shown concurrently</h3>
+<p>One option is to simply cut back on the data you are showing. This could mean only including <code>"Dist 1"</code> or <code>"Dist 2"</code> or <code>"Dist 3"</code>, or making a separate plot for each.</p>
+<p>Or, you could cut out the KDE plot and show the histograms overlaid but with the fill removed, either like this:</p>
+<pre><code>sns.histplot(data, element="step", fill=False)</code></pre>
+<p>or this</p>
+<pre><code>sns.histplot(data, element="poly", fill=False)</code></pre>
+<p>We could also instead only show the KDE plot and cut out the histogram beneath iy by swapping the <code>histplot</code> function for the <code>kdeplot</code> function:</p>
+<pre><code>sns.kdeplot(data)</code></pre>
+<p>But each of these plots have their own issues; for example read <a href="https://seaborn.pydata.org/tutorial/distributions.html#kernel-density-estimation-pitfalls">here</a> on the limitations of KDE plots.</p>
+</section>
+<section id="zoom-out-and-show-more-coarse-grained-data" class="level3">
+<h3 class="anchored" data-anchor-id="zoom-out-and-show-more-coarse-grained-data">“Zoom out” and show more coarse-grained data</h3>
+<p>Another approach is to reduce the resolution of the plot. Up until now, we have let the <code>histplot</code> function automatically set the bin width for the histogram. This can be <a href="https://seaborn.pydata.org/tutorial/distributions.html#choosing-the-bin-size">manually controlled</a>, either by using the argument <code>bins</code> and defining the number of bins to use over the range of data, or by defining <code>binwidth</code> directly:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>sns.histplot(data, kde<span class="op">=</span><span class="va">True</span>, binwidth<span class="op">=</span><span class="dv">1</span>, multiple<span class="op">=</span><span class="st">"dodge"</span>, shrink<span class="op">=</span><span class="fl">0.8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This code additionally shrinks the width of the bars so that space is present between different clusters of bars that represent the same region of data.</p>
+</section>
+<section id="multi-panelled-plots" class="level3">
+<h3 class="anchored" data-anchor-id="multi-panelled-plots">Multi-panelled plots</h3>
+<p>Another option where you want to compare data is to create a single plot with multiple panels or axes.</p>
+<p>Complete the following code snippet to make a multi-panel plot:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># default seaborn theme</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>sns.set_theme()</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># change the style of the plot</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>sns.set_style(<span class="st">"white"</span>)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co"># set the "context" of the plot</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>sns.set_context(<span class="st">"paper"</span>)</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a figure and axes</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">3</span>)</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a histogram with a kde line for each distribution in a separate panel</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>sns.histplot(data, x<span class="op">=</span><span class="st">"Dist 1"</span>, kde<span class="op">=</span><span class="va">True</span>, ax<span class="op">=</span>axs[<span class="dv">0</span>]) <span class="co"># Remember, indexing in Python starts at zero</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="co"># ADD CODE HERE</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="co"># get rid of top and right spines</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>sns.despine()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>```mesxfyycliig Answer :class: dropdown Beneath the line:</p>
+<p><code>sns.histplot(data, x="Dist 1", kde=True, ax=axs[0])</code>.</p>
+<p>add these two lines:</p>
+<p><code>sns.histplot(data, x="Dist 2", kde=True, ax=axs[1])</code></p>
+<p><code>sns.histplot(data, x="Dist 3", kde=True, ax=axs[2])</code></p>
+<pre><code>
+You might notice that the x-axis labels are overlapped and it looks a little messy. We can add the command `plt.tight_layout()` which adjusts the padding between plots automatically. Note that you can do this manually if you need more fine-grained control, but usually this function does a good enough job! We will be looking at this more extensively in later sessions, as well as some alternative functions that work in different situations.
+
+# Additional challenges
+
+These challenges will require some functions/arguments that haven't been discussed in this session; feel free to save these for later if you are finding the material challenging enough!
+
+```{admonition} Make a plot with a single panel/axes that only shows "Dist 1" and "Dist 2"
+:class: dropdown
+
+You can specify just the series `Dist_1` and `Dist_2` using the following line:
+
+`sns.histplot(data[['Dist 1', 'Dist 2']], multiple="stack", kde=True)`
+
+with whatever style/formatting you like. Look at the [pandas documentation](https://pandas.pydata.org/docs/getting_started/intro_tutorials/03_subset_data.html) to find out more about selecting subsets of dataframes.</code></pre>
+<table class="table">
+<colgroup>
+<col style="width: 100%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"><img src="figs/hist_challenge4.png" class="img-fluid" alt="image"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Extra challenge plot #1. Can you recreate this awful plot? <em>Alt text: here</em></td>
+</tr>
+</tbody>
+</table>
+<table class="table">
+<colgroup>
+<col style="width: 100%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"><img src="figs/hist_challenge5.png" class="img-fluid" alt="image"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Extra challenge plot #2. Can you recreate the colour palette of this plot? <em>Alt text: here</em></td>
+</tr>
+</tbody>
+</table>
+<p>```mesxfyycliig Extra challenge plot solutions :class: dropdown</p>
+<p>Extra challenge plot #1:</p>
+<p>This plot is created by making the bins very narrow.</p>
+<p><code>sns.histplot(data, binwidth=0.1, multiple="dodge")</code></p>
+<p>Extra challenge plot #2:</p>
+<p>To set the colour palette, use this line: <code>sns.set_palette("flare",3)</code> This selects the <code>"flare"</code> colour palette, and tells seaborn to split it into three colours (so that you get the extreme value colours on your plot). Try is without this <code>3</code> to see how the plot looks.</p>
+<p>The plot then uses this function:</p>
+<p><code>sns.histplot(data, kde=True, binwidth=1, multiple="dodge", shrink=0.8)</code></p>
+<pre><code>
+
+|![image](figs/hist_6.png) | 
+|:--| 
+| A final example:  *Alt text: here* |
+
+```python
+sns.histplot(
+    data,
+    multiple="stack",
+    palette="light:m_r",
+    binwidth=0.25,
+    edgecolor=".3",
+    linewidth=.5,
+)</code></pre>
 </section>
 </section>
 </section>
