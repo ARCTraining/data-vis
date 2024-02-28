@@ -175,7 +175,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Assessing distributions: histograms</a></li>
 
 <li class="toctree-l2"><a class="reference internal" href="05-composition-bar-charts.html">Understanding composition: bar charts</a></li>
-<li class="toctree-l2"><a class="reference internal" href="06-heatmaps.html">Spatial distributions: heatmaps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06-heatmaps.html">Spatial distributions and correlation: heatmaps</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference external" href="https://arc.leeds.ac.uk">Research Computing Website</a></li>
@@ -807,6 +807,26 @@ We can create a bare-bones plot by setting up the <code class="docutils literal 
 This selects the <code class="docutils literal notranslate"><span class="pre">&quot;flare&quot;</span></code> colour palette, and tells seaborn to split it into three colours (so that you get the extreme value colours on your plot). Try is without this <code class="docutils literal notranslate"><span class="pre">3</span></code> to see how the plot looks.</p>
 <p>The plot then uses this function:</p>
 <p><code class="docutils literal notranslate"><span class="pre">sns.histplot(data,</span> <span class="pre">kde=True,</span> <span class="pre">binwidth=1,</span> <span class="pre">multiple=&quot;dodge&quot;,</span> <span class="pre">shrink=0.8)</span></code></p>
+</div>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p><img alt="image" src="_images/hist_6.png" /></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>A final example, with a purple colour scheme. See code snippet below to recreate it.  <em>Alt text: here</em></p></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span>
+    <span class="n">data</span><span class="p">,</span>
+    <span class="n">multiple</span><span class="o">=</span><span class="s2">&quot;stack&quot;</span><span class="p">,</span>
+    <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;light:m_r&quot;</span><span class="p">,</span>
+    <span class="n">binwidth</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span>
+    <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;.3&quot;</span><span class="p">,</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mf">.5</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
 </div>
 </section>
 

@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Spatial distributions: heatmaps &#8212; Introduction to Data Visualisation</title>
+    <title>Spatial distributions and correlation: heatmaps &#8212; Introduction to Data Visualisation</title>
   
   
   
@@ -174,7 +174,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="04-distribution-histogram.html">Assessing distributions: histograms</a></li>
 
 <li class="toctree-l2"><a class="reference internal" href="05-composition-bar-charts.html">Understanding composition: bar charts</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Spatial distributions: heatmaps</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Spatial distributions and correlation: heatmaps</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference external" href="https://arc.leeds.ac.uk">Research Computing Website</a></li>
@@ -367,7 +367,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -378,11 +380,39 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Spatial distributions: heatmaps</h1>
+    <h1>Spatial distributions and correlation: heatmaps</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-the-data">Download the data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#heatmaps">Heatmaps</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cmocean-colour-maps">Cmocean colour maps</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-in-the-data">Load in the data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-correlation">Calculating correlation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-heatmap-in-seaborn">Basic heatmap in seaborn</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#annotations">Annotations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#centering-the-heatmap">Centering the heatmap</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#picking-a-heatmap">Picking a heatmap</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#masking-the-top-half">Masking the top half</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#add-some-labels">Add some labels</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fix-weird-layout-issues">Fix weird layout issues</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#challenges">Challenges</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bonus-section-plotting-an-image-with-a-heatmap">Bonus section: plotting an image with a heatmap</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-the-image">Plot the image:</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -392,8 +422,299 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="spatial-distributions-heatmaps">
-<h1>Spatial distributions: heatmaps<a class="headerlink" href="#spatial-distributions-heatmaps" title="Permalink to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="spatial-distributions-and-correlation-heatmaps">
+<h1>Spatial distributions and correlation: heatmaps<a class="headerlink" href="#spatial-distributions-and-correlation-heatmaps" title="Permalink to this heading">#</a></h1>
+<p>This exercise is inspired by the blog post <a class="reference external" href="https://peritract.github.io/2020/05/14/dungeons-and-data/">Dungeons &amp; Data</a> written by Dan Keefe in 2020. As an extra exercise when you’ve finished this course, have a look through the attached <a class="reference external" href="https://github.com/Peritract/data-projects/tree/master/dungeons-and-data">Jupyter notebooks</a> to practise building a whole suite of different plots. The data used has been pulled from the <a class="reference external" href="https://www.dnd5eapi.co/">Dungeons and Dragons 5th edition API</a>, with a little bit of data-wrangling to get it into a nice format for the sake of this tutorial.</p>
+<p>This dataset contains stats for a range of D &amp; D monsters. Each monster has the following parameters associated with them:</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Parameter</p></th>
+<th class="head text-left"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>AC</p></td>
+<td class="text-left"><p>Armour class</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>HP</p></td>
+<td class="text-left"><p>Hit Points</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Str</p></td>
+<td class="text-left"><p>Strength</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Dex</p></td>
+<td class="text-left"><p>Dexterity</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Con</p></td>
+<td class="text-left"><p>Constitution</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Int</p></td>
+<td class="text-left"><p>Intelligence</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Wis</p></td>
+<td class="text-left"><p>Wisdom</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Cha</p></td>
+<td class="text-left"><p>Charisma</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>CR</p></td>
+<td class="text-left"><p>Challenge Rating</p></td>
+</tr>
+</tbody>
+</table>
+<p>Essentially, we want to figure out if there is a strong correlation, either positive or negative, between any of these stats.</p>
+<p>As a little extra challenge at the end of this section, we also show how to load in an image and plot it using a colour map; this is useful for <code class="docutils literal notranslate"><span class="pre">.tiff</span></code> images from microscopy, maps, DEMs… any very easy to do!</p>
+<section id="download-the-data">
+<h2>Download the data<a class="headerlink" href="#download-the-data" title="Permalink to this heading">#</a></h2>
+<p>This is the only tutorial that doesn’t include randomly generated data, to make sure that at least once you have to load in data manually.</p>
+</section>
+<section id="heatmaps">
+<h2>Heatmaps<a class="headerlink" href="#heatmaps" title="Permalink to this heading">#</a></h2>
+<p>We have already discussed colour maps at length, and have shown how they can be used in a whole array of different situations: to add a third dimension to scatter plots, to represent an image as data, and to highlight statistical tables in order to make them more readable.</p>
+<p>First, we are going to use them to build a <a class="reference external" href="https://www.w3schools.com/datascience/ds_stat_correlation_matrix.asp"><strong>correlation matrix</strong></a>. This is essentially a table with parameters of a dataset along the rows and columns, showing the correlation coefficients between every pair of parameters. We can use a heatmap to make this table more readable at a glance.</p>
+<section id="cmocean-colour-maps">
+<h3>Cmocean colour maps<a class="headerlink" href="#cmocean-colour-maps" title="Permalink to this heading">#</a></h3>
+<p>For this example, we’re going to also install an extra Python package that will give you access to more colour maps: <a class="reference external" href="https://matplotlib.org/cmocean/">cmocean</a>.</p>
+<p>If you try <em>importing</em> cmocean, you will get an error message something like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>---------------------------------------------------------------------------
+ModuleNotFoundError                       Traceback (most recent call last)
+&lt;ipython-input-21-99fef696d6c8&gt; in &lt;cell line: 1&gt;()
+----&gt; 1 import cmocean
+
+ModuleNotFoundError: No module named &#39;cmocean&#39;
+
+---------------------------------------------------------------------------
+NOTE: If your import is failing due to a missing package, you can
+manually install dependencies using either !pip or !apt.
+
+To view examples of installing some common dependencies, click the
+&quot;Open Examples&quot; button below.
+---------------------------------------------------------------------------
+</pre></div>
+</div>
+<p>As explained in the error message, this module is not one available by default in Colab, so you need to install it. This is very simple. All we need to do is use <code class="docutils literal notranslate"><span class="pre">!</span></code> to access the underlying terminal on our cloud machine:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>!pip<span class="w"> </span>install<span class="w"> </span>cmocean
+</pre></div>
+</div>
+<p>You will get output something like this if it is successful:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Collecting<span class="w"> </span>cmocean
+<span class="w">  </span>Downloading<span class="w"> </span>cmocean-3.1.3-py3-none-any.whl<span class="w"> </span><span class="o">(</span><span class="m">222</span><span class="w"> </span>kB<span class="o">)</span>
+<span class="w">     </span>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<span class="w"> </span><span class="m">222</span>.1/222.1<span class="w"> </span>kB<span class="w"> </span><span class="m">5</span>.5<span class="w"> </span>MB/s<span class="w"> </span>eta<span class="w"> </span><span class="m">0</span>:00:00
+
+&gt;&gt;<span class="w"> </span>Lots<span class="w"> </span>of<span class="w"> </span>dependencies...
+
+Installing<span class="w"> </span>collected<span class="w"> </span>packages:<span class="w"> </span>cmocean
+Successfully<span class="w"> </span>installed<span class="w"> </span>cmocean-3.1.3
+</pre></div>
+</div>
+<p>You can now import cmocean alongside the other packages we need for this section:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">cmocean</span>
+</pre></div>
+</div>
+<p>Now in addition to all the <a class="reference external" href="https://matplotlib.org/stable/users/explain/colors/colormaps.html">Matplotlib colour maps</a> and <a class="reference external" href="https://matplotlib.org/stable/users/explain/colors/colormaps.html">Seaborn colour maps</a>, you now have access to <a class="reference external" href="https://matplotlib.org/cmocean/">Cmocean colour maps</a>.</p>
+<p>When plotting, you usually define the colourmap inside the plotting function with the <code class="docutils literal notranslate"><span class="pre">cmap</span></code> argument. For the main names Matplotlib colour maps, you can just use their name, so <code class="docutils literal notranslate"><span class="pre">cmap=&quot;plasma&quot;</span></code>. For Seaborn colour maps, it’s slightly more text: <code class="docutils literal notranslate"><span class="pre">cmap=sns.color_palette(&quot;rocket&quot;,</span> <span class="pre">as_cmap=True)</span></code>; you give the name of the <em>palette</em> (“rocket”) and then say you want it <em>as a colour map</em>. For cmocean, you just need to prefix the colour map name with <code class="docutils literal notranslate"><span class="pre">&quot;cmo.&quot;</span></code>: <code class="docutils literal notranslate"><span class="pre">cmap=&quot;cmo.curl&quot;</span></code>. This may be a little confusing now, but we will have lots of practise in thie section!</p>
+</section>
+</section>
+<section id="load-in-the-data">
+<h2>Load in the data<a class="headerlink" href="#load-in-the-data" title="Permalink to this heading">#</a></h2>
+<p>Now you’re ready to load in the data</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">monsters</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;/content/monsters_stats.csv&quot;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Use the file explorer and some of the DataFrame exploration tools to see what this looks like: you can double click the csv file itself in the file explorer on the left had side, or after loading the data you can simply call <code class="docutils literal notranslate"><span class="pre">monsters</span></code> in an empty cell to get a preview.</p>
+</section>
+<section id="calculating-correlation">
+<h2>Calculating correlation<a class="headerlink" href="#calculating-correlation" title="Permalink to this heading">#</a></h2>
+<p>In order to make a correlation matrix, we need to calculate the correlation between each parameter! Thankfully, this is very easy using the pandas function <code class="docutils literal notranslate"><span class="pre">corr</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">corr</span> <span class="o">=</span> <span class="n">monsters</span><span class="o">.</span><span class="n">corr</span><span class="p">(</span><span class="n">numeric_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If you have a look at <code class="docutils literal notranslate"><span class="pre">corr</span></code>, you’ll see we essentially already have a correlation matrix in its basic table form. Have a look at the <a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.corr.html"><code class="docutils literal notranslate"><span class="pre">corr</span></code> documentation</a>.</p>
+</section>
+<section id="basic-heatmap-in-seaborn">
+<h2>Basic heatmap in seaborn<a class="headerlink" href="#basic-heatmap-in-seaborn" title="Permalink to this heading">#</a></h2>
+<p>Now we can plot a basic heatmap using this correlation matrix. Lets start with the default settings, and build up from there.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">corr</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You should have a figure that looks something like this:</p>
+<p><img alt="A basic heatmap." src="_images/heatmap1.png" /></p>
+<p>Nice, but we have a bit of work before it’s finished. Remember that any arguments inside a function that have a default value (so use a <code class="docutils literal notranslate"><span class="pre">=</span></code>) can be given in any order.</p>
+<section id="annotations">
+<h3>Annotations<a class="headerlink" href="#annotations" title="Permalink to this heading">#</a></h3>
+<p>It’s currently a little bit hard to read off values accurately, so lets add back in the elements of the table version that were useful: having the actual values printed out. These can be added as annotations:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">corr</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that seaborn will automatically adjust the font colour to suit the background colour.</p>
+</section>
+<section id="centering-the-heatmap">
+<h3>Centering the heatmap<a class="headerlink" href="#centering-the-heatmap" title="Permalink to this heading">#</a></h3>
+<p>Before we start picking out a sensible heatmap, lets centre it on zero:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">corr</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="picking-a-heatmap">
+<h3>Picking a heatmap<a class="headerlink" href="#picking-a-heatmap" title="Permalink to this heading">#</a></h3>
+<p>Find a nice (and scientifically valid) colour map:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://matplotlib.org/stable/users/explain/colors/colormaps.html">Matplotlib colour maps</a></p></li>
+<li><p><a class="reference external" href="https://matplotlib.org/stable/users/explain/colors/colormaps.html">Seaborn colour maps</a></p></li>
+<li><p><a class="reference external" href="https://matplotlib.org/cmocean/">Cmocean colour maps</a></p></li>
+</ul>
+<p>I’m going to use the cmocean map “curl”:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">corr</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;cmo.curl&quot;</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="masking-the-top-half">
+<h3>Masking the top half<a class="headerlink" href="#masking-the-top-half" title="Permalink to this heading">#</a></h3>
+<p>The correlation matrix is looking pretty great already, but it could be even more readable if we simplified it. There is symmetry around the diagonal, so we can just remove the top half to make it less busy and easier to read.</p>
+<p>We can do this by creating a <code class="docutils literal notranslate"><span class="pre">mask</span></code> and then passing this as an argument to the <code class="docutils literal notranslate"><span class="pre">heatmap</span></code> function. We want to create a mask that hides the upper triangle of the matrix, but keeps the diagonal. This requires two lines of code that are a bit dense, but we’ll work through them step-by-step.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">triu</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">corr</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>When we have functions inside functions like the line above, we always start with the inside function, like you would if working through a maths problem.</p>
+<ul class="simple">
+<li><p>The innermost function is <code class="docutils literal notranslate"><span class="pre">np.ones_like(corr,</span> <span class="pre">dtype=bool)</span></code>. the <code class="docutils literal notranslate"><span class="pre">np.ones_like()</span></code> function creates an array of ones in the shape of an array that already exists - in this case <code class="docutils literal notranslate"><span class="pre">corr</span></code>, our correlation matrix. The second argument, <code class="docutils literal notranslate"><span class="pre">dtype</span></code> is set to <code class="docutils literal notranslate"><span class="pre">bool</span></code>, meaning that instead of being filled with the digit <code class="docutils literal notranslate"><span class="pre">1</span></code>, the array will be filled with the Boolean equivalent, <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
+<li><p>The output of the inner function, an array the same shape as <code class="docutils literal notranslate"><span class="pre">corr</span></code> but filled with the value <code class="docutils literal notranslate"><span class="pre">True</span></code> is then passed to the outer function, <code class="docutils literal notranslate"><span class="pre">np.triu</span></code></p></li>
+<li><p>The outer function <code class="docutils literal notranslate"><span class="pre">np.triu</span></code> function is used to get the upper (<code class="docutils literal notranslate"><span class="pre">u</span></code>) triangle (<code class="docutils literal notranslate"><span class="pre">tri</span></code>) of an array. It returns a copy of the array with everything below the diagonal set to zero or <code class="docutils literal notranslate"><span class="pre">False</span></code>, depending on the data type.</p></li>
+</ul>
+<p>Your end result mask should look something like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">array</span><span class="p">([[</span> <span class="kc">True</span><span class="p">,</span>  <span class="kc">True</span><span class="p">,</span>  <span class="kc">True</span><span class="p">,</span>  <span class="kc">True</span><span class="p">,</span>  <span class="kc">True</span><span class="p">,</span>  <span class="kc">True</span><span class="p">,</span>  <span class="kc">True</span><span class="p">,</span>  <span class="kc">True</span><span class="p">,</span>  <span class="kc">True</span><span class="p">],</span>
+       <span class="p">[</span><span class="kc">False</span><span class="p">,</span>  <span class="kc">True</span><span class="p">,</span>  <span class="kc">True</span><span class="p">,</span>  <span class="kc">True</span><span class="p">,</span>  <span class="kc">True</span><span class="p">,</span>  <span class="kc">True</span><span class="p">,</span>  <span class="kc">True</span><span class="p">,</span>  <span class="kc">True</span><span class="p">,</span>  <span class="kc">True</span><span class="p">],</span>
+       <span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span>  <span class="kc">True</span><span class="p">,</span>  <span class="kc">True</span><span class="p">,</span>  <span class="kc">True</span><span class="p">,</span>  <span class="kc">True</span><span class="p">,</span>  <span class="kc">True</span><span class="p">,</span>  <span class="kc">True</span><span class="p">,</span>  <span class="kc">True</span><span class="p">],</span>
+       <span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span>  <span class="kc">True</span><span class="p">,</span>  <span class="kc">True</span><span class="p">,</span>  <span class="kc">True</span><span class="p">,</span>  <span class="kc">True</span><span class="p">,</span>  <span class="kc">True</span><span class="p">,</span>  <span class="kc">True</span><span class="p">],</span>
+       <span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span>  <span class="kc">True</span><span class="p">,</span>  <span class="kc">True</span><span class="p">,</span>  <span class="kc">True</span><span class="p">,</span>  <span class="kc">True</span><span class="p">,</span>  <span class="kc">True</span><span class="p">],</span>
+       <span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span>  <span class="kc">True</span><span class="p">,</span>  <span class="kc">True</span><span class="p">,</span>  <span class="kc">True</span><span class="p">,</span>  <span class="kc">True</span><span class="p">],</span>
+       <span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span>  <span class="kc">True</span><span class="p">,</span>  <span class="kc">True</span><span class="p">,</span>  <span class="kc">True</span><span class="p">],</span>
+       <span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span>  <span class="kc">True</span><span class="p">,</span>  <span class="kc">True</span><span class="p">],</span>
+       <span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span>  <span class="kc">True</span><span class="p">]])</span>
+</pre></div>
+</div>
+<p>The entire upper triangle that we want to mask is set to <code class="docutils literal notranslate"><span class="pre">True</span></code>. All we need to do now is set the diagonal to <code class="docutils literal notranslate"><span class="pre">False</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">fill_diagonal</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This function takes an array (<code class="docutils literal notranslate"><span class="pre">mask</span></code>) and fills the diagonal in place with the value given, in this case <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
+<p>We now have our mask that we can pass to the heatmap function:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">corr</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;cmo.curl&quot;</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This is starting to look pretty good!</p>
+<p><img alt="Heatmap with annotations, with top triangle masked off" src="_images/heatmap2.png" /></p>
+</section>
+<section id="add-some-labels">
+<h3>Add some labels<a class="headerlink" href="#add-some-labels" title="Permalink to this heading">#</a></h3>
+<p>Of course, labels and titles are essential; we need to add an overall title and give the colour bar a label.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">corr</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;cmo.curl&quot;</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">cbar_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;Pearson Correlation Coefficient&#39;</span><span class="p">})</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;D&amp;D Monster Stats&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="fix-weird-layout-issues">
+<h3>Fix weird layout issues<a class="headerlink" href="#fix-weird-layout-issues" title="Permalink to this heading">#</a></h3>
+<p>The spacing on this plot might look a little funky, with some of the annotations squeezing into neighbouring cells. This can be tackled with the magical argument <code class="docutils literal notranslate"><span class="pre">constrained_layout=True</span></code>, which fixes everything:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">corr</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;cmo.curl&quot;</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">cbar_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;Pearson Correlation Coefficient&#39;</span><span class="p">})</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;D&amp;D Monster Stats&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><img alt="Heatmap with annotations, with top triangle masked off, with labels added." src="_images/heatmap4.png" /></p>
+</section>
+</section>
+<section id="challenges">
+<h2>Challenges<a class="headerlink" href="#challenges" title="Permalink to this heading">#</a></h2>
+<p>Now that you’ve loaded this dataset in, lets do some challenges. For this session, this section is a little bit different - instead of trying to recreate similar plots, to the correlation matrix, lets see if you can plot this dataset in different ways.</p>
+<p>Some useful things to know about grouping the data:</p>
+<ul class="simple">
+<li><p>[Str, Dex, Con, Int, Wis, Cha] are a subset of stats that could be plotted together, separate from HP, AC and CR</p></li>
+<li><p>Looking at two stats/a subgroup of stats that have significant correlation in more detail might be useful</p></li>
+<li><p>To select a subset of the dataframe, you can use square brackets: <code class="docutils literal notranslate"><span class="pre">monsters[[&quot;Cha&quot;,</span> <span class="pre">&quot;Dex&quot;,</span> <span class="pre">&quot;Str&quot;]]</span></code> will return a cut-down version of the dataframe with only the columns listed</p></li>
+<li><p>You can collect any column into bins using the pandas <a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.cut.html"><code class="docutils literal notranslate"><span class="pre">cut</span></code> function</a>, and then save this as a new column in the dataframe:<code class="docutils literal notranslate"><span class="pre">monsters[&quot;CR</span> <span class="pre">bins&quot;]</span> <span class="pre">=</span> <span class="pre">pd.cut(monsters[&quot;CR&quot;],</span> <span class="pre">3,</span> <span class="pre">include_lowest=True)</span></code></p></li>
+</ul>
+<p>Here’s a quick <a class="reference external" href="https://seaborn.pydata.org/tutorial/introduction.html">reminder of how seaborn works</a>.</p>
+<p>Some fun plots to try:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://seaborn.pydata.org/examples/scatterplot_matrix.html">Scatterplot matrix</a> - note that this might take <em>a while</em> to plot!</p></li>
+<li><p><a class="reference external" href="https://seaborn.pydata.org/examples/histogram_stacked.html">Stacked histogram</a></p></li>
+<li><p><a class="reference external" href="https://seaborn.pydata.org/examples/regression_marginals.html">Jointplot</a></p></li>
+<li><p><a class="reference external" href="https://seaborn.pydata.org/tutorial/introduction.html#plots-for-categorical-data">Violin plot</a></p></li>
+</ul>
+</section>
+<section id="bonus-section-plotting-an-image-with-a-heatmap">
+<h2>Bonus section: plotting an image with a heatmap<a class="headerlink" href="#bonus-section-plotting-an-image-with-a-heatmap" title="Permalink to this heading">#</a></h2>
+<p>First, we need to get an image. Lets use a <a class="reference external" href="https://astrogeology.usgs.gov/search/map/Mars/GlobalSurveyor/MOLA/Mars_MGS_MOLA_DEM_mosaic_global_463m">Mars MOLA DEM mosaic image (MOLA Team, 2001)</a>.</p>
+<p>We can download this using the <code class="docutils literal notranslate"><span class="pre">wget</span></code> command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>!wget<span class="w"> </span>-O<span class="w"> </span>/content/example_image.jpg<span class="w"> </span>https://astropedia.astrogeology.usgs.gov/download/Mars/GlobalSurveyor/MOLA/thumbs/Mars_MGS_MOLA_DEM_mosaic_global_1024.jpg
+</pre></div>
+</div>
+<p>This will save the image to the file <code class="docutils literal notranslate"><span class="pre">/content/example_image.jpg</span></code>, ready for us to load in with Python.</p>
+<p>You’ll need these libraries:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+</pre></div>
+</div>
+<p>Then we can import the image as an array:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">jpg_image</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s2">&quot;/content/example_image.jpg&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We can check what shape the output is:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">jpg_image</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+<p>This image file is <code class="docutils literal notranslate"><span class="pre">(501,</span> <span class="pre">1024,</span> <span class="pre">3)</span></code>: 501 pixels vertically, 1024 pixels horizontally. The final number tells us how many channels there are: in this case, 3, meaning this is an RGB image. For an RGB-A image, this would be 4. For a greyscale image, this value wouldn’t be present, with the shape simply being <code class="docutils literal notranslate"><span class="pre">(501,</span> <span class="pre">1024)</span></code>.</p>
+<p>We just want the greyscale values, so we can chop up the image and ignore the RGB channels:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">image</span> <span class="o">=</span> <span class="n">jpg_image</span><span class="p">[:,:,</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>This means we take everything (<code class="docutils literal notranslate"><span class="pre">:</span></code>) from the first dimension, everything (<code class="docutils literal notranslate"><span class="pre">:</span></code>) from the second dimension, and just the first set of values from the third dimension (<code class="docutils literal notranslate"><span class="pre">0</span></code>). Check the shape of <code class="docutils literal notranslate"><span class="pre">image</span></code>.</p>
+<p>Now we can start plotting!</p>
+<section id="plot-the-image">
+<h3>Plot the image:<a class="headerlink" href="#plot-the-image" title="Permalink to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="n">im</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;plasma&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Plasma Colourmap&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s2">&quot;horizontal&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This will get us our first, basic plot:</p>
+<p><img alt="Heatmap of Mars MOLA data" src="_images/heatmap_mars_1.png" /></p>
+<p>On this plot, the x and y axes just tell us the number of pixels, and the colourbar tells us greyscale intensity. We can scale the image for it to make sense. On the <a class="reference external" href="https://astrogeology.usgs.gov/search/map/Mars/GlobalSurveyor/MOLA/Mars_MGS_MOLA_DEM_mosaic_global_463m">data repository website</a>, we get some information about the image. The minimum and maximum latitude are -90 and 90, respectively, while the longitude ranges from -180 to 180 in this plot. We can pass these values in as <em>extent</em>: <code class="docutils literal notranslate"><span class="pre">extent=[horizontal_min,horizontal_max,vertical_min,vertical_max]</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">im</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;plasma&#39;</span><span class="p">,</span> <span class="n">extent</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">180</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="mi">90</span><span class="p">])</span>
+</pre></div>
+</div>
+<p><img alt="Heatmap of Mars MOLA data" src="_images/heatmap_mars_2.png" /></p>
+<p>Now you can add in “Longitude” and “Latitude” as axes labels:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Longitude&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Latitude&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now, we can either just label the colourbar with the term “Greyscale intensity” (<code class="docutils literal notranslate"><span class="pre">fig.colorbar(im,</span> <span class="pre">orientation=&quot;horizontal&quot;,</span> <span class="pre">label=&quot;Greyscale</span> <span class="pre">Intensity&quot;)</span></code>), or we can scale this too to match the actual data output. If we were actually using this for research purposes, we would download their 2 GB tiff image which contains elevation data; but because that is a very large file that would take quite a while to download, we will instead roughly scale the pixel data to the max and min topography of Mars. We are going to assume the maximum elevation is 21229 m, and the minimum is -8200 m. We can then simply scale the image following these steps:</p>
+<ol class="arabic simple">
+<li><p>Divide image by 255 to normalise greyscale to between 0 and 1.</p></li>
+<li><p>Multiple image by total elevation change (21229 m + 8200 m)</p></li>
+<li><p>Shift baseline to mimumum elevation by subtracting it (-8200 m).</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">image</span> <span class="o">=</span> <span class="p">((</span><span class="mi">21229</span><span class="o">+</span><span class="mi">8200</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">image</span><span class="o">/</span><span class="mi">255</span><span class="p">))</span> <span class="o">-</span> <span class="mi">8200</span>
+</pre></div>
+</div>
+<p>We can then update the colour bar label:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s2">&quot;horizontal&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Elevation relative to areoid [M]&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>A similar process will work for EDS maps of x-ray intensity, BSE images etc.</p>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -442,7 +763,40 @@ document.write(`
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"></div>
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-the-data">Download the data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#heatmaps">Heatmaps</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cmocean-colour-maps">Cmocean colour maps</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-in-the-data">Load in the data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-correlation">Calculating correlation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-heatmap-in-seaborn">Basic heatmap in seaborn</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#annotations">Annotations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#centering-the-heatmap">Centering the heatmap</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#picking-a-heatmap">Picking a heatmap</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#masking-the-top-half">Masking the top half</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#add-some-labels">Add some labels</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fix-weird-layout-issues">Fix weird layout issues</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#challenges">Challenges</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bonus-section-plotting-an-image-with-a-heatmap">Bonus section: plotting an image with a heatmap</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-the-image">Plot the image:</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
