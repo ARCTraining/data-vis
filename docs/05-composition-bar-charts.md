@@ -17,7 +17,9 @@ For this bar plot, we will be using the following simple dataframe, with numeric
 
 We will plot these in a variety of different ways, highlighting why different ways of plotting are useful in different situations, and conversely, how they could mislead you or your audience. Later, we will also look at some other categorical plot types that are possible.
 
-## Create data set
+You can either build this dataset, or download it from GitHub.
+
+### Create data set
 
 First, import the required packages:
 
@@ -41,6 +43,23 @@ data = pd.DataFrame({"Results A": results_a,
                     index=categories)
 ```
 
+### Download the data
+
+Alternatively, you can download the data instead of building the dataframe.
+
+You can run this command from Colab:
+
+```bash
+!wget https://raw.githubusercontent.com/ARCTraining/data-vis/main/data_downloads/05_barplots.csv
+```
+
+Alternatively, you can visit the [GitHub repository](https://github.com/ARCTraining/data-vis/blob/main/data_downloads/05_barplots.csv) and click on the download button, save to your machine, then upload to Colab.
+
+Then you can load in the data:
+
+```python
+data = pd.read_csv("/content/05_barplots.csv", index_col=0)
+```
 
 ## Basic bar plot using Pandas
 

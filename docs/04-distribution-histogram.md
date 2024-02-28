@@ -47,6 +47,26 @@ According to the pandas documentation, a dataframe is a:
 - Arithmetic operations can be applied to rows or columns
 ```
 
+
+```{admonition} Download the data instead of building a random dataframe
+:class: dropdown
+
+If you don't want to delve into building a dataframe, you can download the data instead of building the dataframe.
+
+You can run this command from Colab:
+
+`!wget https://raw.githubusercontent.com/ARCTraining/data-vis/main/data_downloads/04_histograms.csv`
+
+Alternatively, you can visit the [GitHub repository](https://github.com/ARCTraining/data-vis/blob/main/data_downloads/04_histograms.csv) and click on the download button, save to your machine, then upload to Colab.
+
+Then you can load in the data:
+
+
+`data = pd.read_csv("/content/04_histograms.csv", index_col=0)`
+
+```
+
+
 ## Using pandas in colab
 
 Lets start by importing all the libraries that we are going to use:
