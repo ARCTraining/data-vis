@@ -26,6 +26,14 @@ As a little extra challenge at the end of this section, we also show how to load
 
 This is the only tutorial that doesn't include randomly generated data, to make sure that at least once you have to load in data manually.
 
+You can run this command from Colab:
+
+```bash
+!wget https://raw.githubusercontent.com/ARCTraining/data-vis/main/data_downloads/monsters_stats.csv
+```
+
+Alternatively, you can visit the [GitHub repository](https://github.com/ARCTraining/data-vis/blob/main/data_downloads/monsters_stats.csv) and click on the download button, save to your machine, then upload to Colab.
+
 
 ## Heatmaps
 
