@@ -368,7 +368,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -384,6 +386,14 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#general-method-for-loading-data">General method for loading data</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -400,6 +410,23 @@ document.write(`
 <p>Each tutorial will include instructions on how to generate your own random data, which you can follow to produce a similar but not identical plot to what we will demonstrate (with some variation because your data is random!).</p>
 <p>Alternatively, once we get on to the more complex plots where we use <code class="docutils literal notranslate"><span class="pre">DataFrames</span></code> to store data, we will also provide a link to data we have already generated in the form of a <code class="docutils literal notranslate"><span class="pre">.csv</span></code> file, that you can download to use. While we will still provide instructions to quickly generate random data, downloading and working with a <code class="docutils literal notranslate"><span class="pre">.csv</span></code> file will give you experience in how you might work with your own data files.</p>
 <p>For the final section on heatmaps, we will load a non-random example dataset as this is a bit easier to work with!</p>
+<section id="general-method-for-loading-data">
+<h2>General method for loading data<a class="headerlink" href="#general-method-for-loading-data" title="Permalink to this heading">#</a></h2>
+<p>If you want to download data from a URL, you can use the <code class="docutils literal notranslate"><span class="pre">wget</span></code> command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>!wget<span class="w"> </span>-O<span class="w"> </span>/content/pick-a-file-name.csv<span class="w"> </span>https://the_url_to_where_your_data_is_stored
+</pre></div>
+</div>
+<p>This will save your data to <code class="docutils literal notranslate"><span class="pre">/content/pick-a-file-name.csv</span></code> on the virtual machine.</p>
+<p>You can then load in this data using an appropriate command:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>pd.read_csv(`/content/pick-a-file-name.csv`)
+</pre></div>
+</div>
+<p>or</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">jpg_image</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s2">&quot;/content/example_image.jpg&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Read <a class="reference external" href="https://realpython.com/pandas-read-write-files/">this article</a> for more information on reading and writing files.</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -457,7 +484,20 @@ document.write(`
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"></div>
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#general-method-for-loading-data">General method for loading data</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

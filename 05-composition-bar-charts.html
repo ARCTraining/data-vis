@@ -391,8 +391,11 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-data">Example data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-data-set">Create data set</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-data">Example data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-data-set">Create data set</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#download-the-data">Download the data</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-bar-plot-using-pandas">Basic bar plot using Pandas</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visual-encoding">Visual encoding</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-composition">Comparing composition</a></li>
@@ -448,9 +451,9 @@ document.write(`
 </tbody>
 </table>
 <p>We will plot these in a variety of different ways, highlighting why different ways of plotting are useful in different situations, and conversely, how they could mislead you or your audience. Later, we will also look at some other categorical plot types that are possible.</p>
-</section>
+<p>You can either build this dataset, or download it from GitHub.</p>
 <section id="create-data-set">
-<h2>Create data set<a class="headerlink" href="#create-data-set" title="Permalink to this heading">#</a></h2>
+<h3>Create data set<a class="headerlink" href="#create-data-set" title="Permalink to this heading">#</a></h3>
 <p>First, import the required packages:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import necessary libraries</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -469,6 +472,20 @@ document.write(`
                     <span class="n">index</span><span class="o">=</span><span class="n">categories</span><span class="p">)</span>
 </pre></div>
 </div>
+</section>
+<section id="download-the-data">
+<h3>Download the data<a class="headerlink" href="#download-the-data" title="Permalink to this heading">#</a></h3>
+<p>Alternatively, you can download the data instead of building the dataframe.</p>
+<p>You can run this command from Colab:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>!wget<span class="w"> </span>https://raw.githubusercontent.com/ARCTraining/data-vis/main/data_downloads/05_barplots.csv
+</pre></div>
+</div>
+<p>Alternatively, you can visit the <a class="reference external" href="https://github.com/ARCTraining/data-vis/blob/main/data_downloads/05_barplots.csv">GitHub repository</a> and click on the download button, save to your machine, then upload to Colab.</p>
+<p>Then you can load in the data:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;/content/05_barplots.csv&quot;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
 </section>
 <section id="basic-bar-plot-using-pandas">
 <h2>Basic bar plot using Pandas<a class="headerlink" href="#basic-bar-plot-using-pandas" title="Permalink to this heading">#</a></h2>
@@ -907,8 +924,11 @@ sns.despine()
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-data">Example data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-data-set">Create data set</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-data">Example data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-data-set">Create data set</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#download-the-data">Download the data</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-bar-plot-using-pandas">Basic bar plot using Pandas</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visual-encoding">Visual encoding</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-composition">Comparing composition</a></li>
