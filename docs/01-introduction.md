@@ -140,6 +140,7 @@ Further reading on the use of colour:
 - [Coloring for Colorblindness](https://davidmathlogic.com/colorblind/)
 - [The misuse of colour in science communication](https://www.nature.com/articles/s41467-020-19160-7)
 - [Scientific colour maps user guide](https://www.fabiocrameri.ch/ws/media-library/ce2eb6eee7c345f999e61c02e2733962/readme_scientificcolourmaps.pdf)
+- [Seaborn colour palettes guide](https://seaborn.pydata.org/tutorial/color_palettes.html)
 
 
 ## Rule 7: Do Not Mislead the Reader

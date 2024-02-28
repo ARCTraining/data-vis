@@ -337,8 +337,6 @@ Using the colour palette in the plot above reinforces stereotyping. From the Ame
 
 ![alt text](image-1.png)
 
-![alt text](image-2.png)
-
 ```{admonition} Political associations
 :class: dropdown
 Colour has strong associations with different political parties, which can vary with geographical location.
@@ -383,13 +381,127 @@ Stacked bar charts are a popular way of representing compositional data and expl
 - Are your data really served by stacking the bars or by finding a different way to represent this data?
 - If your data are not absolute values and instead are the result of statistical calculations (e.g. they are the mean value for a certain category), look at plots such as [boxplots](https://seaborn.pydata.org/examples/grouped_boxplot.html) or [violin plots](https://seaborn.pydata.org/examples/grouped_violinplots.html).
 
+## Using Seaborn to build barplots
+
+The built in plotting options in pandas are a little bit limited, so lets see what seaborn offers for [barplots](https://seaborn.pydata.org/generated/seaborn.barplot.html).
+
+```python
+fig, ax = plt.subplots()
+sns.barplot(data[["Results A", "Results B","Results C"]], ax=ax)
+```
+
+Using the default settings creates a pretty basic barplot, with one main difference when compared to the pandas barplot: the seaborn version includes an error bar. If we look at the [documentation](https://seaborn.pydata.org/generated/seaborn.barplot.html), we can see that the default setting for the `errorbar` argument is `('ci', 95)`: a 95% confidence interval. You can read more about the different error bar options [here](https://seaborn.pydata.org/tutorial/error_bars.html).
+
+We can easily change the error bars to show standard deviation:
+
+```python
+sns.barplot(data[["Results A", "Results B","Results C"]], ax=ax, errorbar="sd")
+```
+
+Note that the error estimations for this dataset are very large due to the random nature of the dataset! The error bars can also be switched off by passing the option `None`:
+
+```python
+sns.barplot(data[["Results A", "Results B","Results C"]], ax=ax, errorbar=None)
+```
+
+We can pass in a seaborn colour palette, or use one of the custom ones we built:
+
+```python
+sns.barplot(data[["Results A", "Results B","Results C"]], ax=ax, errorbar="sd", palette="rocket")
+```
+
+Another thing you'll notice is that Seaborn isn't picking up on the categories, like pandas did. This is because the table is considered "wide form" data, while seaborn needs "long form" data.
+
+This requires a little bit of dataframe wrangling.
+
+First, lets have a look at the shape of the dataframe, by either calling just the 
+```python
+data[["Results A", "Results B","Results C"]]
+```
+
+It should look something like this:
+
+```bash
+       Results A  Results B  Results C
+Cat 1          1          2         12
+Cat 2         27         35         30
+Cat 3         32         15         20
+Cat 4         15         18         27
+```
+
+We can now use the `unstack` function and `reset_index` function to reshape it:
+
+```python
+new_data = data[["Results A", "Results B","Results C"]].unstack().reset_index()
+```
+
+This `new_data` dataframe will look something like this:
+
+```bash
+      level_0 level_1   0
+0   Results A   Cat 1   1
+1   Results A   Cat 2  27
+2   Results A   Cat 3  32
+3   Results A   Cat 4  15
+4   Results B   Cat 1   2
+5   Results B   Cat 2  35
+6   Results B   Cat 3  15
+7   Results B   Cat 4  18
+8   Results C   Cat 1  12
+9   Results C   Cat 2  30
+10  Results C   Cat 3  20
+11  Results C   Cat 4  27
+```
+
+We can give the new columns more sensible names:
+
+```python
+new_data = new_data.rename(columns={"level_0": "Category", "level_1": "Result Group", 0: "Value"})
+```
+
+Which should now give us a dataframe that looks like this:
+
+```bash
+     Category Result Group  Value
+0   Results A        Cat 1      1
+1   Results A        Cat 2     27
+2   Results A        Cat 3     32
+3   Results A        Cat 4     15
+4   Results B        Cat 1      2
+5   Results B        Cat 2     35
+6   Results B        Cat 3     15
+7   Results B        Cat 4     18
+8   Results C        Cat 1     12
+9   Results C        Cat 2     30
+10  Results C        Cat 3     20
+11  Results C        Cat 4     27
+```
+
+We can then plot our new longform data using seaborn:
+
+```python
+sns.barplot(new_data, palette="rocket", y = "Value", x="Result Group", hue="Category")
+```
+
+![alt text](image-12.png)
+
+While this is a lot of work to wrangle the dataframe, to essentially reproduce the plots we made above, it is useful to understand how to reform your dataframes to work with seaborn. This new dataframe will now be easy to use with a wide range of seaborn plots, such as a [box plot](https://seaborn.pydata.org/tutorial/categorical.html):
+
+
+```python
+sns.catplot(new_data, kind="box", y="Value", x="Result Group", hue="Result Group", palette="rocket",)
+```
+
+![alt text](image-13.png)
+
+
 ```{admonition} Key Points
 :class: tip
 - Absolute and proportional bar charts can highlight and disguise different relationships between data
 - Bar charts are useful when the value zero is important in comparing groups - use a different visualisation type if you feel the need to move the y-limit above zero to highlight your results
 - Do not imply order in unordered variables through the use of colour or non-strategic spatial ordering on the page (use alphabetical or numerical ordering to avoid biases)
 
-Further reading: The American Chemical Society [Data visualisation inclusivity style guide](https://www.acs.org/about/diversity/inclusivity-style-guide/data-visualization.html)
+Further reading: The American Chemical Society [Data visualisation inclusive style guide](https://www.acs.org/about/diversity/inclusivity-style-guide/data-visualization.html)
 ```
 
 
