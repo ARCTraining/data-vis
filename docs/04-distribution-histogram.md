@@ -398,3 +398,19 @@ The plot then uses this function:
 
 `sns.histplot(data, kde=True, binwidth=1, multiple="dodge", shrink=0.8)`
 ```
+
+
+|![image](figs/hist_6.png) | 
+|:--| 
+| A final example, with a purple colour scheme. See code snippet below to recreate it.  *Alt text: here* |
+
+```python
+sns.histplot(
+    data,
+    multiple="stack",
+    palette="light:m_r",
+    binwidth=0.25,
+    edgecolor=".3",
+    linewidth=.5,
+)
+```
