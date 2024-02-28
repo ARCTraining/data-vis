@@ -364,9 +364,9 @@ We will look at this in more detail in a [later session](https://arctraining.git
 
 ### Colour
 
-Matplotlib automatically assigns a different colour to the different data series, but this only one of the ways data can be encoded. We will delve into using colour more deeply over the next few sessions, but there are a few key points to note now:
+Matplotlib automatically assigns a different colour to the different data series, but this only one of the ways data can be encoded. The Seaborn documentation provides a really useful [introduction to colour](https://seaborn.pydata.org/tutorial/color_palettes.html). We will delve into using colour more deeply over the next few sessions, but there are a few key points to note now:
 
-- Hue shouldn't be the *only* way you visually encode data; it can be difficult to distinguish on some screens or when printed, might be illegible if printed in greyscale, and could be inaccessible to someone with a colour vision deficiency. In the session ["Making comparisons: line plots"](https://arctraining.github.io/data-vis/03-comparison-line-plots.html#part-2-changing-default-settings) we will look more closely at colour choices.
+- Hue usually shouldn't be the *only* way you visually encode data; it can be difficult to distinguish on some screens or when printed, might be illegible if printed in greyscale, and could be inaccessible to someone with a colour vision deficiency. In the session ["Making comparisons: line plots"](https://arctraining.github.io/data-vis/03-comparison-line-plots.html#part-2-changing-default-settings) we will look more closely at colour choices.
 
 ### Shape
 

@@ -406,6 +406,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stacked-bar-charts">Stacked bar charts</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-seaborn-to-build-barplots">Using Seaborn to build barplots</a></li>
 </ul>
             </nav>
         </div>
@@ -807,7 +808,6 @@ sns.despine()
 </div></blockquote>
 </div>
 <p><img alt="alt text" src="_images/image-1.png" /></p>
-<p><img alt="alt text" src="_images/image-2.png" /></p>
 <div class="dropdown admonition">
 <p class="admonition-title">Political associations</p>
 <p>Colour has strong associations with different political parties, which can vary with geographical location.</p>
@@ -847,6 +847,92 @@ sns.despine()
 <li><p>Are your data really served by stacking the bars or by finding a different way to represent this data?</p></li>
 <li><p>If your data are not absolute values and instead are the result of statistical calculations (e.g. they are the mean value for a certain category), look at plots such as <a class="reference external" href="https://seaborn.pydata.org/examples/grouped_boxplot.html">boxplots</a> or <a class="reference external" href="https://seaborn.pydata.org/examples/grouped_violinplots.html">violin plots</a>.</p></li>
 </ul>
+</section>
+</section>
+<section id="using-seaborn-to-build-barplots">
+<h2>Using Seaborn to build barplots<a class="headerlink" href="#using-seaborn-to-build-barplots" title="Permalink to this heading">#</a></h2>
+<p>The built in plotting options in pandas are a little bit limited, so lets see what seaborn offers for <a class="reference external" href="https://seaborn.pydata.org/generated/seaborn.barplot.html">barplots</a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">data</span><span class="p">[[</span><span class="s2">&quot;Results A&quot;</span><span class="p">,</span> <span class="s2">&quot;Results B&quot;</span><span class="p">,</span><span class="s2">&quot;Results C&quot;</span><span class="p">]],</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Using the default settings creates a pretty basic barplot, with one main difference when compared to the pandas barplot: the seaborn version includes an error bar. If we look at the <a class="reference external" href="https://seaborn.pydata.org/generated/seaborn.barplot.html">documentation</a>, we can see that the default setting for the <code class="docutils literal notranslate"><span class="pre">errorbar</span></code> argument is <code class="docutils literal notranslate"><span class="pre">('ci',</span> <span class="pre">95)</span></code>: a 95% confidence interval. You can read more about the different error bar options <a class="reference external" href="https://seaborn.pydata.org/tutorial/error_bars.html">here</a>.</p>
+<p>We can easily change the error bars to show standard deviation:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">data</span><span class="p">[[</span><span class="s2">&quot;Results A&quot;</span><span class="p">,</span> <span class="s2">&quot;Results B&quot;</span><span class="p">,</span><span class="s2">&quot;Results C&quot;</span><span class="p">]],</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">errorbar</span><span class="o">=</span><span class="s2">&quot;sd&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that the error estimations for this dataset are very large due to the random nature of the dataset! The error bars can also be switched off by passing the option <code class="docutils literal notranslate"><span class="pre">None</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">data</span><span class="p">[[</span><span class="s2">&quot;Results A&quot;</span><span class="p">,</span> <span class="s2">&quot;Results B&quot;</span><span class="p">,</span><span class="s2">&quot;Results C&quot;</span><span class="p">]],</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">errorbar</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We can pass in a seaborn colour palette, or use one of the custom ones we built:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">data</span><span class="p">[[</span><span class="s2">&quot;Results A&quot;</span><span class="p">,</span> <span class="s2">&quot;Results B&quot;</span><span class="p">,</span><span class="s2">&quot;Results C&quot;</span><span class="p">]],</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">errorbar</span><span class="o">=</span><span class="s2">&quot;sd&quot;</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;rocket&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Another thing you’ll notice is that Seaborn isn’t picking up on the categories, like pandas did. This is because the table is considered “wide form” data, while seaborn needs “long form” data.</p>
+<p>This requires a little bit of dataframe wrangling.</p>
+<p>First, lets have a look at the shape of the dataframe, by either calling just the</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[[</span><span class="s2">&quot;Results A&quot;</span><span class="p">,</span> <span class="s2">&quot;Results B&quot;</span><span class="p">,</span><span class="s2">&quot;Results C&quot;</span><span class="p">]]</span>
+</pre></div>
+</div>
+<p>It should look something like this:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">       </span>Results<span class="w"> </span>A<span class="w">  </span>Results<span class="w"> </span>B<span class="w">  </span>Results<span class="w"> </span>C
+Cat<span class="w"> </span><span class="m">1</span><span class="w">          </span><span class="m">1</span><span class="w">          </span><span class="m">2</span><span class="w">         </span><span class="m">12</span>
+Cat<span class="w"> </span><span class="m">2</span><span class="w">         </span><span class="m">27</span><span class="w">         </span><span class="m">35</span><span class="w">         </span><span class="m">30</span>
+Cat<span class="w"> </span><span class="m">3</span><span class="w">         </span><span class="m">32</span><span class="w">         </span><span class="m">15</span><span class="w">         </span><span class="m">20</span>
+Cat<span class="w"> </span><span class="m">4</span><span class="w">         </span><span class="m">15</span><span class="w">         </span><span class="m">18</span><span class="w">         </span><span class="m">27</span>
+</pre></div>
+</div>
+<p>We can now use the <code class="docutils literal notranslate"><span class="pre">unstack</span></code> function and <code class="docutils literal notranslate"><span class="pre">reset_index</span></code> function to reshape it:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">new_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[[</span><span class="s2">&quot;Results A&quot;</span><span class="p">,</span> <span class="s2">&quot;Results B&quot;</span><span class="p">,</span><span class="s2">&quot;Results C&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">unstack</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This <code class="docutils literal notranslate"><span class="pre">new_data</span></code> dataframe will look something like this:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>level_0<span class="w"> </span>level_1<span class="w">   </span><span class="m">0</span>
+<span class="m">0</span><span class="w">   </span>Results<span class="w"> </span>A<span class="w">   </span>Cat<span class="w"> </span><span class="m">1</span><span class="w">   </span><span class="m">1</span>
+<span class="m">1</span><span class="w">   </span>Results<span class="w"> </span>A<span class="w">   </span>Cat<span class="w"> </span><span class="m">2</span><span class="w">  </span><span class="m">27</span>
+<span class="m">2</span><span class="w">   </span>Results<span class="w"> </span>A<span class="w">   </span>Cat<span class="w"> </span><span class="m">3</span><span class="w">  </span><span class="m">32</span>
+<span class="m">3</span><span class="w">   </span>Results<span class="w"> </span>A<span class="w">   </span>Cat<span class="w"> </span><span class="m">4</span><span class="w">  </span><span class="m">15</span>
+<span class="m">4</span><span class="w">   </span>Results<span class="w"> </span>B<span class="w">   </span>Cat<span class="w"> </span><span class="m">1</span><span class="w">   </span><span class="m">2</span>
+<span class="m">5</span><span class="w">   </span>Results<span class="w"> </span>B<span class="w">   </span>Cat<span class="w"> </span><span class="m">2</span><span class="w">  </span><span class="m">35</span>
+<span class="m">6</span><span class="w">   </span>Results<span class="w"> </span>B<span class="w">   </span>Cat<span class="w"> </span><span class="m">3</span><span class="w">  </span><span class="m">15</span>
+<span class="m">7</span><span class="w">   </span>Results<span class="w"> </span>B<span class="w">   </span>Cat<span class="w"> </span><span class="m">4</span><span class="w">  </span><span class="m">18</span>
+<span class="m">8</span><span class="w">   </span>Results<span class="w"> </span>C<span class="w">   </span>Cat<span class="w"> </span><span class="m">1</span><span class="w">  </span><span class="m">12</span>
+<span class="m">9</span><span class="w">   </span>Results<span class="w"> </span>C<span class="w">   </span>Cat<span class="w"> </span><span class="m">2</span><span class="w">  </span><span class="m">30</span>
+<span class="m">10</span><span class="w">  </span>Results<span class="w"> </span>C<span class="w">   </span>Cat<span class="w"> </span><span class="m">3</span><span class="w">  </span><span class="m">20</span>
+<span class="m">11</span><span class="w">  </span>Results<span class="w"> </span>C<span class="w">   </span>Cat<span class="w"> </span><span class="m">4</span><span class="w">  </span><span class="m">27</span>
+</pre></div>
+</div>
+<p>We can give the new columns more sensible names:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">new_data</span> <span class="o">=</span> <span class="n">new_data</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;level_0&quot;</span><span class="p">:</span> <span class="s2">&quot;Category&quot;</span><span class="p">,</span> <span class="s2">&quot;level_1&quot;</span><span class="p">:</span> <span class="s2">&quot;Result Group&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span> <span class="s2">&quot;Value&quot;</span><span class="p">})</span>
+</pre></div>
+</div>
+<p>Which should now give us a dataframe that looks like this:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">     </span>Category<span class="w"> </span>Result<span class="w"> </span>Group<span class="w">  </span>Value
+<span class="m">0</span><span class="w">   </span>Results<span class="w"> </span>A<span class="w">        </span>Cat<span class="w"> </span><span class="m">1</span><span class="w">      </span><span class="m">1</span>
+<span class="m">1</span><span class="w">   </span>Results<span class="w"> </span>A<span class="w">        </span>Cat<span class="w"> </span><span class="m">2</span><span class="w">     </span><span class="m">27</span>
+<span class="m">2</span><span class="w">   </span>Results<span class="w"> </span>A<span class="w">        </span>Cat<span class="w"> </span><span class="m">3</span><span class="w">     </span><span class="m">32</span>
+<span class="m">3</span><span class="w">   </span>Results<span class="w"> </span>A<span class="w">        </span>Cat<span class="w"> </span><span class="m">4</span><span class="w">     </span><span class="m">15</span>
+<span class="m">4</span><span class="w">   </span>Results<span class="w"> </span>B<span class="w">        </span>Cat<span class="w"> </span><span class="m">1</span><span class="w">      </span><span class="m">2</span>
+<span class="m">5</span><span class="w">   </span>Results<span class="w"> </span>B<span class="w">        </span>Cat<span class="w"> </span><span class="m">2</span><span class="w">     </span><span class="m">35</span>
+<span class="m">6</span><span class="w">   </span>Results<span class="w"> </span>B<span class="w">        </span>Cat<span class="w"> </span><span class="m">3</span><span class="w">     </span><span class="m">15</span>
+<span class="m">7</span><span class="w">   </span>Results<span class="w"> </span>B<span class="w">        </span>Cat<span class="w"> </span><span class="m">4</span><span class="w">     </span><span class="m">18</span>
+<span class="m">8</span><span class="w">   </span>Results<span class="w"> </span>C<span class="w">        </span>Cat<span class="w"> </span><span class="m">1</span><span class="w">     </span><span class="m">12</span>
+<span class="m">9</span><span class="w">   </span>Results<span class="w"> </span>C<span class="w">        </span>Cat<span class="w"> </span><span class="m">2</span><span class="w">     </span><span class="m">30</span>
+<span class="m">10</span><span class="w">  </span>Results<span class="w"> </span>C<span class="w">        </span>Cat<span class="w"> </span><span class="m">3</span><span class="w">     </span><span class="m">20</span>
+<span class="m">11</span><span class="w">  </span>Results<span class="w"> </span>C<span class="w">        </span>Cat<span class="w"> </span><span class="m">4</span><span class="w">     </span><span class="m">27</span>
+</pre></div>
+</div>
+<p>We can then plot our new longform data using seaborn:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">new_data</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;rocket&quot;</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s2">&quot;Value&quot;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;Result Group&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;Category&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><img alt="alt text" src="_images/image-12.png" /></p>
+<p>While this is a lot of work to wrangle the dataframe, to essentially reproduce the plots we made above, it is useful to understand how to reform your dataframes to work with seaborn. This new dataframe will now be easy to use with a wide range of seaborn plots, such as a <a class="reference external" href="https://seaborn.pydata.org/tutorial/categorical.html">box plot</a>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">catplot</span><span class="p">(</span><span class="n">new_data</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;box&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;Value&quot;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;Result Group&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;Result Group&quot;</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;rocket&quot;</span><span class="p">,)</span>
+</pre></div>
+</div>
+<p><img alt="alt text" src="_images/image-13.png" /></p>
 <div class="tip admonition">
 <p class="admonition-title">Key Points</p>
 <ul class="simple">
@@ -854,9 +940,8 @@ sns.despine()
 <li><p>Bar charts are useful when the value zero is important in comparing groups - use a different visualisation type if you feel the need to move the y-limit above zero to highlight your results</p></li>
 <li><p>Do not imply order in unordered variables through the use of colour or non-strategic spatial ordering on the page (use alphabetical or numerical ordering to avoid biases)</p></li>
 </ul>
-<p>Further reading: The American Chemical Society <a class="reference external" href="https://www.acs.org/about/diversity/inclusivity-style-guide/data-visualization.html">Data visualisation inclusivity style guide</a></p>
+<p>Further reading: The American Chemical Society <a class="reference external" href="https://www.acs.org/about/diversity/inclusivity-style-guide/data-visualization.html">Data visualisation inclusive style guide</a></p>
 </div>
-</section>
 </section>
 </section>
 
@@ -939,6 +1024,7 @@ sns.despine()
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stacked-bar-charts">Stacked bar charts</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-seaborn-to-build-barplots">Using Seaborn to build barplots</a></li>
 </ul>
   </nav></div>
 
