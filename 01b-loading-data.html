@@ -413,18 +413,9 @@ document.write(`
 <section id="general-method-for-loading-data">
 <h2>General method for loading data<a class="headerlink" href="#general-method-for-loading-data" title="Permalink to this heading">#</a></h2>
 <p>If you want to download data from a URL, you can use the <code class="docutils literal notranslate"><span class="pre">wget</span></code> command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>!wget<span class="w"> </span>-O<span class="w"> </span>/content/pick-a-file-name.csv<span class="w"> </span>https://the_url_to_where_your_data_is_stored
-</pre></div>
-</div>
 <p>This will save your data to <code class="docutils literal notranslate"><span class="pre">/content/pick-a-file-name.csv</span></code> on the virtual machine.</p>
-<p>You can then load in this data using an appropriate command:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>pd.read_csv(`/content/pick-a-file-name.csv`)
-</pre></div>
-</div>
-<p>or</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">jpg_image</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s2">&quot;/content/example_image.jpg&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
+<p>You can then load this data using an appropriate command. For instance, for <code class="docutils literal notranslate"><span class="pre">.csv</span></code> files you can use:</p>
+<p>and for images, you can use:</p>
 <p>Read <a class="reference external" href="https://realpython.com/pandas-read-write-files/">this article</a> for more information on reading and writing files.</p>
 </section>
 </section>
