@@ -20,13 +20,13 @@ If you want to download data from a URL, you can use the `wget` command:
 
 This will save your data to `/content/pick-a-file-name.csv` on the virtual machine.
 
-You can then load in this data using an appropriate command:
+You can then load this data using an appropriate command. For instance, for `.csv` files you can use:
 
 ```python
 pd.read_csv(`/content/pick-a-file-name.csv`)
 ```
 
-or
+and for images, you can use:
 
 ```python
 jpg_image = plt.imread("/content/example_image.jpg")
