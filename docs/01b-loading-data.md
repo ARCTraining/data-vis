@@ -14,21 +14,21 @@ For the final section on heatmaps, we will load a non-random example dataset as 
 
 If you want to download data from a URL, you can use the `wget` command:
 
-```bash
+```{bash}
 !wget -O /content/pick-a-file-name.csv https://the_url_to_where_your_data_is_stored
 ```
 
 This will save your data to `/content/pick-a-file-name.csv` on the virtual machine.
 
-You can then load in this data using an appropriate command:
+You can then load this data using an appropriate command. For instance, for `.csv` files you can use:
 
-```python
+```{python}
 pd.read_csv(`/content/pick-a-file-name.csv`)
 ```
 
-or 
+and for images, you can use:
 
-```python
+```{python}
 jpg_image = plt.imread("/content/example_image.jpg")
 ```
 
