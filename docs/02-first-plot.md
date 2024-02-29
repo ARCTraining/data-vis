@@ -51,7 +51,7 @@ import matplotlib.pyplot
 import numpy
 ```
 
-When we use a *function* from one of these libraries, we need to prefix it with the module name, for example `numpy.loadtxt()`.
+When we use a *function* from one of these libraries, we need to prefix it with the module name, for example `matplotlib.pyplot.plot()`.
 In this course, we will be using some common shortened names/aliases for libraries, that saves us typing out the full name every time we use them. You can replace the above code snippet with this:
 
 ```{python}
@@ -59,7 +59,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 ```
 
-The example `numpy.loadtxt()` above would now be instead written `np.loadtxt()`.
+The example `matplotlib.pyplot.plot()` above would now be instead written `plt.plot()`.
 
 ## Create some example data
 
