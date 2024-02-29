@@ -26,7 +26,7 @@ You can then load in this data using an appropriate command:
 pd.read_csv(`/content/pick-a-file-name.csv`)
 ```
 
-or 
+or
 
 ```python
 jpg_image = plt.imread("/content/example_image.jpg")
