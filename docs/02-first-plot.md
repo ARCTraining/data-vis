@@ -2,8 +2,6 @@
 
 Before we delve a little deeper into some of the concepts we introduced in the previous section with regards to what makes a graphic "good", let's lay the foundations and build our first plot. You need a draft to start improving on it!
 
-In this course, we are going to be using a cloud-based development environment, so you don't have to install anything locally on your machine.
-
 In this session, we are going to work step-by-step through building a basic plot. The full self-contained example script is given at the end of this page.
 
 ```{admonition} Tip
@@ -15,7 +13,7 @@ It's a good idea to type the example code out in your notebook as opposed to cop
 
 ## Introduction to the tools we are using
 
-For this course, we are going to be using a particular tool for interacting with Python called a "Notebook". You may have heard of the Jupyter Notebook before: this is a document format that includes snippets of formatted text, embedded executable/runnable code, and the output of said code (for example, plots/figures). We are going to be using an online version of Jupyter Notebooks hosted by Google, called [Google Colaboratory](https://colab.google/); the free version provides plenty compute power for this tutorial.
+For this course, we are going to be using a particular tool for interacting with Python called a "Notebook". You may have heard of the Jupyter Notebook before: this is a document format that includes snippets of formatted text, embedded executable/runnable code, and the output of said code (for example, plots/figures). We are going to be using an online version of Jupyter Notebooks hosted by Google, called [Google Colaboratory](https://colab.google/), so you don't have to install anything locally on your machine; the free version provides plenty compute power for this tutorial.
 
 |![image](figs/intro_to_colab.gif) |
 |:-:|
@@ -44,7 +42,7 @@ The first cell may take a while to run as Colab connects to the runtime, but sho
 
 ## Refresher on the Python ecosystem
 
-One of the pre-requisites for this course is some basic Python experience, but don't worry if you've forgotten how things work. For this course, we will be *importing* a variety of different libraries. Do this in the first cell of your notebook:
+One of the pre-requisites for this course is some basic Python experience, but don't worry if you've forgotten how things work. For this course, we will be *importing* a variety of different libraries. It is a good practice to do this in the first cell of your notebook:
 
 ```{python}
 import matplotlib.pyplot
@@ -63,7 +61,7 @@ The example `matplotlib.pyplot.plot()` above would now be instead written `plt.p
 
 ## Create some example data
 
-In the next section of this course, we will run through how to load real data in in a variety of different ways. For this initial example, we are going to quickly generate some example data. Let's assume we want to create a **scatter plot** with 50 pairs of (x, y) data. Let's write some code that will generate 50 random numbers between zero and one.
+For this initial example, we are going to quickly generate some example data. Let's assume we want to create a **scatter plot** with 50 pairs of (x, y) data. Let's write some code that will generate 50 random numbers between zero and one.
 
 ```{python}
 # Create random x and y data
@@ -75,7 +73,14 @@ y = np.random.rand(50)
 ```{admonition} Tip
 :class: tip
 
-You can add comments to your code using the \# symbol; this text is skipped over when you tell the code to run; it is just for you or anyone else who reads your code to better understand what you are doing.
+You can add comments to your code using the `\#` symbol; this text is skipped over when you tell the code to run; it is just for you or anyone else who reads your code to better understand what you are doing.
+
+```
+
+```{admonition} Loading Data
+:class: note
+
+Over the course of this material, we will run through how to load data from external files. 
 
 ```
 
@@ -91,7 +96,7 @@ So you have your data and you want to build a scatter plot to see if there's any
 
 To create a plot in Python, we will always follow a few key steps.
 
-First, we initialise the figure and the axes. The `figure` object can be thought of as the page you draw your plot onto. The `ax` object is the box drawn by the x and y axes, the "panel" your plot will be drawn in.
+First, we initialise the figure and the axes. The `fig` object can be thought of as the page you draw your plot onto. The `ax` object is the box drawn by the x and y axes, the "panel" your plot will be drawn in.
 
 ```{python}
 # Create a figure and axes objects
@@ -213,8 +218,7 @@ This essentially shows us all the possible options we can *pass* to the `savefig
 This essentially tells you what we explain above, that the default value is set by the figure, which unless you have changed something, Matplotlib sets to 100 dpi (which you can find in the documentation for the `figure` object [here](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.figure.html)). It also tells you that `dpi` can be set to a float value (such as 10.0, 300, 473.5 etc.) or to the default `'figure'`. Assignment is done using an equals sign. Note, all optional arguments can be excluded from the function call:
 
 ```{python}
-savefig(fname, dpi=some_number_here
-       )
+savefig(fname, dpi=some_number_here)
 ```
 
 ```{admonition} Challenge
@@ -262,6 +266,13 @@ The examples above have very sparsely distributed data, but what about if you ha
 |:-:|
 | Dense data can overlap, making it difficult to interpret. *Alt text: a scatter plot with normally distributed data from -3 &ndash; 3 on both the x and y axis.* |
 
+```{admonition} Tip
+:class: tip
+
+You can generate random normally distributed data by using the [`np.random.normal()` function](https://numpy.org/doc/stable/reference/random/generated/numpy.random.normal.html#)
+
+```
+
 We can solve this by modifying the "alpha" or transparency of the points by replacing `ax.scatter(x, y)` with:
 
 `ax.scatter(x, y, alpha=0.5)`
@@ -276,7 +287,7 @@ This allows you to more easily see where there are clusters of data:
 
 So far, we have created a random data set and plotted it using the default settings provided by `matplotlib`: we have left the marker style, size and colour exactly as they are (apart from the brief discussion of overlapping data, above); each data point is identical.
 
-This is sufficient if we only want to address the relationship between two variables *x* and *y*. But frequently, we will want to
+This is sufficient if we only want to address the relationship between two variables *x* and *y*. But frequently, we will want to explore more than that.
 
 Sophie Warnes provides us with a list of ways data can be encoded in her 2018 medium article
 ["What’s visual ‘encoding’ in data viz, and why is it important?"](https://medium.com/@sophiewarnes/whats-visual-encoding-in-data-viz-and-why-is-it-important-7406bc88b4b4):
@@ -372,7 +383,7 @@ The shape of the marker can also be modified. Matplotlib allows a wide range of 
 
 ## Ordered third dimension
 
-In the example code given, we defined x and y variables. What if we also defined a z variable that is similar in structure to x and y (is an array of the same size, filled with similar random data)? We are going to explore the ways to display this third dimension.
+In the example code given, we defined x and y variables. What if we also defined a z variable that is similar in structure to x and y (is an array of the same size, filled with similar random data)? We are going to explore the ways to display this third dimension in a 2D plotting.
 
 We can define random x, y and z data. We're going to use the `randn` function to get pseudo random normally distributed data:
 
