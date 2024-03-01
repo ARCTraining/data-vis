@@ -63,7 +63,7 @@ const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '06-heatmaps';</script>
-    <link rel="canonical" href="https://arctraining.github.io/data-vis-101/06-heatmaps.html" />
+    <link rel="canonical" href="https://arctraining.github.io/data-vis/06-heatmaps.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="prev" title="Understanding composition: bar charts" href="05-composition-bar-charts.html" />
@@ -232,7 +232,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/ARCTraining/data-vis-101" target="_blank"
+      <li><a href="https://github.com/ARCTraining/data-vis" target="_blank"
    class="btn btn-sm btn-source-repository-button dropdown-item"
    title="Source repository"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -249,7 +249,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/ARCTraining/data-vis-101/edit/main/docs/06-heatmaps.md" target="_blank"
+      <li><a href="https://github.com/ARCTraining/data-vis/edit/main/docs/06-heatmaps.md" target="_blank"
    class="btn btn-sm btn-source-edit-button dropdown-item"
    title="Suggest edit"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -266,7 +266,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/ARCTraining/data-vis-101/issues/new?title=Issue%20on%20page%20%2F06-heatmaps.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/ARCTraining/data-vis/issues/new?title=Issue%20on%20page%20%2F06-heatmaps.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -521,12 +521,12 @@ Successfully<span class="w"> </span>installed<span class="w"> </span>cmocean-3.1
 </pre></div>
 </div>
 <p>Now in addition to all the <a class="reference external" href="https://matplotlib.org/stable/users/explain/colors/colormaps.html">Matplotlib colour maps</a> and <a class="reference external" href="https://matplotlib.org/stable/users/explain/colors/colormaps.html">Seaborn colour maps</a>, you now have access to <a class="reference external" href="https://matplotlib.org/cmocean/">Cmocean colour maps</a>.</p>
-<p>When plotting, you usually define the colourmap inside the plotting function with the <code class="docutils literal notranslate"><span class="pre">cmap</span></code> argument. For the main names Matplotlib colour maps, you can just use their name, so <code class="docutils literal notranslate"><span class="pre">cmap=&quot;plasma&quot;</span></code>. For Seaborn colour maps, it’s slightly more text: <code class="docutils literal notranslate"><span class="pre">cmap=sns.color_palette(&quot;rocket&quot;,</span> <span class="pre">as_cmap=True)</span></code>; you give the name of the <em>palette</em> (“rocket”) and then say you want it <em>as a colour map</em>. For cmocean, you just need to prefix the colour map name with <code class="docutils literal notranslate"><span class="pre">&quot;cmo.&quot;</span></code>: <code class="docutils literal notranslate"><span class="pre">cmap=&quot;cmo.curl&quot;</span></code>. This may be a little confusing now, but we will have lots of practise in thie section!</p>
+<p>When plotting, you usually define the colourmap inside the plotting function with the <code class="docutils literal notranslate"><span class="pre">cmap</span></code> argument. For the main names Matplotlib colour maps, you can just use their name, so <code class="docutils literal notranslate"><span class="pre">cmap=&quot;plasma&quot;</span></code>. For Seaborn colour maps, it’s slightly more text: <code class="docutils literal notranslate"><span class="pre">cmap=sns.color_palette(&quot;rocket&quot;,</span> <span class="pre">as_cmap=True)</span></code>; you give the name of the <em>palette</em> (“rocket”) and then say you want it <em>as a colour map</em>. For cmocean, you just need to prefix the colour map name with <code class="docutils literal notranslate"><span class="pre">&quot;cmo.&quot;</span></code>: <code class="docutils literal notranslate"><span class="pre">cmap=&quot;cmo.curl&quot;</span></code>. This may be a little confusing now, but we will have lots of practise in this section!</p>
 </section>
 </section>
 <section id="load-in-the-data">
 <h2>Load in the data<a class="headerlink" href="#load-in-the-data" title="Permalink to this heading">#</a></h2>
-<p>Now you’re ready to load in the data</p>
+<p>Now you’re ready to load in the data:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">monsters</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;/content/monsters_stats.csv&quot;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -542,7 +542,7 @@ Successfully<span class="w"> </span>installed<span class="w"> </span>cmocean-3.1
 </section>
 <section id="basic-heatmap-in-seaborn">
 <h2>Basic heatmap in seaborn<a class="headerlink" href="#basic-heatmap-in-seaborn" title="Permalink to this heading">#</a></h2>
-<p>Now we can plot a basic heatmap using this correlation matrix. Lets start with the default settings, and build up from there.</p>
+<p>Now we can plot a basic heatmap using this correlation matrix. Let’s start with the default settings, and build up from there.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">corr</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
 </pre></div>
@@ -656,7 +656,7 @@ Successfully<span class="w"> </span>installed<span class="w"> </span>cmocean-3.1
 </section>
 <section id="bonus-section-plotting-an-image-with-a-heatmap">
 <h2>Bonus section: plotting an image with a heatmap<a class="headerlink" href="#bonus-section-plotting-an-image-with-a-heatmap" title="Permalink to this heading">#</a></h2>
-<p>First, we need to get an image. Lets use a <a class="reference external" href="https://astrogeology.usgs.gov/search/map/Mars/GlobalSurveyor/MOLA/Mars_MGS_MOLA_DEM_mosaic_global_463m">Mars MOLA DEM mosaic image (MOLA Team, 2001)</a>.</p>
+<p>First, we need to get an image. Let’s use a <a class="reference external" href="https://astrogeology.usgs.gov/search/map/Mars/GlobalSurveyor/MOLA/Mars_MGS_MOLA_DEM_mosaic_global_463m">Mars MOLA DEM mosaic image (MOLA Team, 2001)</a>.</p>
 <p>We can download this using the <code class="docutils literal notranslate"><span class="pre">wget</span></code> command:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>!wget<span class="w"> </span>-O<span class="w"> </span>/content/example_image.jpg<span class="w"> </span>https://astropedia.astrogeology.usgs.gov/download/Mars/GlobalSurveyor/MOLA/thumbs/Mars_MGS_MOLA_DEM_mosaic_global_1024.jpg
 </pre></div>

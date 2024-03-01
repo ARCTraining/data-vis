@@ -63,7 +63,7 @@ const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '05-composition-bar-charts';</script>
-    <link rel="canonical" href="https://arctraining.github.io/data-vis-101/05-composition-bar-charts.html" />
+    <link rel="canonical" href="https://arctraining.github.io/data-vis/05-composition-bar-charts.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Spatial distributions and correlation: heatmaps" href="06-heatmaps.html" />
@@ -233,7 +233,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/ARCTraining/data-vis-101" target="_blank"
+      <li><a href="https://github.com/ARCTraining/data-vis" target="_blank"
    class="btn btn-sm btn-source-repository-button dropdown-item"
    title="Source repository"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -250,7 +250,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/ARCTraining/data-vis-101/edit/main/docs/05-composition-bar-charts.md" target="_blank"
+      <li><a href="https://github.com/ARCTraining/data-vis/edit/main/docs/05-composition-bar-charts.md" target="_blank"
    class="btn btn-sm btn-source-edit-button dropdown-item"
    title="Suggest edit"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -267,7 +267,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/ARCTraining/data-vis-101/issues/new?title=Issue%20on%20page%20%2F05-composition-bar-charts.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/ARCTraining/data-vis/issues/new?title=Issue%20on%20page%20%2F05-composition-bar-charts.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -470,7 +470,7 @@ document.write(`
 
 <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;Results A&quot;</span><span class="p">:</span> <span class="n">results_a</span><span class="p">,</span>
                      <span class="s2">&quot;Results B&quot;</span><span class="p">:</span> <span class="n">results_b</span><span class="p">},</span>
-                    <span class="n">index</span><span class="o">=</span><span class="n">categories</span><span class="p">)</span>
+                     <span class="n">index</span><span class="o">=</span><span class="n">categories</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -509,11 +509,11 @@ document.write(`
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-left"><p>Our basic example stacked bar plot. <em>Alt text: a stacked bar plot with three categorical groupings on the x axis: “Cat 1”, “Cat 2”, “Cat 3” and “Cat 4”, and two groupings shown by colour (blue and orange): “Results A” and “Results B”. The y axis shows count, scaled from 0–65.</em></p></td>
+<tr class="row-even"><td class="text-left"><p>Our basic example stacked bar plot. <em>Alt text: a stacked bar plot with four categorical groupings on the x axis: “Cat 1”, “Cat 2”, “Cat 3” and “Cat 4”, and two groupings shown by colour (blue and orange): “Results A” and “Results B”. The y axis shows count, scaled from 0–65.</em></p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p><img alt="image" src="_images/barplot2.png" /></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p>The same data as above, but with bars staggered instead of stacked. <em>Alt text: a bar plot with three categorical groupings on the x axis: “Cat 1”, “Cat 2”, “Cat 3” and “Cat 4”, and two groupings shown by colour (blue and orange): “Results A” and “Results B”. The y axis shows count, scaled from 0–65.</em></p></td>
+<tr class="row-even"><td class="text-left"><p>The same data as above, but with bars staggered instead of stacked. <em>Alt text: a bar plot with four categorical groupings on the x axis: “Cat 1”, “Cat 2”, “Cat 3” and “Cat 4”, and two groupings shown by colour (blue and orange): “Results A” and “Results B”. The y axis shows count, scaled from 0–65.</em></p></td>
 </tr>
 </tbody>
 </table>
@@ -534,7 +534,7 @@ document.write(`
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-left"><p>Our basic example bar plot, with a Color Brewer palette. These colours are better distinguishable in greyscale and with a colour vision deficiency. <em>Alt text: a stacked bar plot with three categorical groupings on the x axis: “Cat 1”, “Cat 2”, “Cat 3” and “Cat 4”, and two groupings shown by colour (orange and lilac): “Results A” and “Results B”. The y axis shows count, scaled from 0–65.</em></p></td>
+<tr class="row-even"><td class="text-left"><p>Our basic example bar plot, with a Color Brewer palette. These colours are better distinguishable in greyscale and with a colour vision deficiency. <em>Alt text: a stacked bar plot with four categorical groupings on the x axis: “Cat 1”, “Cat 2”, “Cat 3” and “Cat 4”, and two groupings shown by colour (orange and lilac): “Results A” and “Results B”. The y axis shows count, scaled from 0–65.</em></p></td>
 </tr>
 </tbody>
 </table>
@@ -582,7 +582,7 @@ document.write(`
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-left"><p>Our example stacked bar plot, with a Color Brewer palette and hatch markings. <em>Alt text: a stacked bar plot with three categorical groupings on the x axis: “Cat 1”, “Cat 2”, “Cat 3” and “Cat 4”, and two groupings shown by colour (orange and lilac) and hatch pattern (diagonal lines,and stars): “Results A” and “Results B”. The y axis shows count, scaled from 0–65.</em></p></td>
+<tr class="row-even"><td class="text-left"><p>Our example stacked bar plot, with a Color Brewer palette and hatch markings. <em>Alt text: a stacked bar plot with four categorical groupings on the x axis: “Cat 1”, “Cat 2”, “Cat 3” and “Cat 4”, and two groupings shown by colour (orange and lilac) and hatch pattern (stars and diagonal lines): “Results A” and “Results B”. The y axis shows count, scaled from 0–65.</em></p></td>
 </tr>
 </tbody>
 </table>
@@ -657,7 +657,7 @@ document.write(`
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-left"><p>Our example stacked bar plot, now shown as a proportion of 100 %. <em>Alt text: a stacked bar plot with three categorical groupings on the x axis: “Cat 1”, “Cat 2”, “Cat 3” and “Cat 4”, and two groupings shown by colour (orange and lilac) and hatch pattern (diagonal lines,and stars): “Results A” and “Results B”. The y axis shows proportion, scaled from 0–100 %.</em></p></td>
+<tr class="row-even"><td class="text-left"><p>Our example stacked bar plot, now shown as a proportion of 100 %. <em>Alt text: a stacked bar plot with four categorical groupings on the x axis: “Cat 1”, “Cat 2”, “Cat 3” and “Cat 4”, and two groupings shown by colour (orange and lilac) and hatch pattern (stars and diagonal lines): “Results A” and “Results B”. The y axis shows proportion, scaled from 0–100 %.</em></p></td>
 </tr>
 </tbody>
 </table>
@@ -687,51 +687,51 @@ document.write(`
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-left"><p>Our example stacked bar plot, now shown as a proportion of 100 %. <em>Alt text: a stacked bar plot with three categorical groupings on the x axis: “Cat 1”, “Cat 2”, “Cat 3” and “Cat 4”, and two groupings shown by colour (orange and lilac) and hatch pattern (diagonal lines,and stars): “Results A” and “Results B”. The y axis shows proportion, scaled from 0–100 %.</em></p></td>
+<tr class="row-even"><td class="text-left"><p>Our example stacked bar plot, now shown as a proportion of 100 %. <em>Alt text: a stacked bar plot with four categorical groupings on the x axis: “Cat 1”, “Cat 2”, “Cat 3” and “Cat 4”, and two groupings shown by colour (orange and lilac) and hatch pattern (stars and diagonal lines): “Results A” and “Results B”. The y axis shows proportion, scaled from 0–100 %.</em></p></td>
 </tr>
 </tbody>
 </table>
 </section>
 <section id="possible-pitfalls">
 <h2>Possible pitfalls<a class="headerlink" href="#possible-pitfalls" title="Permalink to this heading">#</a></h2>
-<p>For this section, let’s make a quick multipanelled plot following what we did <a class="reference external" href="https://arctraining.github.io/data-vis/04-distribution-histogram.html#multi-panelled-plots">in this session</a> and compare the two different ways of plotting a bar chart.</p>
+<p>For this section, let’s make a quick multipanelled plot following what we did <a class="reference external" href="https://arctraining.github.io/data-vis/04-distribution-histogram.html#multi-panelled-plots">in the histogram session</a> and compare the two different ways of plotting a bar chart.</p>
 <table class="table">
 <thead>
 <tr class="row-odd"><th class="head text-left"><p><img alt="image" src="_images/barplot7.png" /></p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-left"><p>Challenge barplot. Try to recreate this plot. <em>Alt text: a two panelled stacked bar plot with three categorical groupings on the x axis: “Cat 1”, “Cat 2”, “Cat 3” and “Cat 4”, and two groupings shown by colour (orange and lilac) and hatch pattern (diagonal lines,and stars): “Results A” and “Results B”. The y axis on the lower panel shows absolute count, scaled from 0–60. The y axis on the lower panel shows proportion, scaled from 0–100 %.</em></p></td>
+<tr class="row-even"><td class="text-left"><p>Challenge barplot. Try to recreate this plot. <em>Alt text: a two panelled stacked bar plot with four categorical groupings on the x axis: “Cat 1”, “Cat 2”, “Cat 3” and “Cat 4”, and two groupings shown by colour (orange and lilac) and hatch pattern (stars and diagonal lines): “Results A” and “Results B”. The y axis on the lower panel shows absolute count, scaled from 0–60. The y axis on the lower panel shows proportion, scaled from 0–100 %.</em></p></td>
 </tr>
 </tbody>
 </table>
 <div class="dropdown admonition">
 <p class="admonition-title">Recreate the two-panelled plot above</p>
-<div class="highlight-{glue}python notranslate"><div class="highlight"><pre><span></span>fig, axs = plt.subplots(2, sharex=True)
-data[[&quot;Results A&quot;, &quot;Results B&quot;]].plot(kind=&quot;bar&quot;,
-                                     stacked=True,
-                                     ax=axs[0],
-                                     color=new_pal,
-                                     edgecolor=&quot;white&quot;)
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">data</span><span class="p">[[</span><span class="s2">&quot;Results A&quot;</span><span class="p">,</span> <span class="s2">&quot;Results B&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span>
+                                     <span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                     <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                                     <span class="n">color</span><span class="o">=</span><span class="n">new_pal</span><span class="p">,</span>
+                                     <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
 
-apply_hatch_pattern(axs[0], hatch_patterns=[&quot;*&quot;, &quot;//&quot;])
+<span class="n">apply_hatch_pattern</span><span class="p">(</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">hatch_patterns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;//&quot;</span><span class="p">])</span>
 
-data[[&quot;Results A (%)&quot;, &quot;Results B (%)&quot;]].plot(kind=&quot;bar&quot;,
-                                              stacked=True,
-                                              ax=axs[1],
-                                              color=new_pal,
-                                              edgecolor=&quot;white&quot;,
-                                              legend=False)
+<span class="n">data</span><span class="p">[[</span><span class="s2">&quot;Results A (%)&quot;</span><span class="p">,</span> <span class="s2">&quot;Results B (%)&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span>
+                                              <span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                              <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                                              <span class="n">color</span><span class="o">=</span><span class="n">new_pal</span><span class="p">,</span>
+                                              <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span>
+                                              <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-apply_hatch_pattern(axs[1], hatch_patterns=[&quot;*&quot;, &quot;//&quot;])
+<span class="n">apply_hatch_pattern</span><span class="p">(</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">hatch_patterns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;//&quot;</span><span class="p">])</span>
 
-axs[1].set_xlabel(&quot;Category&quot;)
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Category&quot;</span><span class="p">)</span>
 
-axs[0].set_ylabel(&quot;Count&quot;)
-axs[1].set_ylabel(&quot;Proportion [%]&quot;)
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Count&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Proportion [%]&quot;</span><span class="p">)</span>
 
-axs[0].legend()
-sns.despine()
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -779,7 +779,7 @@ sns.despine()
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-left"><p>Spot the difference! The same data is used in each. <em>Alt text: a two panelled stacked bar plot with three categorical groupings on the x axis: “Cat 1”, “Cat 2”, “Cat 3” and “Cat 4”, and two groupings shown by colour (orange and lilac) and hatch pattern (diagonal lines,and stars): “Results A” and “Results B”. The y axis on the upper panel shows proportion, scaled from 0–70 %. The y axis on the lower panel shows proportion, scaled from 25–70 %.</em></p></td>
+<tr class="row-even"><td class="text-left"><p>Spot the difference! The same data is used in each. <em>Alt text: a two panelled stacked bar plot with four categorical groupings on the x axis: “Cat 1”, “Cat 2”, “Cat 3” and “Cat 4”, and two groupings shown by colour (orange and lilac) and hatch pattern (stars and diagonal lines): “Results A” and “Results B”. The y axis on the upper panel shows proportion, scaled from 0–70 %. The y axis on the lower panel shows proportion, scaled from 25–70 %.</em></p></td>
 </tr>
 </tbody>
 </table>
