@@ -12,7 +12,7 @@ It's a good idea to type the example code out in your notebook as opposed to cop
 
 ```
 
-## Part 1: building a plot using the default settings
+## Part 1: Building a plot using the default settings
 
 We're going to start off by building a plot using the default settings provided by `matplotlib`, then discuss why these might not always be the best option.
 
@@ -31,7 +31,7 @@ Import `matplotlib` and `numpy` as you did in your first plot:
 
 Instead of creating a list of x data with corresponding y values, we are going to create some time series data.
 
-First, we will create the variable `time`, which will vary from 0 - 10 seconds in 1 s intervals; then we will create 3 "signal" variables which will be lists of associated random numbers at each time (also 10 values):
+First, we will create the variable `time`, which will vary from 0 - 10 seconds in 1s intervals; then we will create 3 "signal" variables which will be lists of associated random numbers at each time (also 10 values):
 
 ```python
 # create example random data
@@ -45,7 +45,7 @@ Check what these different variables look like by running a cell containing eith
 
 ### Initialise your figure
 
-This is the exact same as for the scatter plot in the last session:
+This is exactly the same as for the scatter plot in the last session:
 
 ```
 # Create a figure and axes objects
@@ -53,7 +53,7 @@ This is the exact same as for the scatter plot in the last session:
 fig, ax = plt.subplots()
 ```
 
-This will be the starting point for almost all of your plots, unless you are doing ery unusual gridded layouts.
+This will be the starting point for almost all of your plots, unless you are doing very unusual gridded layouts.
 
 ### Plot your data
 
@@ -72,7 +72,7 @@ When you run this code, you will notice that `matplotlib` automatically assigns 
 |:--| 
 | A simple lineplot without legend, axes labels or a title. *Alt text: A lineplot with three series shown in orange, green and blue lines. X values increase from 0&ndash;10, while y values for each series vary randomly between 0&ndash;1.* |
 
-This plot now needs axes labels and a legend. We're going to pretend that this data represents some sort of signals recorded, who's frequency (unit = Hertz) changed over time (unit = seconds).
+This plot now needs axes labels and a legend. We're going to pretend that this data represents some sort of signals recorded, whose frequency (unit = Hertz) changed over time (unit = seconds).
 Add labels as you did previously:
 
 ```python
@@ -164,7 +164,7 @@ Your figure should now look something like this:
 
 ### Changing appearance of plots through external libraries
 
-In addition to tweaking each individual setting for this plot, we can also call in a different *library* that will change a range of settings in one go. One of the most popular plotting libraries, especially for creating statistical plots, is `seaborn`. We're just going to show you how to use seaborn to change the appearance of you line plot in this session; we will use the module more extensively in later sessions to design plots.
+In addition to tweaking each individual setting for this plot, we can also call in a different *library* that will change a range of settings in one go. One of the most popular plotting libraries, especially for creating statistical plots, is `seaborn`. We're just going to show you how to use Seaborn to change the appearance of you line plot in this session; we will use the module more extensively in later sessions to design plots.
 
 Import the `seaborn` package alongside your other import statements:
 
@@ -177,7 +177,7 @@ import seaborn as sns
 
 #### Seaborn context
 
-Let's see what seaborn's default settings look like: either copy your original plot script (without the edits to line style or font size), or copy this example code into a new cell:
+Let's see what Seaborn's default settings look like: either copy your original plot script (without the edits to line style or font size), or copy this example code into a new cell:
 
 ```python
 # create example random data
@@ -214,7 +214,7 @@ sns.set_context("notebook")
 ```{admonition} Note
 :class: tip
 
-Setting the seaborn context will effect every plot you run after the cell with `set_context` in it is run. In order to undo this, delete or comment out the line with the `set_context` function, and add a line with `plt.rcdefaults()`. Run this - any plot run after this will now have the default matplotlib settings again.
+Setting the Seaborn context will affect every plot you run after the cell with `set_context` in it is run. In order to undo this, delete or comment out the line with the `set_context` function, and add a line with `plt.rcdefaults()`. Run this - any plot run after this will now have the default matplotlib settings again.
 ```
 
 The `notebook` argument is the default, and so the appearance should not change. Try the different contexts and see how they change the appearance of your plot.
@@ -225,7 +225,7 @@ How does changing the argument of `set_context` change the appearance of the plo
 
 ### Seaborn styles
 
-In addition to controlling the general sizing of features in your plot, seaborn additionally has a selection of aesthetic "styles". These can be set through the `set_style` function. As with `set_context`, this will affect all subsequent plots, and should be included with the other import statements so it's easily findeable. Just add the following line of code and re-run your basic default plot:
+In addition to controlling the general sizing of features in your plot, Seaborn additionally has a selection of aesthetic "styles". These can be set through the `set_style` function. As with `set_context`, this will affect all subsequent plots, and should be included with the other import statements so it's easily findable. Just add the following line of code and re-run your basic default plot:
 
 ```python
 sns.set_style("whitegrid")
@@ -239,10 +239,10 @@ When might a grid be useful in your plot?
 
 ### Seaborn palettes
 
-Instead of changing individual coloured lines or datapoints on your plot, you can change the colour palette being used through the seaborn `set_palette` function ([see the docs here](https://seaborn.pydata.org/generated/seaborn.set_palette.html#seaborn.set_palette)).
+Instead of changing individual coloured lines or datapoints on your plot, you can change the colour palette being used through the Seaborn `set_palette` function ([see the docs here](https://seaborn.pydata.org/generated/seaborn.set_palette.html#seaborn.set_palette)).
 
 ```{admonition} Challenge
-Try different [seaborn palettes](https://seaborn.pydata.org/generated/seaborn.color_palette.html#seaborn.color_palette) in the `set_palette` function
+Try different [Seaborn palettes](https://seaborn.pydata.org/generated/seaborn.color_palette.html#seaborn.color_palette) in the `set_palette` function
 ```
 
 
@@ -257,7 +257,7 @@ Add this line in a cell, then run your plots. Vary `"colorblind"` with some of t
 
 ## When do you need to modify the default settings?
 
-If the plot you have built is just for you to quickly assess your data, and you can do that sufficiently with the default settings available, then that's fine, you do you. However, if the default settings impact on the readability of your plot, and your intended audience is wider than just you and your immediate collaborators (this includes you in the future too!), then you should consider putting a little bit of time in to ensure your results are communicated clearly.
+If the plot you have built is just for you to quickly assess your data, and you can do that sufficiently with the default settings available, then that's fine, you do you. However, if the default settings impact the readability of your plot, and your intended audience is wider than just you and your immediate collaborators (this includes you in the future too!), then you should consider putting a little bit of time in to ensure your results are communicated clearly.
 
 ```{admonition} Key points
 :class: tip
@@ -266,4 +266,3 @@ If the plot you have built is just for you to quickly assess your data, and you 
 - Font aesthetics can be modified manually, or they can be changed en-masse using a library such as `seaborn`
 - Before you consider the aesthetics of your plot, ensure that it is legible, accessible and communicates your results in a clear, unbiased way. *Then* you can consider making it fit with your preferred colour scheme and general aesthetic.
 ```
-
