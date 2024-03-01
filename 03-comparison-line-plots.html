@@ -391,7 +391,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-building-a-plot-using-the-default-settings">Part 1: building a plot using the default settings</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-building-a-plot-using-the-default-settings">Part 1: Building a plot using the default settings</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-some-random-example-data">Creating some random example data</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#initialise-your-figure">Initialise your figure</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-your-data">Plot your data</a></li>
@@ -429,7 +429,7 @@ document.write(`
 <p>It’s a good idea to type the example code out in your notebook as opposed to copying and pasting. This will help you get used to the syntax and will allow you to improve your skills more rapidly.</p>
 </div>
 <section id="part-1-building-a-plot-using-the-default-settings">
-<h2>Part 1: building a plot using the default settings<a class="headerlink" href="#part-1-building-a-plot-using-the-default-settings" title="Permalink to this heading">#</a></h2>
+<h2>Part 1: Building a plot using the default settings<a class="headerlink" href="#part-1-building-a-plot-using-the-default-settings" title="Permalink to this heading">#</a></h2>
 <p>We’re going to start off by building a plot using the default settings provided by <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>, then discuss why these might not always be the best option.</p>
 <section id="creating-some-random-example-data">
 <h3>Creating some random example data<a class="headerlink" href="#creating-some-random-example-data" title="Permalink to this heading">#</a></h3>
@@ -441,7 +441,7 @@ document.write(`
 <p><code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">numpy</span> <span class="pre">as</span> <span class="pre">np</span></code></p>
 </div>
 <p>Instead of creating a list of x data with corresponding y values, we are going to create some time series data.</p>
-<p>First, we will create the variable <code class="docutils literal notranslate"><span class="pre">time</span></code>, which will vary from 0 - 10 seconds in 1 s intervals; then we will create 3 “signal” variables which will be lists of associated random numbers at each time (also 10 values):</p>
+<p>First, we will create the variable <code class="docutils literal notranslate"><span class="pre">time</span></code>, which will vary from 0 - 10 seconds in 1s intervals; then we will create 3 “signal” variables which will be lists of associated random numbers at each time (also 10 values):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># create example random data</span>
 <span class="n">time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 <span class="n">signal_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
@@ -453,13 +453,13 @@ document.write(`
 </section>
 <section id="initialise-your-figure">
 <h3>Initialise your figure<a class="headerlink" href="#initialise-your-figure" title="Permalink to this heading">#</a></h3>
-<p>This is the exact same as for the scatter plot in the last session:</p>
+<p>This is exactly the same as for the scatter plot in the last session:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a figure and axes objects</span>
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>This will be the starting point for almost all of your plots, unless you are doing ery unusual gridded layouts.</p>
+<p>This will be the starting point for almost all of your plots, unless you are doing very unusual gridded layouts.</p>
 </section>
 <section id="plot-your-data">
 <h3>Plot your data<a class="headerlink" href="#plot-your-data" title="Permalink to this heading">#</a></h3>
@@ -481,7 +481,7 @@ we did in the previous plot, we are instead going to plot the pairs <code class=
 </tr>
 </tbody>
 </table>
-<p>This plot now needs axes labels and a legend. We’re going to pretend that this data represents some sort of signals recorded, who’s frequency (unit = Hertz) changed over time (unit = seconds).
+<p>This plot now needs axes labels and a legend. We’re going to pretend that this data represents some sort of signals recorded, whose frequency (unit = Hertz) changed over time (unit = seconds).
 Add labels as you did previously:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set title and labels</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Line Plot&#39;</span><span class="p">)</span>
@@ -569,7 +569,7 @@ Add labels as you did previously:</p>
 </section>
 <section id="changing-appearance-of-plots-through-external-libraries">
 <h3>Changing appearance of plots through external libraries<a class="headerlink" href="#changing-appearance-of-plots-through-external-libraries" title="Permalink to this heading">#</a></h3>
-<p>In addition to tweaking each individual setting for this plot, we can also call in a different <em>library</em> that will change a range of settings in one go. One of the most popular plotting libraries, especially for creating statistical plots, is <code class="docutils literal notranslate"><span class="pre">seaborn</span></code>. We’re just going to show you how to use seaborn to change the appearance of you line plot in this session; we will use the module more extensively in later sessions to design plots.</p>
+<p>In addition to tweaking each individual setting for this plot, we can also call in a different <em>library</em> that will change a range of settings in one go. One of the most popular plotting libraries, especially for creating statistical plots, is <code class="docutils literal notranslate"><span class="pre">seaborn</span></code>. We’re just going to show you how to use Seaborn to change the appearance of you line plot in this session; we will use the module more extensively in later sessions to design plots.</p>
 <p>Import the <code class="docutils literal notranslate"><span class="pre">seaborn</span></code> package alongside your other import statements:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Importing necessary libraries</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -579,7 +579,7 @@ Add labels as you did previously:</p>
 </div>
 <section id="seaborn-context">
 <h4>Seaborn context<a class="headerlink" href="#seaborn-context" title="Permalink to this heading">#</a></h4>
-<p>Let’s see what seaborn’s default settings look like: either copy your original plot script (without the edits to line style or font size), or copy this example code into a new cell:</p>
+<p>Let’s see what Seaborn’s default settings look like: either copy your original plot script (without the edits to line style or font size), or copy this example code into a new cell:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># create example random data</span>
 <span class="n">time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 <span class="n">signal_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
@@ -610,7 +610,7 @@ Add labels as you did previously:</p>
 </div>
 <div class="tip admonition">
 <p class="admonition-title">Note</p>
-<p>Setting the seaborn context will effect every plot you run after the cell with <code class="docutils literal notranslate"><span class="pre">set_context</span></code> in it is run. In order to undo this, delete or comment out the line with the <code class="docutils literal notranslate"><span class="pre">set_context</span></code> function, and add a line with <code class="docutils literal notranslate"><span class="pre">plt.rcdefaults()</span></code>. Run this - any plot run after this will now have the default matplotlib settings again.</p>
+<p>Setting the Seaborn context will affect every plot you run after the cell with <code class="docutils literal notranslate"><span class="pre">set_context</span></code> in it is run. In order to undo this, delete or comment out the line with the <code class="docutils literal notranslate"><span class="pre">set_context</span></code> function, and add a line with <code class="docutils literal notranslate"><span class="pre">plt.rcdefaults()</span></code>. Run this - any plot run after this will now have the default matplotlib settings again.</p>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">notebook</span></code> argument is the default, and so the appearance should not change. Try the different contexts and see how they change the appearance of your plot.</p>
 <div class="admonition-challenge admonition">
@@ -621,7 +621,7 @@ Add labels as you did previously:</p>
 </section>
 <section id="seaborn-styles">
 <h3>Seaborn styles<a class="headerlink" href="#seaborn-styles" title="Permalink to this heading">#</a></h3>
-<p>In addition to controlling the general sizing of features in your plot, seaborn additionally has a selection of aesthetic “styles”. These can be set through the <code class="docutils literal notranslate"><span class="pre">set_style</span></code> function. As with <code class="docutils literal notranslate"><span class="pre">set_context</span></code>, this will affect all subsequent plots, and should be included with the other import statements so it’s easily findeable. Just add the following line of code and re-run your basic default plot:</p>
+<p>In addition to controlling the general sizing of features in your plot, Seaborn additionally has a selection of aesthetic “styles”. These can be set through the <code class="docutils literal notranslate"><span class="pre">set_style</span></code> function. As with <code class="docutils literal notranslate"><span class="pre">set_context</span></code>, this will affect all subsequent plots, and should be included with the other import statements so it’s easily findable. Just add the following line of code and re-run your basic default plot:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -633,10 +633,10 @@ Add labels as you did previously:</p>
 </section>
 <section id="seaborn-palettes">
 <h3>Seaborn palettes<a class="headerlink" href="#seaborn-palettes" title="Permalink to this heading">#</a></h3>
-<p>Instead of changing individual coloured lines or datapoints on your plot, you can change the colour palette being used through the seaborn <code class="docutils literal notranslate"><span class="pre">set_palette</span></code> function (<a class="reference external" href="https://seaborn.pydata.org/generated/seaborn.set_palette.html#seaborn.set_palette">see the docs here</a>).</p>
+<p>Instead of changing individual coloured lines or datapoints on your plot, you can change the colour palette being used through the Seaborn <code class="docutils literal notranslate"><span class="pre">set_palette</span></code> function (<a class="reference external" href="https://seaborn.pydata.org/generated/seaborn.set_palette.html#seaborn.set_palette">see the docs here</a>).</p>
 <div class="admonition-challenge admonition">
 <p class="admonition-title">Challenge</p>
-<p>Try different <a class="reference external" href="https://seaborn.pydata.org/generated/seaborn.color_palette.html#seaborn.color_palette">seaborn palettes</a> in the <code class="docutils literal notranslate"><span class="pre">set_palette</span></code> function</p>
+<p>Try different <a class="reference external" href="https://seaborn.pydata.org/generated/seaborn.color_palette.html#seaborn.color_palette">Seaborn palettes</a> in the <code class="docutils literal notranslate"><span class="pre">set_palette</span></code> function</p>
 </div>
 <div class="dropdown admonition">
 <p class="admonition-title">Need a hint?</p>
@@ -647,7 +647,7 @@ Add labels as you did previously:</p>
 </section>
 <section id="when-do-you-need-to-modify-the-default-settings">
 <h2>When do you need to modify the default settings?<a class="headerlink" href="#when-do-you-need-to-modify-the-default-settings" title="Permalink to this heading">#</a></h2>
-<p>If the plot you have built is just for you to quickly assess your data, and you can do that sufficiently with the default settings available, then that’s fine, you do you. However, if the default settings impact on the readability of your plot, and your intended audience is wider than just you and your immediate collaborators (this includes you in the future too!), then you should consider putting a little bit of time in to ensure your results are communicated clearly.</p>
+<p>If the plot you have built is just for you to quickly assess your data, and you can do that sufficiently with the default settings available, then that’s fine, you do you. However, if the default settings impact the readability of your plot, and your intended audience is wider than just you and your immediate collaborators (this includes you in the future too!), then you should consider putting a little bit of time in to ensure your results are communicated clearly.</p>
 <div class="tip admonition">
 <p class="admonition-title">Key points</p>
 <ul class="simple">
@@ -723,7 +723,7 @@ Add labels as you did previously:</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-building-a-plot-using-the-default-settings">Part 1: building a plot using the default settings</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-building-a-plot-using-the-default-settings">Part 1: Building a plot using the default settings</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-some-random-example-data">Creating some random example data</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#initialise-your-figure">Initialise your figure</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-your-data">Plot your data</a></li>
