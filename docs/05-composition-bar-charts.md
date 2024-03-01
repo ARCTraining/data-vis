@@ -40,7 +40,7 @@ results_b = [2, 35, 15, 18]
 
 data = pd.DataFrame({"Results A": results_a,
                      "Results B": results_b},
-                    index=categories)
+                     index=categories)
 ```
 
 ### Download the data
@@ -81,9 +81,9 @@ ax.set_ylabel("Count")
 
 |![image](figs/barplot1.png) | 
 |:--| 
-| Our basic example stacked bar plot. *Alt text: a stacked bar plot with three categorical groupings on the x axis: "Cat 1", "Cat 2", "Cat 3" and "Cat 4", and two groupings shown by colour (blue and orange): "Results A" and "Results B". The y axis shows count, scaled from 0&ndash;65.* |
+| Our basic example stacked bar plot. *Alt text: a stacked bar plot with four categorical groupings on the x axis: "Cat 1", "Cat 2", "Cat 3" and "Cat 4", and two groupings shown by colour (blue and orange): "Results A" and "Results B". The y axis shows count, scaled from 0&ndash;65.* |
 |![image](figs/barplot2.png) | 
-| The same data as above, but with bars staggered instead of stacked. *Alt text: a bar plot with three categorical groupings on the x axis: "Cat 1", "Cat 2", "Cat 3" and "Cat 4", and two groupings shown by colour (blue and orange): "Results A" and "Results B". The y axis shows count, scaled from 0&ndash;65.* |
+| The same data as above, but with bars staggered instead of stacked. *Alt text: a bar plot with four categorical groupings on the x axis: "Cat 1", "Cat 2", "Cat 3" and "Cat 4", and two groupings shown by colour (blue and orange): "Results A" and "Results B". The y axis shows count, scaled from 0&ndash;65.* |
 
 ## Visual encoding
 
@@ -102,7 +102,7 @@ data.plot(kind="bar", ax=ax, color=new_pal)
 ```
 |![image](figs/barplot3.png) | 
 |:--| 
-| Our basic example bar plot, with a Color Brewer palette. These colours are better distinguishable in greyscale and with a colour vision deficiency. *Alt text: a stacked bar plot with three categorical groupings on the x axis: "Cat 1", "Cat 2", "Cat 3" and "Cat 4", and two groupings shown by colour (orange and lilac): "Results A" and "Results B". The y axis shows count, scaled from 0&ndash;65.* |
+| Our basic example bar plot, with a Color Brewer palette. These colours are better distinguishable in greyscale and with a colour vision deficiency. *Alt text: a stacked bar plot with four categorical groupings on the x axis: "Cat 1", "Cat 2", "Cat 3" and "Cat 4", and two groupings shown by colour (orange and lilac): "Results A" and "Results B". The y axis shows count, scaled from 0&ndash;65.* |
 
 
 We can also add a pattern or "hatch" to the bars to further help distinguish them from each other. Unfortunately, it's a little bit more complex to add *different* hatch patterns to different categories. To add a basic hatch, just modify the `plot` function call:
@@ -155,7 +155,7 @@ ax.legend()
 
 |![image](figs/barplot4.png) | 
 |:--| 
-| Our example stacked bar plot, with a Color Brewer palette and hatch markings. *Alt text: a stacked bar plot with three categorical groupings on the x axis: "Cat 1", "Cat 2", "Cat 3" and "Cat 4", and two groupings shown by colour (orange and lilac) and hatch pattern (diagonal lines,and stars): "Results A" and "Results B". The y axis shows count, scaled from 0&ndash;65.* |
+| Our example stacked bar plot, with a Color Brewer palette and hatch markings. *Alt text: a stacked bar plot with four categorical groupings on the x axis: "Cat 1", "Cat 2", "Cat 3" and "Cat 4", and two groupings shown by colour (orange and lilac) and hatch pattern (stars and diagonal lines): "Results A" and "Results B". The y axis shows count, scaled from 0&ndash;65.* |
 
 ## Comparing composition
 
@@ -194,7 +194,7 @@ ax.set_ylabel("Proportion [%]")
 
 |![image](figs/barplot5.png) | 
 |:--| 
-| Our example stacked bar plot, now shown as a proportion of 100 %. *Alt text: a stacked bar plot with three categorical groupings on the x axis: "Cat 1", "Cat 2", "Cat 3" and "Cat 4", and two groupings shown by colour (orange and lilac) and hatch pattern (diagonal lines,and stars): "Results A" and "Results B". The y axis shows proportion, scaled from 0&ndash;100 %.* |
+| Our example stacked bar plot, now shown as a proportion of 100 %. *Alt text: a stacked bar plot with four categorical groupings on the x axis: "Cat 1", "Cat 2", "Cat 3" and "Cat 4", and two groupings shown by colour (orange and lilac) and hatch pattern (stars and diagonal lines): "Results A" and "Results B". The y axis shows proportion, scaled from 0&ndash;100 %.* |
 
 Because the bar plots now fill the entire axes area, the legend awkwardly overlaps, so we need to move it outside of the plot. Also, because we didn't manually call `ax.legend()`, the legend has not updated to include the hatch patterns.
 
@@ -224,21 +224,21 @@ sns.despine()
 
 |![image](figs/barplot6.png) | 
 |:--| 
-| Our example stacked bar plot, now shown as a proportion of 100 %. *Alt text: a stacked bar plot with three categorical groupings on the x axis: "Cat 1", "Cat 2", "Cat 3" and "Cat 4", and two groupings shown by colour (orange and lilac) and hatch pattern (diagonal lines,and stars): "Results A" and "Results B". The y axis shows proportion, scaled from 0&ndash;100 %.* |
+| Our example stacked bar plot, now shown as a proportion of 100 %. *Alt text: a stacked bar plot with four categorical groupings on the x axis: "Cat 1", "Cat 2", "Cat 3" and "Cat 4", and two groupings shown by colour (orange and lilac) and hatch pattern (stars and diagonal lines): "Results A" and "Results B". The y axis shows proportion, scaled from 0&ndash;100 %.* |
 
 ## Possible pitfalls
 
-For this section, let's make a quick multipanelled plot following what we did [in this session](https://arctraining.github.io/data-vis/04-distribution-histogram.html#multi-panelled-plots) and compare the two different ways of plotting a bar chart.
+For this section, let's make a quick multipanelled plot following what we did [in the histogram session](https://arctraining.github.io/data-vis/04-distribution-histogram.html#multi-panelled-plots) and compare the two different ways of plotting a bar chart.
 
 |![image](figs/barplot7.png) | 
 |:--| 
-| Challenge barplot. Try to recreate this plot. *Alt text: a two panelled stacked bar plot with three categorical groupings on the x axis: "Cat 1", "Cat 2", "Cat 3" and "Cat 4", and two groupings shown by colour (orange and lilac) and hatch pattern (diagonal lines,and stars): "Results A" and "Results B". The y axis on the lower panel shows absolute count, scaled from 0&ndash;60. The y axis on the lower panel shows proportion, scaled from 0&ndash;100 %.* |
+| Challenge barplot. Try to recreate this plot. *Alt text: a two panelled stacked bar plot with four categorical groupings on the x axis: "Cat 1", "Cat 2", "Cat 3" and "Cat 4", and two groupings shown by colour (orange and lilac) and hatch pattern (stars and diagonal lines): "Results A" and "Results B". The y axis on the lower panel shows absolute count, scaled from 0&ndash;60. The y axis on the lower panel shows proportion, scaled from 0&ndash;100 %.* |
 
 
 ```{admonition} Recreate the two-panelled plot above
 :class: dropdown
 
-```{glue}python
+```python
 fig, axs = plt.subplots(2, sharex=True)
 data[["Results A", "Results B"]].plot(kind="bar",
                                      stacked=True,
@@ -310,7 +310,7 @@ How could the resulting graphic mislead readers about the results?
 
 |![image](figs/barplot8.png) | 
 |:--| 
-| Spot the difference! The same data is used in each. *Alt text: a two panelled stacked bar plot with three categorical groupings on the x axis: "Cat 1", "Cat 2", "Cat 3" and "Cat 4", and two groupings shown by colour (orange and lilac) and hatch pattern (diagonal lines,and stars): "Results A" and "Results B". The y axis on the upper panel shows proportion, scaled from 0&ndash;70 %. The y axis on the lower panel shows proportion, scaled from 25&ndash;70 %.* |
+| Spot the difference! The same data is used in each. *Alt text: a two panelled stacked bar plot with four categorical groupings on the x axis: "Cat 1", "Cat 2", "Cat 3" and "Cat 4", and two groupings shown by colour (orange and lilac) and hatch pattern (stars and diagonal lines): "Results A" and "Results B". The y axis on the upper panel shows proportion, scaled from 0&ndash;70 %. The y axis on the lower panel shows proportion, scaled from 25&ndash;70 %.* |
 
 ### Use of colour
 

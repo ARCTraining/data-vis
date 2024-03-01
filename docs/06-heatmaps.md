@@ -95,11 +95,11 @@ import cmocean
 
 Now in addition to all the [Matplotlib colour maps](https://matplotlib.org/stable/users/explain/colors/colormaps.html) and [Seaborn colour maps](https://matplotlib.org/stable/users/explain/colors/colormaps.html), you now have access to [Cmocean colour maps](https://matplotlib.org/cmocean/).
 
-When plotting, you usually define the colourmap inside the plotting function with the `cmap` argument. For the main names Matplotlib colour maps, you can just use their name, so `cmap="plasma"`. For Seaborn colour maps, it's slightly more text: `cmap=sns.color_palette("rocket", as_cmap=True)`; you give the name of the *palette* ("rocket") and then say you want it *as a colour map*. For cmocean, you just need to prefix the colour map name with `"cmo."`: `cmap="cmo.curl"`. This may be a little confusing now, but we will have lots of practise in thie section!
+When plotting, you usually define the colourmap inside the plotting function with the `cmap` argument. For the main names Matplotlib colour maps, you can just use their name, so `cmap="plasma"`. For Seaborn colour maps, it's slightly more text: `cmap=sns.color_palette("rocket", as_cmap=True)`; you give the name of the *palette* ("rocket") and then say you want it *as a colour map*. For cmocean, you just need to prefix the colour map name with `"cmo."`: `cmap="cmo.curl"`. This may be a little confusing now, but we will have lots of practise in this section!
 
 ## Load in the data
 
-Now you're ready to load in the data
+Now you're ready to load in the data:
 
 ```python
 monsters = pd.read_csv("/content/monsters_stats.csv", index_col=0)
@@ -120,7 +120,7 @@ If you have a look at `corr`, you'll see we essentially already have a correlati
 
 ## Basic heatmap in seaborn
 
-Now we can plot a basic heatmap using this correlation matrix. Lets start with the default settings, and build up from there.
+Now we can plot a basic heatmap using this correlation matrix. Let's start with the default settings, and build up from there.
 
 ```python
 fig, ax = plt.subplots()
@@ -257,7 +257,7 @@ Some fun plots to try:
 
 ## Bonus section: plotting an image with a heatmap
 
-First, we need to get an image. Lets use a [Mars MOLA DEM mosaic image (MOLA Team, 2001)](https://astrogeology.usgs.gov/search/map/Mars/GlobalSurveyor/MOLA/Mars_MGS_MOLA_DEM_mosaic_global_463m).
+First, we need to get an image. Let's use a [Mars MOLA DEM mosaic image (MOLA Team, 2001)](https://astrogeology.usgs.gov/search/map/Mars/GlobalSurveyor/MOLA/Mars_MGS_MOLA_DEM_mosaic_global_463m).
 
 We can download this using the `wget` command:
 
