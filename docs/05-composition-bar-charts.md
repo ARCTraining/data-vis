@@ -2,7 +2,7 @@
 
 Bar charts are valuable tools for displaying and comparing categorical data. They visually represent the distribution or composition of data across various categories, enabling easy identification of patterns, trends, and relationships. Bar charts are effective in conveying information in a clear and concise manner, making them a popular choice for communicating data insights to a wide audience.
 
-While making a series of example bar charts, we will discuss visual encoding in this context
+While making a series of example bar charts, we will discuss visual encoding in this context.
 
 ## Example data
 
@@ -19,7 +19,7 @@ We will plot these in a variety of different ways, highlighting why different wa
 
 You can either build this dataset, or download it from GitHub.
 
-### Create data set
+### Option 1: build the dataset
 
 First, import the required packages:
 
@@ -43,7 +43,7 @@ data = pd.DataFrame({"Results A": results_a,
                      index=categories)
 ```
 
-### Download the data
+### Option 2: Download the dataset
 
 Alternatively, you can download the data instead of building the dataframe.
 
@@ -81,9 +81,9 @@ ax.set_ylabel("Count")
 
 |![image](figs/barplot1.png) | 
 |:--| 
-| Our basic example stacked bar plot. *Alt text: a stacked bar plot with four categorical groupings on the x axis: "Cat 1", "Cat 2", "Cat 3" and "Cat 4", and two groupings shown by colour (blue and orange): "Results A" and "Results B". The y axis shows count, scaled from 0&ndash;65.* |
+| Our basic example stacked bar plot. *Alt text: a stacked bar plot with four categorical groupings on the x-axis: "Cat 1", "Cat 2", "Cat 3" and "Cat 4", and two groupings shown by colour (blue and orange): "Results A" and "Results B". The y-axis shows count, scaled from 0&ndash;65.* |
 |![image](figs/barplot2.png) | 
-| The same data as above, but with bars staggered instead of stacked. *Alt text: a bar plot with four categorical groupings on the x axis: "Cat 1", "Cat 2", "Cat 3" and "Cat 4", and two groupings shown by colour (blue and orange): "Results A" and "Results B". The y axis shows count, scaled from 0&ndash;65.* |
+| The same data as above, but with bars staggered instead of stacked. *Alt text: a bar plot with four categorical groupings on the x-axis: "Cat 1", "Cat 2", "Cat 3" and "Cat 4", and two groupings shown by colour (blue and orange): "Results A" and "Results B". The y-axis shows count, scaled from 0&ndash;65.* |
 
 ## Visual encoding
 
@@ -102,7 +102,7 @@ data.plot(kind="bar", ax=ax, color=new_pal)
 ```
 |![image](figs/barplot3.png) | 
 |:--| 
-| Our basic example bar plot, with a Color Brewer palette. These colours are better distinguishable in greyscale and with a colour vision deficiency. *Alt text: a stacked bar plot with four categorical groupings on the x axis: "Cat 1", "Cat 2", "Cat 3" and "Cat 4", and two groupings shown by colour (orange and lilac): "Results A" and "Results B". The y axis shows count, scaled from 0&ndash;65.* |
+| Our basic example bar plot, with a Color Brewer palette. These colours are better distinguishable in greyscale and with a colour vision deficiency. *Alt text: a stacked bar plot with four categorical groupings on the x-axis: "Cat 1", "Cat 2", "Cat 3" and "Cat 4", and two groupings shown by colour (orange and lilac): "Results A" and "Results B". The y-axis shows count, scaled from 0&ndash;65.* |
 
 
 We can also add a pattern or "hatch" to the bars to further help distinguish them from each other. Unfortunately, it's a little bit more complex to add *different* hatch patterns to different categories. To add a basic hatch, just modify the `plot` function call:
@@ -155,7 +155,7 @@ ax.legend()
 
 |![image](figs/barplot4.png) | 
 |:--| 
-| Our example stacked bar plot, with a Color Brewer palette and hatch markings. *Alt text: a stacked bar plot with four categorical groupings on the x axis: "Cat 1", "Cat 2", "Cat 3" and "Cat 4", and two groupings shown by colour (orange and lilac) and hatch pattern (stars and diagonal lines): "Results A" and "Results B". The y axis shows count, scaled from 0&ndash;65.* |
+| Our example stacked bar plot, with a Color Brewer palette and hatch markings. *Alt text: a stacked bar plot with four categorical groupings on the x-axis: "Cat 1", "Cat 2", "Cat 3" and "Cat 4", and two groupings shown by colour (orange and lilac) and hatch pattern (stars and diagonal lines): "Results A" and "Results B". The y-axis shows count, scaled from 0&ndash;65.* |
 
 ## Comparing composition
 
@@ -194,7 +194,7 @@ ax.set_ylabel("Proportion [%]")
 
 |![image](figs/barplot5.png) | 
 |:--| 
-| Our example stacked bar plot, now shown as a proportion of 100 %. *Alt text: a stacked bar plot with four categorical groupings on the x axis: "Cat 1", "Cat 2", "Cat 3" and "Cat 4", and two groupings shown by colour (orange and lilac) and hatch pattern (stars and diagonal lines): "Results A" and "Results B". The y axis shows proportion, scaled from 0&ndash;100 %.* |
+| Our example stacked bar plot, now shown as a proportion of 100 %. *Alt text: a stacked bar plot with four categorical groupings on the x-axis: "Cat 1", "Cat 2", "Cat 3" and "Cat 4", and two groupings shown by colour (orange and lilac) and hatch pattern (stars and diagonal lines): "Results A" and "Results B". The y-axis shows proportion, scaled from 0&ndash;100 %.* |
 
 Because the bar plots now fill the entire axes area, the legend awkwardly overlaps, so we need to move it outside of the plot. Also, because we didn't manually call `ax.legend()`, the legend has not updated to include the hatch patterns.
 
@@ -224,7 +224,7 @@ sns.despine()
 
 |![image](figs/barplot6.png) | 
 |:--| 
-| Our example stacked bar plot, now shown as a proportion of 100 %. *Alt text: a stacked bar plot with four categorical groupings on the x axis: "Cat 1", "Cat 2", "Cat 3" and "Cat 4", and two groupings shown by colour (orange and lilac) and hatch pattern (stars and diagonal lines): "Results A" and "Results B". The y axis shows proportion, scaled from 0&ndash;100 %.* |
+| Our example stacked bar plot, now shown as a proportion of 100 %. *Alt text: a stacked bar plot with four categorical groupings on the x-axis: "Cat 1", "Cat 2", "Cat 3" and "Cat 4", and two groupings shown by colour (orange and lilac) and hatch pattern (stars and diagonal lines): "Results A" and "Results B". The y-axis shows proportion, scaled from 0&ndash;100 %.* |
 
 ## Possible pitfalls
 
@@ -232,7 +232,7 @@ For this section, let's make a quick multipanelled plot following what we did [i
 
 |![image](figs/barplot7.png) | 
 |:--| 
-| Challenge barplot. Try to recreate this plot. *Alt text: a two panelled stacked bar plot with four categorical groupings on the x axis: "Cat 1", "Cat 2", "Cat 3" and "Cat 4", and two groupings shown by colour (orange and lilac) and hatch pattern (stars and diagonal lines): "Results A" and "Results B". The y axis on the lower panel shows absolute count, scaled from 0&ndash;60. The y axis on the lower panel shows proportion, scaled from 0&ndash;100 %.* |
+| Challenge barplot. Try to recreate this plot. *Alt text: a two panelled stacked bar plot with four categorical groupings on the x-axis: "Cat 1", "Cat 2", "Cat 3" and "Cat 4", and two groupings shown by colour (orange and lilac) and hatch pattern (stars and diagonal lines): "Results A" and "Results B". The y-axis on the lower panel shows absolute count, scaled from 0&ndash;60. The y-axis on the lower panel shows proportion, scaled from 0&ndash;100 %.* |
 
 
 ```{admonition} Recreate the two-panelled plot above
@@ -310,17 +310,17 @@ How could the resulting graphic mislead readers about the results?
 
 |![image](figs/barplot8.png) | 
 |:--| 
-| Spot the difference! The same data is used in each. *Alt text: a two panelled stacked bar plot with four categorical groupings on the x axis: "Cat 1", "Cat 2", "Cat 3" and "Cat 4", and two groupings shown by colour (orange and lilac) and hatch pattern (stars and diagonal lines): "Results A" and "Results B". The y axis on the upper panel shows proportion, scaled from 0&ndash;70 %. The y axis on the lower panel shows proportion, scaled from 25&ndash;70 %.* |
+| Spot the difference! The same data is used in each. *Alt text: a two panelled stacked bar plot with four categorical groupings on the x-axis: "Cat 1", "Cat 2", "Cat 3" and "Cat 4", and two groupings shown by colour (orange and lilac) and hatch pattern (stars and diagonal lines): "Results A" and "Results B". The y-axis on the upper panel shows proportion, scaled from 0&ndash;70 %. The y-axis on the lower panel shows proportion, scaled from 25&ndash;70 %.* |
 
 ### Use of colour
 
 We've discussed choosing colour with reference to accessibility and to enable greyscale printing. What about the meanings we associate with colour?
 
 - Colours can have a symbolic meaning, attached to ideas, brands, countries, political parties, etc.
-    - These meanings may be different to different people, in different places
-    - These meanings may be rooted in real-world colour associations (green linked to grass, blue to sky) or may be the result of marketing campaigns
-- Colours can be perceived as "ordered" or "unordered"
-- Saturation, tone and hue all contribute to how we experience colour
+    - These meanings may be different to different people, in different places.
+    - These meanings may be rooted in real-world colour associations (green linked to grass, blue to sky) or may be the result of marketing campaigns.
+- Colours can be perceived as "ordered" or "unordered".
+- Saturation, tone and hue all contribute to how we experience colour.
 
 
 Lets look at these example plots that have been given a title that suggests a context for the categories being shown, but do not contain category names. For simplicity of comparison, no patterns have been used. What assumptions might a reader make about the plot? What are issues that could arise due to these assumptions or associations with regards to colour?
@@ -359,7 +359,7 @@ The [ACS style guide to using colour in data visualisation](https://www.acs.org/
 In general, you need to be aware that associations with different colours exist.
 - For your research area, are there any specific symbolic links you should avoid?
 - Understand that colours can evoke certain assumptions in readers. Understand these, address whether they are acceptable assumptions, and design your plot appropriately.
-- If you do not want to carry the baggage of connotations with certain colours into your plot, use completely unrelated colour schemes (e.g. do not invert the colour choices of one the above plots)
+- If you do not want to carry the baggage of connotations with certain colours into your plot, use completely unrelated colour schemes (e.g. do not invert the colour choices of one the above plots).
 
 ### Ordered colours
 
@@ -379,7 +379,7 @@ In addition to unintentionally implying order with colour, also consider the ara
 Stacked bar charts are a popular way of representing compositional data and exploring the proportions of different components in a category or group. A difficulty appears (especially with more than one data set stacked on top of each other) when trying to compare the size of the data series not aligned on the x-axis: because neither "end" of the bar segments are aligned, it is difficult to compare or even estimate length.
 
 - Are your data really served by stacking the bars or by finding a different way to represent this data?
-- If your data are not absolute values and instead are the result of statistical calculations (e.g. they are the mean value for a certain category), look at plots such as [boxplots](https://seaborn.pydata.org/examples/grouped_boxplot.html) or [violin plots](https://seaborn.pydata.org/examples/grouped_violinplots.html).
+- If your values are not absolute values and instead are the result of statistical calculations (e.g. they are the mean value for a certain category), look at plots such as [boxplots](https://seaborn.pydata.org/examples/grouped_boxplot.html) or [violin plots](https://seaborn.pydata.org/examples/grouped_violinplots.html).
 
 ## Using Seaborn to build barplots
 
@@ -497,11 +497,11 @@ sns.catplot(new_data, kind="box", y="Value", x="Result Group", hue="Result Group
 
 ```{admonition} Key Points
 :class: tip
-- Absolute and proportional bar charts can highlight and disguise different relationships between data
-- Bar charts are useful when the value zero is important in comparing groups - use a different visualisation type if you feel the need to move the y-limit above zero to highlight your results
-- Do not imply order in unordered variables through the use of colour or non-strategic spatial ordering on the page (use alphabetical or numerical ordering to avoid biases)
+- Absolute and proportional bar charts can highlight and disguise different relationships between data.
+- Bar charts are useful when the value zero is important in comparing groups - use a different visualisation type if you feel the need to move the y-limit above zero to highlight your results.
+- Do not imply order in unordered variables through the use of colour or non-strategic spatial ordering on the page (use alphabetical or numerical ordering to avoid biases).
 
-Further reading: The American Chemical Society [Data visualisation inclusive style guide](https://www.acs.org/about/diversity/inclusivity-style-guide/data-visualization.html)
+Further reading: The American Chemical Society [Data visualisation inclusive style guide](https://www.acs.org/about/diversity/inclusivity-style-guide/data-visualization.html).
 ```
 
 
