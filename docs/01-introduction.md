@@ -53,7 +53,7 @@ A figure can express an idea quickly, succinctly, and much more straightforwardl
 
 In the same way that you need to decide on the key message for any research paper, and then in more granular detail pick the key message of each subsection of your results, before you start plotting or pick a plot type to represent you data, you need to know what the "take home message" for the audience is. Do you want to show contrast between two different results? Do you want to show evolution through time? Do you want to compare different categories? Do you want to show geospatial variations in data? 
 
-**Show flowchart here for different figure types**
+![alt text](figs/chart-chart1.jpg)
 
 ```{admonition} Challenge
 What plot or figure type have you used most often? Is this the best plot to show your results or might there be a different style of chart that better explains your work?
